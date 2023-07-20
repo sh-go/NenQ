@@ -1,0 +1,27 @@
+{
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "web-back",
+	"workspaceFolder": "/code",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.fixAll": true,
+						"source.organizeImports": true
+					}
+				}
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.black-formatter",
+				"KevinRose.vsc-python-indent",
+				"oderwat.indent-rainbow",
+				"christian-kohler.path-intellisense",
+				"charliermarsh.ruff"
+			]
+		}
+	}
+}

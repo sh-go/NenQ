@@ -1,12 +1,20 @@
 {
 	"dockerComposeFile": "../docker-compose.yml",
-	"service": "web-back",
-	"workspaceFolder": "/code",
+	"service": "web-front",
+	"workspaceFolder": "/home/app/frontend",
 	"customizations": {
 		"vscode": {
 			"settings": {
 				"[python]": {
 					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.fixAll": true,
+						"source.organizeImports": true
+					}
+				},
+				"[typescript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode",
 					"editor.formatOnSave": true,
 					"editor.codeActionsOnSave": {
 						"source.fixAll": true,
@@ -20,7 +28,11 @@
 				"KevinRose.vsc-python-indent",
 				"oderwat.indent-rainbow",
 				"christian-kohler.path-intellisense",
-				"charliermarsh.ruff"
+				"charliermarsh.ruff",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"WallabyJs.quokka-vscode",
+				"ms-vscode.vscode-typescript-next"
 			]
 		}
 	}

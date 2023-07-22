@@ -17,7 +17,7 @@ ARG USERNAME
 ARG GROUPNAME
 RUN groupadd -g ${GID} ${GROUPNAME} -f && \
     useradd -m -s /bin/bash -u ${UID} -g ${GID} ${USERNAME}
-RUN mkdir staticfiles && chown ${USERNAME}:${GROUPNAME} staticfiles
+RUN mkdir -p staticfiles && chown ${USERNAME}:${GROUPNAME} staticfiles
 
 USER ${USERNAME}
 

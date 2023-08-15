@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 	mode: 'development',
-	entry: './src/index.tsx',
+	entry: './src/pages/index.tsx',
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'main.js',
@@ -25,11 +25,11 @@ module.exports = {
 			},
 			{
 				/* CSSのモジュール */
-				test: /\.scss$/,
+				test: /\.(css|scss)$/,
 				use: [
 					{ loader: 'style-loader' },
 					{ loader: 'css-loader' },
-					{ loader: 'scss-loader' },
+					{ loader: 'sass-loader' },
 				],
 			},
 		],

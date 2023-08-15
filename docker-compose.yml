@@ -82,6 +82,7 @@ services:
     #   ]
     networks:
       - frontend_network
+      - backend_network
 
   frontend-server:
     container_name: nginx-frontend

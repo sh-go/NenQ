@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--content-width: calc(100% - var(--content-side-width) * 2);
+	--content-side-width: 16px;
+
+	@media screen(md) {
+		--content-width: 960px;
+		--content-side-width: calc((100% - var(--content-width)) / 2);
+	}
+}

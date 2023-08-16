@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
 	mode: 'development',
 	entry: './src/pages/index.tsx',
+	entry: './src/index.tsx',
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'main.js',
@@ -30,6 +31,11 @@ module.exports = {
 					{ loader: 'style-loader' },
 					{ loader: 'css-loader' },
 					{ loader: 'sass-loader' },
+				test: /\.scss$/,
+				use: [
+					{ loader: 'style-loader' },
+					{ loader: 'css-loader' },
+					{ loader: 'scss-loader' },
 				],
 			},
 		],

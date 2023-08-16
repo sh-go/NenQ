@@ -36,6 +36,7 @@
 				"bradlc.vscode-tailwindcss",
 				"foxundermoon.next-js",
 				"PulkitGangwar.nextjs-snippets"
+				"ms-vscode.vscode-typescript-next"
 			]
 		}
 	}

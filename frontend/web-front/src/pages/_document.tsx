@@ -6,7 +6,7 @@ export default function Document() {
 			<Head>
 				<link href="../../dist/output.css" rel="stylesheet" />
 			</Head>
-			<body>
+			<body className="dark:bg-gray-800">
 				<Main />
 				<NextScript />
 			</body>

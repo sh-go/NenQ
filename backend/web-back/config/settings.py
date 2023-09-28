@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",  # 追加
     "corsheaders",  # 追加
-    "todo.apps.TodoConfig",  # 追加
+    "paidholidays.apps.PaidHolidaysConfig",  # 追加
 ]
 
 MIDDLEWARE = [
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ja"  # 変更
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Tokyo"  # 変更
 
 USE_I18N = True
 

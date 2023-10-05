@@ -1,11 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
 
-type Todo = {
-	id: number;
-	title: string;
-	body: string;
-};
-
 export default async function getApi() {
 	let instance: AxiosInstance;
 
@@ -14,13 +8,17 @@ export default async function getApi() {
 	});
 
 	const res = await instance.get('/api/');
-	const tododata = (await res?.data) as Todo[];
+	const tododata = (await res?.data) as Data[];
 
 	return tododata.map((item) => {
 		return {
 			id: item.id,
-			title: item.title,
-			body: item.body,
+			update: item.update,
+			date: item.date,
+			hour: item.hour,
+			text: item.text,
+			author: item.author,
+			slug: item.slug,
 		};
 	});
 }

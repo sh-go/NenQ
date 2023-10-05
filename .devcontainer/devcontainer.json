@@ -1,7 +1,7 @@
 {
 	"dockerComposeFile": "../docker-compose.yml",
-	"service": "web-back",
-	"workspaceFolder": "/code", //home/app/frontend
+	"service": "web-front",
+	"workspaceFolder": "/home/app/frontend", //code
 	"customizations": {
 		"vscode": {
 			"settings": {

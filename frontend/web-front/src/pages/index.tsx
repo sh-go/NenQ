@@ -16,8 +16,6 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ posts }) {
-	console.log(posts);
-
 	return (
 		<div>
 			<Section>
@@ -38,17 +36,7 @@ export default function Home({ posts }) {
 				<br />
 
 				<p className="px-2 mb-2 text-gray-500 dark:text-gray-400">年休一覧</p>
-				<ContentsList {...posts} />
-				<ul>
-					{posts.map((item) => {
-						return (
-							<li key={item.id} className="font-sans hover:font-mono">
-								<Link href={`/posts/${item.id}`}>{item.title}</Link>
-								<p>{item.body}</p>
-							</li>
-						);
-					})}
-				</ul>
+				<ContentsList data={posts} />
 			</Section>
 		</div>
 	);

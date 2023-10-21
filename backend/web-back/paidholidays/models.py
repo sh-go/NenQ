@@ -12,7 +12,6 @@ class PaidHolidays(models.Model):
     )
     author = models.CharField(max_length=50)
     slug = models.SlugField(null=True, blank=True)
-    # snsimage = models.ImageField(upload_to='')
 
     def __str__(self):
         return f"{self.author} - {self.update} - 取得日数{self.date} - 取得時間{self.hour} - {self.text}"

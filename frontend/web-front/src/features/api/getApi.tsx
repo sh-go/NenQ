@@ -8,9 +8,9 @@ export default async function getApi() {
 	});
 
 	const res = await instance.get('/api/');
-	const tododata = (await res?.data) as Data[];
+	const data = (await res?.data) as Data[];
 
-	return tododata.map((item) => {
+	return data.map((item) => {
 		return {
 			id: item.id,
 			update: item.update,

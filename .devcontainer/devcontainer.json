@@ -1,5 +1,7 @@
 {
 	"dockerComposeFile": "../docker-compose.yml",
+	// "service": "web-back",
+	// "workspaceFolder": "/code",
 	"service": "web-front",
 	"workspaceFolder": "/home/app/frontend",
 	"customizations": {
@@ -35,7 +37,7 @@
 				"ms-vscode.vscode-typescript-next",
 				"bradlc.vscode-tailwindcss",
 				"foxundermoon.next-js",
-				"PulkitGangwar.nextjs-snippets"
+				"PulkitGangwar.nextjs-snippets",
 				"ms-vscode.vscode-typescript-next"
 			]
 		}

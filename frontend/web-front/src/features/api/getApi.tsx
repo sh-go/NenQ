@@ -1,26 +1,42 @@
 import axios, { AxiosInstance } from 'axios';
 
-type Todo = {
-	id: number;
-	title: string;
-	body: string;
-};
-
 export default async function getApi() {
 	let instance: AxiosInstance;
 
 	instance = axios.create({
 		baseURL: 'http://nginx-back:80',
+		headers: {
+			'Content-Type': 'application/json',
+		},
 	});
 
 	const res = await instance.get('/api/');
-	const tododata = (await res?.data) as Todo[];
+	console.log(res.data);
+	const data = (await res?.data) as Data[];
 
-	return tododata.map((item) => {
+	// instance
+	// 	.get('/api/')
+	// 	.then((results) => {
+	// 		console.log(results.data);
+	// 		const data = results.data;
+	// 		return data;
+	// 	})
+	// 	.catch((e) => {
+	// 		console.log('通信できない！');
+	// 		console.log(e.status);
+	// 		const data = [];
+	// 		return data;
+	// 	});
+
+	return data.map((item) => {
 		return {
 			id: item.id,
-			title: item.title,
-			body: item.body,
+			update: item.update,
+			date: item.date,
+			hour: item.hour,
+			text: item.text,
+			author: item.author,
+			slug: item.slug,
 		};
 	});
 }

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 from dotenv import load_dotenv  # 追加
 
@@ -46,9 +47,15 @@ INSTALLED_APPS = [
     "rest_framework",  # 追加
     "corsheaders",  # 追加
     "paidholidays.apps.PaidHolidaysConfig",  # 追加
+    "users",  # 追加
 ]
 
+AUTH_USER_MODEL = "users.User"  # 追加
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"  # 追加
+
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  # 追加
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -56,7 +63,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",  # 追加
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -142,9 +148,29 @@ MEDIA_URL = "/media/"  # 追加
 # 追加
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
-    ]
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "paidholidays.authentication.CookieHandlerJWTAuthnetication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
 }
 
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    "USER_ID_FIELD": "uuid",
+}
+
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
+
 # 追加
-CORS_ORIGIN_WHITELIST = ("http://localhost:3000",)
+CORS_ALLOWED_ORIGINS = ("http://localhost",)
+
+CORS_ALLOW_CREDENTIALS = True
+
+# 追加
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",
+]

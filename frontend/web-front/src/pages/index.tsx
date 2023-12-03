@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import getApi from '../features/api/getApi';
 import { Section } from '../components/layouts/Section';
@@ -8,6 +8,7 @@ import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButto
 import { Summary } from '../features/components/Summary';
 import { EditPencil, Trash } from 'iconoir-react';
 import { ContentsList } from '../features/components/ContentsList';
+import axios from 'axios';
 
 export async function getServerSideProps() {
 	const res = await getApi();
@@ -16,6 +17,19 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ posts }) {
+	useEffect(() => {
+		async function fetchData() {
+			await axios
+				.get('http://localhost:8080/api/')
+				.then((results) => {
+					console.log(results);
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+		}
+		fetchData();
+	}, []);
 	return (
 		<div>
 			<Section>

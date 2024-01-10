@@ -9,27 +9,15 @@ import { Summary } from '../features/components/Summary';
 import { EditPencil, Trash } from 'iconoir-react';
 import { ContentsList } from '../features/components/ContentsList';
 import axios from 'axios';
+import getSummary from '../features/api/getSummary';
 
-export async function getServerSideProps() {
-	const res = await getApi();
-
-	return { props: { posts: res } };
+export async function getServerSideProps(context) {
+	const apidata = await getApi(context.req.cookies);
+	const summarydata = await getSummary(context.req.cookies);
+	return { props: { api: apidata, summary: summarydata } };
 }
 
-export default function Home({ posts }) {
-	useEffect(() => {
-		async function fetchData() {
-			await axios
-				.get('http://localhost:8080/api/')
-				.then((results) => {
-					console.log(results);
-				})
-				.catch((e) => {
-					console.log(e);
-				});
-		}
-		fetchData();
-	}, []);
+export default function Home({ api, summary }) {
 	return (
 		<div>
 			<Section>
@@ -40,17 +28,17 @@ export default function Home({ posts }) {
 					<ChangeDarkModeButton />
 				</div>
 
-				<hr />
+				<hr className="border-gray-500" />
 				<br />
 
 				<p className="px-2 mb-2 text-gray-500 dark:text-gray-400">取得状況</p>
-				<Summary />
+				<Summary data={summary} />
 				<br />
-				<hr />
+				<hr className="border-gray-500" />
 				<br />
 
 				<p className="px-2 mb-2 text-gray-500 dark:text-gray-400">年休一覧</p>
-				<ContentsList data={posts} />
+				<ContentsList data={api} />
 			</Section>
 		</div>
 	);

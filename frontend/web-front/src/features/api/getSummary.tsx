@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export default async function getApi(cookies) {
+export default async function getSummary(cookies) {
 	const access_token = cookies['access_token'];
 
 	return await axios
-		.get('http://nginx-back:80/api', {
+		.get('http://nginx-back:80/api/summary', {
 			headers: {
 				'Content-Type': 'application/json;',
 				Authorization: `JWT ${access_token}`,
@@ -12,7 +12,7 @@ export default async function getApi(cookies) {
 			// withCredentials: true,
 		})
 		.then((res) => {
-			const data = res.data as Data[];
+			const data = res.data as SummaryData;
 			return data;
 
 			// data.map((item) => {

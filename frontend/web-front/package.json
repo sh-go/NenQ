@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "react-scripts test",
 		"build": "next build && webpack",
-		"dev": "next dev && webpack serve --open && tailwindcss -i CSS/styles.css -o CSS/styles_dist.css -w",
+		"dev": "next dev && webpack serve --open",
 		"start": "next start",
 		"lint": "next lint"
 	},
@@ -19,7 +19,8 @@
 		"next": "^13.4.12",
 		"next-themes": "^0.2.1",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-hook-form": "^7.48.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.22.9",

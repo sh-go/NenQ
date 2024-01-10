@@ -1,6 +1,15 @@
 version: '3.9'
 
 services:
+  # https通信用コンテナ
+  https-portal3000:
+    image: steveltn/https-portal:1
+    ports:
+      - '3443:443'
+    environment:
+      STAGE: local
+      DOMAINS: 'localhost -> http://host.docker.internal:3000'
+
   web-back:
     container_name: python-backend
     stdin_open: true

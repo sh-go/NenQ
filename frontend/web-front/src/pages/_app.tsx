@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<title>NenQ -年休管理アプリ-</title>
 			</Head>
 			<ThemeProvider attribute="class" defaultTheme="light">
-				<Component {...pageProps} />;
+				<Component {...pageProps} />
 			</ThemeProvider>
 		</>
 	);

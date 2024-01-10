@@ -1,6 +1,5 @@
 import { EditPencil, Trash } from 'iconoir-react';
 import React from 'react';
-import post from '../../pages/posts/[id]';
 
 type Props = {
 	data: Data[];
@@ -45,30 +44,18 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 				<tbody className="divide-y divide-gray-200 dark:divide-gray-700">
 					{data.map((item) => {
 						return (
-							<>
+							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
-									<td
-										key={item.id}
-										className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-700 dark:text-gray-200"
-									>
+									<td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-700 dark:text-gray-200">
 										{item.update}
 									</td>
-									<td
-										key={item.id}
-										className="px-6 py-4 whitespace-nowrap text-xl text-gray-700 dark:text-gray-200"
-									>
+									<td className="px-6 py-4 whitespace-nowrap text-xl text-gray-700 dark:text-gray-200">
 										{item.date}
 									</td>
-									<td
-										key={item.id}
-										className="px-6 py-4 whitespace-nowrap text-xl text-gray-700 dark:text-gray-200"
-									>
+									<td className="px-6 py-4 whitespace-nowrap text-xl text-gray-700 dark:text-gray-200">
 										{item.hour}
 									</td>
-									<td
-										key={item.id}
-										className="px-6 py-4 whitespace-nowrap text-lg text-gray-700 dark:text-gray-200"
-									>
+									<td className="px-6 py-4 whitespace-nowrap text-lg text-gray-700 dark:text-gray-200">
 										{item.text}
 									</td>
 									<td className="float-right flex px-6 py-4">
@@ -80,7 +67,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 										</a>
 									</td>
 								</tr>
-							</>
+							</React.Fragment>
 						);
 					})}
 				</tbody>

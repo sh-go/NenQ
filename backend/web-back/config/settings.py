@@ -162,15 +162,17 @@ SIMPLE_JWT = {
     "USER_ID_FIELD": "uuid",
 }
 
-SESSION_COOKIE_SAMESITE = None
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
 
 # 追加
-CORS_ALLOWED_ORIGINS = ("http://localhost",)
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 CORS_ALLOW_CREDENTIALS = True
 
 # 追加
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8080",
+    "http://localhost:3000",
 ]

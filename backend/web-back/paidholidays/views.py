@@ -59,6 +59,16 @@ class DetailPaidHolidays(generics.RetrieveAPIView):
     serializer_class = PaidHolidaysSerializer
 
 
+class CreatePaidHolidays(generics.CreateAPIView):
+    queryset = PaidHolidays.objects.all()
+    serializer_class = PaidHolidaysSerializer
+
+
+class DeletePaidHolidays(generics.DestroyAPIView):
+    queryset = PaidHolidays.objects.all()
+    serializer_class = PaidHolidaysSerializer
+
+
 class TokenObtainView(jwt_views.TokenObtainPairView):
     # Token発行
     def post(self, request, *args, **kwargs):

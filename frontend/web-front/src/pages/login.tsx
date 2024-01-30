@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { Section } from '../components/layouts/Section';
 
 export default function Login() {
 	const router = useRouter();
@@ -13,7 +14,7 @@ export default function Login() {
 
 	const onSubmit = async (data) => {
 		await axios
-			.post('http://localhost:8080/api/user/token', data, {
+			.post('http://localhost:8080/api/user/token/', data, {
 				headers: {
 					'Content-Type': 'application/json; charset=utf-8',
 				},
@@ -24,7 +25,7 @@ export default function Login() {
 	};
 
 	return (
-		<section className="bg-gray-50 dark:bg-gray-900">
+		<Section>
 			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 				<a
 					href="#"
@@ -116,6 +117,6 @@ export default function Login() {
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	);
 }

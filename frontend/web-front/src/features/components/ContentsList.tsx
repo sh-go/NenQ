@@ -1,11 +1,14 @@
 import { EditPencil, Trash } from 'iconoir-react';
 import React from 'react';
+import { useRouter } from 'next/router';
 
 type Props = {
 	data: Data[];
 };
 
 export const ContentsList: React.FC<Props> = ({ data }: Props) => {
+	const router = useRouter();
+
 	return (
 		<div className="overflow-hidden dark:border-gray-700">
 			<table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -59,9 +62,9 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 										{item.text}
 									</td>
 									<td className="float-right flex px-6 py-4">
-										<a href="#">
+										<button type="submit" onClick={() => router.push('/edit')}>
 											<EditPencil className="mx-1 text-gray-500 hover:fill-gray-200" />
-										</a>
+										</button>
 										<a href="#">
 											<Trash className="mx-1 text-gray-500 hover:fill-gray-200" />
 										</a>

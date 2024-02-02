@@ -3,29 +3,12 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import { Section } from '../components/layouts/Section';
-
-type InputRadioValues = {
-	label: string;
-	value: string;
-};
+import { InputForm } from '../components/elements/InputForm';
+import { InputRadioForm } from '../components/elements/InputRadioForm';
+import { formItems } from '../const/formItems';
 
 export default function Create() {
 	const router = useRouter();
-
-	const radioOptions: InputRadioValues[] = [
-		{
-			label: '休暇',
-			value: '休暇',
-		},
-		{
-			label: '遅刻',
-			value: '遅刻',
-		},
-		{
-			label: '早退',
-			value: '早退',
-		},
-	];
 
 	const {
 		register,
@@ -77,99 +60,28 @@ export default function Create() {
 							onSubmit={handleSubmit(onSubmit)}
 							className="space-y-4 md:space-y-6"
 						>
-							<div>
-								<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-									取得した日
-								</label>
-								<input
-									type="date"
-									name="update"
-									id="update"
-									{...register('update', {
-										required: {
-											value: true,
-											message: '日付を入力してください',
-										},
-									})}
-									className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								/>
-								{errors && (
-									<div className="text-rose-500">{errors.email?.message}</div>
-								)}
-							</div>
-							<div>
-								<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-									日数
-								</label>
-								<input
-									type="number"
-									name="date"
-									id="date"
-									{...register('date', {
-										required: {
-											value: true,
-											message: '数字を入力してください',
-										},
-									})}
-									className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								/>
-								{errors && (
-									<div className="text-rose-500">
-										{errors.password?.message}
-									</div>
-								)}
-							</div>
-							<div>
-								<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-									時間
-								</label>
-								<input
-									type="number"
-									name="hour"
-									id="hour"
-									{...register('hour', {
-										required: {
-											value: true,
-											message: '数字を入力してください',
-										},
-									})}
-									className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								/>
-								{errors && (
-									<div className="text-rose-500">
-										{errors.password?.message}
-									</div>
-								)}
-							</div>
-							<div>
-								<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-									種別
-								</label>
-								<div className="text-center">
-									{radioOptions.map((item) => (
-										<label className="sm:text-sm focus:ring-primary-600 focus:border-primary-600 w-full p-5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-											<input
-												type="radio"
-												name="text"
-												id="text"
-												value={item.value}
-												{...register('text', {
-													required: {
-														value: true,
-														message: '種別を選択してください',
-													},
-												})}
-											/>
-											{item.label}
-										</label>
-									))}
-								</div>
-								{errors && (
-									<div className="text-rose-500">
-										{errors.password?.message}
-									</div>
-								)}
-							</div>
+							{formItems.map((item) =>
+								item.type != 'radio' ? (
+									<InputForm
+										key={item.name}
+										label={item.label}
+										type={item.type}
+										name={item.name}
+										register={register}
+										errors={errors}
+										error_message={item.error_message}
+									/>
+								) : (
+									<InputRadioForm
+										key={item.name}
+										label={item.label}
+										name={item.name}
+										register={register}
+										errors={errors}
+										error_message={item.error_message}
+									/>
+								)
+							)}
 							<button
 								type="submit"
 								className="w-full text-white bg-sky-800 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

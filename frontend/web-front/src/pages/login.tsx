@@ -1,10 +1,27 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { Section } from '../components/layouts/Section';
+import { InputForm } from '../components/elements/InputForm';
 
 export default function Login() {
 	const router = useRouter();
+
+	const formItems = [
+		{
+			label: 'メールアドレス',
+			type: 'email',
+			name: 'email',
+			error_message: 'メールアドレスを入力してください',
+		},
+		{
+			label: 'パスワード',
+			type: 'password',
+			name: 'password',
+			error_message: 'パスワードを入力してください',
+		},
+	];
 
 	const {
 		register,
@@ -42,54 +59,17 @@ export default function Login() {
 							onSubmit={handleSubmit(onSubmit)}
 							className="space-y-4 md:space-y-6"
 						>
-							<div>
-								<label
-									htmlFor="email"
-									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-								>
-									メールアドレス
-								</label>
-								<input
-									type="email"
-									name="email"
-									id="email"
-									{...register('email', {
-										required: {
-											value: true,
-											message: 'メールアドレスを入力してください',
-										},
-									})}
-									className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+							{formItems.map((item) => (
+								<InputForm
+									key={item.name}
+									label={item.label}
+									type={item.type}
+									name={item.name}
+									register={register}
+									errors={errors}
+									error_message={item.error_message}
 								/>
-								{errors && (
-									<div className="text-rose-500">{errors.email?.message}</div>
-								)}
-							</div>
-							<div>
-								<label
-									htmlFor="password"
-									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-								>
-									パスワード
-								</label>
-								<input
-									type="password"
-									name="password"
-									id="password"
-									{...register('password', {
-										required: {
-											value: true,
-											message: 'パスワードを入力してください',
-										},
-									})}
-									className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								/>
-								{errors && (
-									<div className="text-rose-500">
-										{errors.password?.message}
-									</div>
-								)}
-							</div>
+							))}
 							<div className="text-right">
 								<a
 									href="#"

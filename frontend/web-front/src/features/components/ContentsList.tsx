@@ -1,6 +1,7 @@
 import { EditPencil, Trash } from 'iconoir-react';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import Modal from '../../components/elements/Modal';
 
 type Props = {
 	data: Data[];
@@ -8,6 +9,8 @@ type Props = {
 
 export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 	const router = useRouter();
+	const [open, setOpen] = useState(false);
+	const cancelButtonRef = useRef(null);
 
 	return (
 		<div className="overflow-hidden dark:border-gray-700">
@@ -65,9 +68,9 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 										<button type="submit" onClick={() => router.push('/edit')}>
 											<EditPencil className="mx-1 text-gray-500 hover:fill-gray-200" />
 										</button>
-										<a href="#">
+										<button type="submit" onClick={() => setOpen(true)}>
 											<Trash className="mx-1 text-gray-500 hover:fill-gray-200" />
-										</a>
+										</button>
 									</td>
 								</tr>
 							</React.Fragment>
@@ -75,6 +78,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 					})}
 				</tbody>
 			</table>
+			<Modal open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />
 		</div>
 	);
 };

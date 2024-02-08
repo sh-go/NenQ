@@ -4,6 +4,6 @@ type Data = {
 	date: number;
 	hour: number;
 	text: string;
-	author: string;
 	slug: string | null;
+	user: string;
 };

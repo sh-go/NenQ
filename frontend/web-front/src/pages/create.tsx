@@ -1,27 +1,14 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
+
 import { Section } from '../components/layouts/Section';
 import { InputForm } from '../components/elements/InputForm';
+import { InputRadioForm } from '../components/elements/InputRadioForm';
+import { formItems } from '../const/formItems';
 
-export default function Login() {
+export default function Create() {
 	const router = useRouter();
-
-	const formItems = [
-		{
-			label: 'メールアドレス',
-			type: 'email',
-			name: 'email',
-			error_message: 'メールアドレスを入力してください',
-		},
-		{
-			label: 'パスワード',
-			type: 'password',
-			name: 'password',
-			error_message: 'パスワードを入力してください',
-		},
-	];
 
 	const {
 		register,
@@ -30,15 +17,29 @@ export default function Login() {
 	} = useForm({ reValidateMode: 'onSubmit' });
 
 	const onSubmit = async (data) => {
+		const uuid = await axios
+			.get('http://localhost:8080/api/user', {
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8',
+				},
+				withCredentials: true,
+			})
+			.then((userdata) => {
+				return userdata.data.uuid;
+			})
+			.catch((e) => alert(`error: ${e}`));
+
+		const postData = { ...data, user: uuid };
+
 		await axios
-			.post('http://localhost:8080/api/user/token/', data, {
+			.post('http://localhost:8080/api/create/', postData, {
 				headers: {
 					'Content-Type': 'application/json; charset=utf-8',
 				},
 				withCredentials: true,
 			})
 			.then(() => router.push('/'))
-			.catch((e) => console.log(`error: ${e}`));
+			.catch((e) => alert(`error: ${e}`));
 	};
 
 	return (
@@ -53,46 +54,40 @@ export default function Login() {
 				<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
 					<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
 						<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-							ログイン
+							登録
 						</h1>
 						<form
 							onSubmit={handleSubmit(onSubmit)}
 							className="space-y-4 md:space-y-6"
 						>
-							{formItems.map((item) => (
-								<InputForm
-									key={item.name}
-									label={item.label}
-									type={item.type}
-									name={item.name}
-									register={register}
-									errors={errors}
-									error_message={item.error_message}
-								/>
-							))}
-							<div className="text-right">
-								<a
-									href="#"
-									className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-								>
-									パスワードを忘れた場合
-								</a>
-							</div>
+							{formItems.map((item) =>
+								item.type != 'radio' ? (
+									<InputForm
+										key={item.name}
+										label={item.label}
+										type={item.type}
+										name={item.name}
+										register={register}
+										errors={errors}
+										error_message={item.error_message}
+									/>
+								) : (
+									<InputRadioForm
+										key={item.name}
+										label={item.label}
+										name={item.name}
+										register={register}
+										errors={errors}
+										error_message={item.error_message}
+									/>
+								)
+							)}
 							<button
 								type="submit"
 								className="w-full text-white bg-sky-800 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
 							>
-								ログイン
+								登録
 							</button>
-							<p className="text-sm font-light text-gray-500 dark:text-gray-400">
-								アカウント作成は{' '}
-								<a
-									href="#"
-									className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-								>
-									こちら
-								</a>
-							</p>
 						</form>
 					</div>
 				</div>

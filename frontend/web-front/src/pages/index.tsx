@@ -10,6 +10,7 @@ import { EditPencil, Trash } from 'iconoir-react';
 import { ContentsList } from '../features/components/ContentsList';
 import axios from 'axios';
 import getSummary from '../features/api/getSummary';
+import { useRouter } from 'next/router';
 
 export async function getServerSideProps(context) {
 	const apidata = await getApi(context.req.cookies);
@@ -18,6 +19,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ api, summary }) {
+	const router = useRouter();
 	return (
 		<div>
 			<Section>
@@ -39,6 +41,14 @@ export default function Home({ api, summary }) {
 
 				<p className="px-2 mb-2 text-gray-500 dark:text-gray-400">年休一覧</p>
 				<ContentsList data={api} />
+				<div className="fixed bottom-12 right-16">
+					<button
+						className="bg-rose-700 hover:bg-rose-800 text-gray-300 font-bold py-2 px-4 rounded-full shadow-lg"
+						onClick={() => router.push('/create')}
+					>
+						＋
+					</button>
+				</div>
 			</Section>
 		</div>
 	);

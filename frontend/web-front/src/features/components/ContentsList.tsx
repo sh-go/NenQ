@@ -9,6 +9,7 @@ type Props = {
 
 export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 	const router = useRouter();
+	const [id, setId] = useState(null);
 	const [open, setOpen] = useState(false);
 	const cancelButtonRef = useRef(null);
 
@@ -68,7 +69,13 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 										<button type="submit" onClick={() => router.push('/edit')}>
 											<EditPencil className="mx-1 text-gray-500 hover:fill-gray-200" />
 										</button>
-										<button type="submit" onClick={() => setOpen(true)}>
+										<button
+											type="submit"
+											onClick={() => {
+												setId(item.id);
+												setOpen(true);
+											}}
+										>
 											<Trash className="mx-1 text-gray-500 hover:fill-gray-200" />
 										</button>
 									</td>
@@ -78,7 +85,12 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 					})}
 				</tbody>
 			</table>
-			<Modal open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />
+			<Modal
+				id={id}
+				open={open}
+				setOpen={setOpen}
+				cancelButtonRef={cancelButtonRef}
+			/>
 		</div>
 	);
 };

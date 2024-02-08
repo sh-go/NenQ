@@ -7,14 +7,16 @@ import {
 	useState,
 } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import deleteApi from '../../features/api/deleteApi';
 
 type Props = {
+	id: number;
 	open: boolean;
 	setOpen: Dispatch<SetStateAction<boolean>>;
 	cancelButtonRef: MutableRefObject<any>;
 };
 
-export default function Modal({ open, setOpen, cancelButtonRef }: Props) {
+export default function Modal({ id, open, setOpen, cancelButtonRef }: Props) {
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -54,13 +56,11 @@ export default function Modal({ open, setOpen, cancelButtonRef }: Props) {
 												as="h3"
 												className="text-base font-semibold leading-6 text-gray-900"
 											>
-												Deactivate account
+												取得年休の削除
 											</Dialog.Title>
 											<div className="mt-2">
 												<p className="text-sm text-gray-500">
-													Are you sure you want to deactivate your account? All
-													of your data will be permanently removed. This action
-													cannot be undone.
+													削除したら元に戻せません。削除しますか？
 												</p>
 											</div>
 										</div>
@@ -70,9 +70,12 @@ export default function Modal({ open, setOpen, cancelButtonRef }: Props) {
 									<button
 										type="button"
 										className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-										onClick={() => setOpen(false)}
+										onClick={() => {
+											deleteApi(id);
+											setOpen(false);
+										}}
 									>
-										Delete
+										削除
 									</button>
 									<button
 										type="button"
@@ -80,7 +83,7 @@ export default function Modal({ open, setOpen, cancelButtonRef }: Props) {
 										onClick={() => setOpen(false)}
 										ref={cancelButtonRef}
 									>
-										Cancel
+										キャンセル
 									</button>
 								</div>
 							</Dialog.Panel>

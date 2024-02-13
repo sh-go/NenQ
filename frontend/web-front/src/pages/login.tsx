@@ -87,7 +87,7 @@ export default function Login() {
 							<p className="text-sm font-light text-gray-500 dark:text-gray-400">
 								アカウント作成は{' '}
 								<a
-									href="#"
+									onClick={() => router.push('/create_user')}
 									className="font-medium text-primary-600 hover:underline dark:text-primary-500"
 								>
 									こちら

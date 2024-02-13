@@ -1,4 +1,4 @@
-export const radioOptions: InputRadioValues[] = [
+export const RADIO_OPTIONS: InputRadioValues[] = [
 	{
 		label: '休暇',
 		value: '休暇',

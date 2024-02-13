@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Section } from '../components/layouts/Section';
 import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
-import { formItems } from '../const/formItems';
+import { FORM_ITEMS } from '../const/FORM_ITEMS';
 
 export default function Create() {
 	const router = useRouter();
@@ -60,7 +60,7 @@ export default function Create() {
 							onSubmit={handleSubmit(onSubmit)}
 							className="space-y-4 md:space-y-6"
 						>
-							{formItems.map((item) =>
+							{FORM_ITEMS.map((item) =>
 								item.type != 'radio' ? (
 									<InputForm
 										key={item.name}

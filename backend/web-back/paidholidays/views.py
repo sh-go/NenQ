@@ -3,6 +3,7 @@ import sys
 import jwt
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.db import transaction
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.http import JsonResponse
@@ -16,7 +17,7 @@ from .models import CarryOver, PaidHolidays
 from .serializers import PaidHolidaysSerializer
 
 sys.path.append("../")
-from users.serializers import UserSerializer
+from users.serializers import RegisterSerializer, UserSerializer
 
 
 @api_view(["GET"])
@@ -104,6 +105,21 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
 
         # 最終的にはaccess_tokenとrefresh_tokenを返してもらう
         return res
+
+
+class UserRegisterView(generics.CreateAPIView):
+    permission_classes = (permissions.AllowAny,)
+    queryset = get_user_model().objects.all()
+    serializer_class = RegisterSerializer
+
+    @transaction.atomic
+    def post(self, request):
+        print(request.data)
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserAPIView(generics.views.APIView):

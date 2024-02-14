@@ -85,13 +85,13 @@ export default function Login() {
 								ログイン
 							</button>
 							<p className="text-sm font-light text-gray-500 dark:text-gray-400">
-								アカウント作成は{' '}
-								<a
-									href="#"
-									className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+								アカウント作成は
+								<span
+									onClick={() => router.push('/create_user')}
+									className="font-medium text-primary-600 underline hover:cursor-pointer hover:text-sky-800 dark:text-primary-500"
 								>
 									こちら
-								</a>
+								</span>
 							</p>
 						</form>
 					</div>

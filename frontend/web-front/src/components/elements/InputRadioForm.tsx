@@ -1,7 +1,7 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 
-import { radioOptions } from '../../const/radioOptions';
+import { RADIO_OPTIONS } from '../../const/RADIO_OPTIONS';
 
 type Props = {
 	label: string;
@@ -25,7 +25,7 @@ export const InputRadioForm = ({
 			</label>
 
 			<div className="text-center">
-				{radioOptions.map((item) => (
+				{RADIO_OPTIONS.map((item) => (
 					<label
 						key={item.label}
 						className="sm:text-sm focus:ring-primary-600 focus:border-primary-600 w-full p-5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

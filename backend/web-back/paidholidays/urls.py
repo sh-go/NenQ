@@ -8,6 +8,7 @@ from .views import (
     TokenObtainView,
     TokenRefresh,
     UserAPIView,
+    UserRegisterView,
     get_refresh_token,
     get_summary_data,
 )
@@ -19,6 +20,7 @@ urlpatterns = [
     path("<int:pk>/", DetailPaidHolidays.as_view()),
     path("summary/", get_summary_data),
     path("user/", UserAPIView.as_view()),
+    path("user/create/", UserRegisterView.as_view()),
     path("user/token/", TokenObtainView.as_view()),
     path("user/refresh/", get_refresh_token),
     path("user/refresh/token/", TokenRefresh.as_view()),

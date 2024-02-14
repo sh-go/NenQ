@@ -1,4 +1,4 @@
-export const formItems = [
+export const FORM_ITEMS = [
 	{
 		label: '取得した日',
 		type: 'date',

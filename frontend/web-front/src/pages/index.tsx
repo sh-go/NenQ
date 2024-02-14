@@ -1,16 +1,13 @@
-import { GetServerSideProps } from 'next';
-import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 
 import getApi from '../features/api/getApi';
 import { Section } from '../components/layouts/Section';
 import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButton';
 import { Summary } from '../features/components/Summary';
-import { EditPencil, Trash } from 'iconoir-react';
 import { ContentsList } from '../features/components/ContentsList';
-import axios from 'axios';
 import getSummary from '../features/api/getSummary';
 import { useRouter } from 'next/router';
+import LogoutModal from '../features/components/LogoutModal';
 
 export async function getServerSideProps(context) {
 	const apidata = await getApi(context.req.cookies);
@@ -20,6 +17,8 @@ export async function getServerSideProps(context) {
 
 export default function Home({ api, summary }) {
 	const router = useRouter();
+	const [open, setOpen] = useState(false);
+	const cancelButtonRef = useRef(null);
 	return (
 		<div>
 			<Section>
@@ -28,6 +27,9 @@ export default function Home({ api, summary }) {
 						NenQ <span className="text-sm">ー年休管理アプリー</span>
 					</div>
 					<ChangeDarkModeButton />
+					<button type="submit" onClick={() => setOpen(true)}>
+						ログアウト
+					</button>
 				</div>
 
 				<hr className="border-gray-500" />
@@ -50,6 +52,11 @@ export default function Home({ api, summary }) {
 					</button>
 				</div>
 			</Section>
+			<LogoutModal
+				open={open}
+				setOpen={setOpen}
+				cancelButtonRef={cancelButtonRef}
+			/>
 		</div>
 	);
 }

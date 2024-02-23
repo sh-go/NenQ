@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import deleteApi from '../api/deleteApi';
+import logoutUser from '../api/logoutUser';
 
 type Props = {
 	open: boolean;
@@ -70,6 +71,7 @@ export default function LogoutModal({ open, setOpen, cancelButtonRef }: Props) {
 										type="button"
 										className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
 										onClick={() => {
+											logoutUser();
 											setOpen(false);
 										}}
 									>

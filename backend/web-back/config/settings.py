@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",  # 追加
+    "rest_framework_simplejwt.token_blacklist",  # 追加
     "corsheaders",  # 追加
     "paidholidays.apps.PaidHolidaysConfig",  # 追加
     "users",  # 追加
@@ -159,7 +160,10 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
     "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "USER_ID_FIELD": "uuid",
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
 }
 
 SESSION_COOKIE_SAMESITE = "None"

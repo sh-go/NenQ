@@ -8,6 +8,7 @@ from .views import (
     LogoutView,
     TokenObtainView,
     TokenRefresh,
+    UpdatePaidHolidays,
     UserAPIView,
     UserRegisterView,
     get_summary_data,
@@ -16,6 +17,7 @@ from .views import (
 urlpatterns = [
     path("list", ListPaidHolidays.as_view()),
     path("create", CreatePaidHolidays.as_view()),
+    path("update/<int:pk>", UpdatePaidHolidays.as_view()),
     path("delete/<int:pk>", DeletePaidHolidays.as_view()),
     path("<int:pk>", DetailPaidHolidays.as_view()),
     path("summary", get_summary_data),

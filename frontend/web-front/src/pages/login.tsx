@@ -31,7 +31,7 @@ export default function Login() {
 
 	const onSubmit = async (data) => {
 		await axios
-			.post('http://localhost:8080/api/user/token/', data, {
+			.post('http://localhost:8080/api/token', data, {
 				headers: {
 					'Content-Type': 'application/json; charset=utf-8',
 				},

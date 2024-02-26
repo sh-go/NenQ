@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { LogOut } from 'iconoir-react';
 
 import getApi from '../features/api/getApi';
 import { Section } from '../components/layouts/Section';
@@ -6,7 +8,6 @@ import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButto
 import { Summary } from '../features/components/Summary';
 import { ContentsList } from '../features/components/ContentsList';
 import getSummary from '../features/api/getSummary';
-import { useRouter } from 'next/router';
 import LogoutModal from '../features/components/LogoutModal';
 
 export async function getServerSideProps(context) {
@@ -26,10 +27,16 @@ export default function Home({ api, summary }) {
 					<div className="text-3xl dark:text-gray-200">
 						NenQ <span className="text-sm">ー年休管理アプリー</span>
 					</div>
-					<ChangeDarkModeButton />
-					<button type="submit" onClick={() => setOpen(true)}>
-						ログアウト
-					</button>
+					<div className="flex gap-3">
+						<div className="px-2">
+							<ChangeDarkModeButton />
+						</div>
+						<div>
+							<button type="submit" onClick={() => setOpen(true)}>
+								<LogOut />
+							</button>
+						</div>
+					</div>
 				</div>
 
 				<hr className="border-gray-500" />

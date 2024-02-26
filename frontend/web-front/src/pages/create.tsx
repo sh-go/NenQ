@@ -32,7 +32,7 @@ export default function Create() {
 		const postData = { ...data, user: uuid };
 
 		await axios
-			.post('http://localhost:8080/api/create/', postData, {
+			.post('http://localhost:8080/api/create', postData, {
 				headers: {
 					'Content-Type': 'application/json; charset=utf-8',
 				},

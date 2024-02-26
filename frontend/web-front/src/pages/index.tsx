@@ -1,16 +1,14 @@
-import { GetServerSideProps } from 'next';
-import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { LogOut } from 'iconoir-react';
 
 import getApi from '../features/api/getApi';
 import { Section } from '../components/layouts/Section';
 import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButton';
 import { Summary } from '../features/components/Summary';
-import { EditPencil, Trash } from 'iconoir-react';
 import { ContentsList } from '../features/components/ContentsList';
-import axios from 'axios';
 import getSummary from '../features/api/getSummary';
-import { useRouter } from 'next/router';
+import LogoutModal from '../features/components/LogoutModal';
 
 export async function getServerSideProps(context) {
 	const apidata = await getApi(context.req.cookies);
@@ -20,6 +18,8 @@ export async function getServerSideProps(context) {
 
 export default function Home({ api, summary }) {
 	const router = useRouter();
+	const [open, setOpen] = useState(false);
+	const cancelButtonRef = useRef(null);
 	return (
 		<div>
 			<Section>
@@ -27,7 +27,16 @@ export default function Home({ api, summary }) {
 					<div className="text-3xl dark:text-gray-200">
 						NenQ <span className="text-sm">ー年休管理アプリー</span>
 					</div>
-					<ChangeDarkModeButton />
+					<div className="flex gap-3">
+						<div className="px-2">
+							<ChangeDarkModeButton />
+						</div>
+						<div>
+							<button type="submit" onClick={() => setOpen(true)}>
+								<LogOut />
+							</button>
+						</div>
+					</div>
 				</div>
 
 				<hr className="border-gray-500" />
@@ -50,6 +59,11 @@ export default function Home({ api, summary }) {
 					</button>
 				</div>
 			</Section>
+			<LogoutModal
+				open={open}
+				setOpen={setOpen}
+				cancelButtonRef={cancelButtonRef}
+			/>
 		</div>
 	);
 }

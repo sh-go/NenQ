@@ -7,7 +7,7 @@ import {
 	useState,
 } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import deleteApi from '../../features/api/deleteApi';
+import deleteApi from '../api/deleteApi';
 
 type Props = {
 	id: number;

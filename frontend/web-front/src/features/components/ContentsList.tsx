@@ -1,7 +1,7 @@
 import { EditPencil, Trash } from 'iconoir-react';
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import Modal from '../../components/elements/Modal';
+import Modal from './DeleteModal';
 
 type Props = {
 	data: Data[];

@@ -11,6 +11,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt import exceptions as jwt_exp
+from rest_framework_simplejwt import tokens as jwt_tokens
 from rest_framework_simplejwt import views as jwt_views
 
 from .models import CarryOver, PaidHolidays
@@ -75,10 +76,10 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         # 任意のSerializerを引っ張ってくる(今回はTokenObtainPairViewで使われているserializers.TokenObtainPairSerializer)
         serializer = self.get_serializer(data=request.data)
-        # 検証
+
         try:
             serializer.is_valid(raise_exception=True)
-        # エラーハンドリング
+
         except jwt_exp.TokenError as e:
             raise jwt_exp.InvalidToken(e.args[0])
 
@@ -87,7 +88,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
         try:
             res.delete_cookie("access_token")
         except Exception as e:
-            print(e)
+            Response(e)
 
         # CookieヘッダーにTokenをセットする
         res.set_cookie(
@@ -160,11 +161,10 @@ class UserAPIView(generics.views.APIView):
 
 def get_refresh_token(request):
     try:
-        refresh_token = request.COOKIES("refresh_token")
+        refresh_token = request.COOKIES.get("refresh_token")
         return JsonResponse({"refresh": refresh_token}, safe=False)
     except Exception as e:
-        print(e)
-        return None
+        return Response(e)
 
 
 class TokenRefresh(jwt_views.TokenRefreshView):
@@ -177,11 +177,43 @@ class TokenRefresh(jwt_views.TokenRefreshView):
             raise jwt_exp.InvalidToken(e.args[0])
 
         res = Response(serializer.validated_data, status=status.HTTP_200_OK)
-        res.delete_cookie("user_token")
+        res.delete_cookie("access_token")
+        res.delete_cookie("refresh_token")
         res.set_cookie(
-            "user_token",
+            "access_token",
             serializer.validated_data["access"],
             max_age=60 * 24 * 24 * 30,
             httponly=True,
         )
+        res.set_cookie(
+            "refresh_token",
+            serializer.validated_data["refresh"],
+            max_age=60 * 60 * 24 * 30,
+            httponly=True,
+        )
+
         return res
+
+
+class LogoutView(generics.views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        refresh_token = request.COOKIES.get("refresh_token")
+
+        try:
+            res = Response()
+            res.delete_cookie("access_token")
+            res.delete_cookie("refresh_token")
+        except Exception:
+            return Response(
+                {"Error": "cannnot delete tokens in cookie"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            token = jwt_tokens.RefreshToken(refresh_token)
+            token.blacklist()
+            return res
+        except Exception as e:
+            return Response(e, status=status.HTTP_400_BAD_REQUEST)

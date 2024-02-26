@@ -4,7 +4,7 @@ export default async function getSummary(cookies) {
 	const access_token = cookies['access_token'];
 
 	return await axios
-		.get('http://nginx-back:80/api/summary/', {
+		.get('http://nginx-back:80/api/summary', {
 			headers: {
 				'Content-Type': 'application/json;',
 				Authorization: `JWT ${access_token}`,

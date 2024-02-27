@@ -1,4 +1,9 @@
-export const FORM_ITEMS = [
+export const FORM_ITEMS: {
+	label: string;
+	type: string;
+	name: 'update' | 'date' | 'hour' | 'text';
+	error_message: string;
+}[] = [
 	{
 		label: '取得した日',
 		type: 'date',

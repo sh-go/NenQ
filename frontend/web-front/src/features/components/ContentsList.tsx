@@ -69,16 +69,19 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 										<button
 											type="submit"
 											onClick={() =>
-												router.push({
-													pathname: '/edit',
-													query: {
-														id: item.id,
-														update: item.update,
-														date: item.date,
-														hour: item.hour,
-														text: item.text,
+												router.push(
+													{
+														pathname: '/edit',
+														query: {
+															id: item.id,
+															update: item.update,
+															date: item.date,
+															hour: item.hour,
+															text: item.text,
+														},
 													},
-												})
+													'edit'
+												)
 											}
 										>
 											<EditPencil className="mx-1 text-gray-500 hover:fill-gray-200" />

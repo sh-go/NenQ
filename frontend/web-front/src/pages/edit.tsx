@@ -6,6 +6,7 @@ import { Section } from '../components/layouts/Section';
 import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
 import { FORM_ITEMS } from '../const/FORM_ITEMS';
+import Button from '../components/elements/Button';
 
 export default function Edit() {
 	const router = useRouter();
@@ -76,13 +77,15 @@ export default function Edit() {
 									/>
 								)
 							)}
-							<button
-								type="submit"
+							<Button
+								block
+								rounded
+								color="blue"
 								disabled={!isDirty || !isValid}
-								className="w-full text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none disabled:bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-700 dark:hover:bg-sky-900 dark:disabled:bg-gray-500"
+								className="px-5 py-2.5"
 							>
 								更新
-							</button>
+							</Button>
 						</form>
 					</div>
 				</div>

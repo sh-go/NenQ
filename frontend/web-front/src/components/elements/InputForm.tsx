@@ -4,8 +4,13 @@ import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 type Props = {
 	label: string;
 	type: string;
-	name: string;
-	register: UseFormRegister<FieldValues>;
+	name: 'update' | 'date' | 'hour' | 'text';
+	register: UseFormRegister<{
+		update: string | string[];
+		date: number;
+		hour: number;
+		text: string | string[];
+	}>;
 	errors: FieldErrors<FieldValues>;
 	error_message: string;
 };
@@ -29,6 +34,7 @@ export const InputForm = ({
 			<input
 				type={type}
 				name={name}
+				min="0"
 				id={name}
 				{...register(name, {
 					required: error_message,

@@ -66,6 +66,28 @@ class CreatePaidHolidays(generics.CreateAPIView):
     serializer_class = PaidHolidaysSerializer
 
 
+class UpdatePaidHolidays(generics.views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def patch(self, request, pk):
+        data = PaidHolidays.objects.filter(id=pk).first()
+
+        if not data:
+            return Response(
+                {"message": "No data found"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = PaidHolidaysSerializer(data, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "Update successfully"}, status=status.HTTP_202_ACCEPTED
+            )
+        else:
+            return Response({"message": "failed", "details": serializer.errors})
+
+
 class DeletePaidHolidays(generics.DestroyAPIView):
     queryset = PaidHolidays.objects.all()
     serializer_class = PaidHolidaysSerializer
@@ -147,7 +169,7 @@ class UserAPIView(generics.views.APIView):
 
         user = self.get_object(JWT)
 
-        if type(user) == str:
+        if isinstance(user, str):
             return Response({"error": user}, status=status.HTTP_400_BAD_REQUEST)
 
         if user.is_active:

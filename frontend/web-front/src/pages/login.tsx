@@ -8,7 +8,12 @@ import { InputForm } from '../components/elements/InputForm';
 export default function Login() {
 	const router = useRouter();
 
-	const formItems = [
+	const formItems: {
+		label: string;
+		type: string;
+		name: string;
+		error_message: string;
+	}[] = [
 		{
 			label: 'メールアドレス',
 			type: 'email',

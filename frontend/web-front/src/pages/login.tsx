@@ -42,7 +42,9 @@ export default function Login() {
 				},
 				withCredentials: true,
 			})
-			.then(() => router.push('/'))
+			.then((res) => {
+				router.push('/');
+			})
 			.catch((e) => console.log(`error: ${e}`));
 	};
 

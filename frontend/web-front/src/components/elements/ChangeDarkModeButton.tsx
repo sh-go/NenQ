@@ -1,4 +1,4 @@
-import { HalfMoon, SunLight } from 'iconoir-react';
+import { GoSun, GoMoon } from 'react-icons/go';
 import { useTheme } from 'next-themes';
 import React, { useEffect, useState } from 'react';
 
@@ -14,7 +14,9 @@ export const ChangeDarkModeButton: React.FC = () => {
 				type="button"
 				onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 			>
-				{mounted && <>{theme === 'dark' ? <HalfMoon /> : <SunLight />}</>}
+				{mounted && (
+					<>{theme === 'dark' ? <GoMoon size="2em" /> : <GoSun size="2em" />}</>
+				)}
 			</button>
 		</>
 	);

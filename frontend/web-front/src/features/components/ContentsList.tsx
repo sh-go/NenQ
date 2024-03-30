@@ -1,4 +1,4 @@
-import { EditPencil, Trash } from 'iconoir-react';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Modal from './DeleteModal';
@@ -84,7 +84,10 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												)
 											}
 										>
-											<EditPencil className="mx-1 text-gray-500 hover:fill-gray-200" />
+											<FiEdit
+												size="1.5em"
+												className="mx-1 text-gray-500 hover:fill-gray-400"
+											/>
 										</button>
 										<button
 											type="submit"
@@ -93,7 +96,10 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												setOpen(true);
 											}}
 										>
-											<Trash className="mx-1 text-gray-500 hover:fill-gray-200" />
+											<FiTrash
+												size="1.5em"
+												className="mx-1 text-gray-500 hover:fill-gray-400"
+											/>
 										</button>
 									</td>
 								</tr>

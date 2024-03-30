@@ -4,22 +4,31 @@ import Head from 'next/head';
 import { ThemeProvider } from 'next-themes';
 import '../styles/global.css';
 import { createContext, useEffect } from 'react';
+import fetchCurrentUser from '../features/api/fetchCurrentUser';
 
 export default function App({ Component, pageProps, router }: AppProps) {
 	const currentuser = {
 		isLogin: false,
 		username: null,
 	};
+	console.log('Appスタート');
+	console.log(`router.pathname: ${router.pathname}`);
+
 	useEffect(() => {
-		if (router.pathname === '/login') return;
-		try {
-			user = fetchCurrentUser();
-			currentuser.isLogin = true;
-			currentuser.username = user.username;
-		} catch (error) {
-			router.replace('/login');
-		}
+		console.log('useEffect開始');
+		(async function () {
+			console.log('useEffect内非同期処理開始');
+			if (router.pathname === '/login') return;
+			try {
+				const user = await fetchCurrentUser();
+				currentuser.isLogin = true;
+				currentuser.username = user.username;
+			} catch {
+				router.replace('/login');
+			}
+		})();
 	}, [router.pathname]);
+
 	const CurrentUserContext = createContext(currentuser);
 
 	return (

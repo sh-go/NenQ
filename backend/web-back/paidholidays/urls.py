@@ -11,6 +11,7 @@ from .views import (
     UpdatePaidHolidays,
     UserAPIView,
     UserRegisterView,
+    get_refresh_token,
     get_summary_data,
 )
 
@@ -24,6 +25,7 @@ urlpatterns = [
     path("user", UserAPIView.as_view()),
     path("user/create", UserRegisterView.as_view()),
     path("token", TokenObtainView.as_view()),
-    path("token/refresh", TokenRefresh.as_view()),
+    path("refresh", get_refresh_token),
+    path("refresh/token", TokenRefresh.as_view()),
     path("logout", LogoutView.as_view()),
 ]

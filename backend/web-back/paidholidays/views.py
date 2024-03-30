@@ -8,7 +8,7 @@ from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.http import JsonResponse
 from rest_framework import generics, permissions, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt import exceptions as jwt_exp
 from rest_framework_simplejwt import tokens as jwt_tokens
@@ -116,13 +116,13 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
         res.set_cookie(
             "access_token",
             serializer.validated_data["access"],
-            max_age=60 * 60 * 24,  # 24時間
+            max_age=60 * 1,  # 2分
             httponly=True,
         )
         res.set_cookie(
             "refresh_token",
             serializer.validated_data["refresh"],
-            max_age=60 * 60 * 24 * 30,  # 30日間
+            max_age=60 * 1,  # 6分
             httponly=True,
         )
 
@@ -146,8 +146,8 @@ class UserRegisterView(generics.CreateAPIView):
 
 
 class UserAPIView(generics.views.APIView):
-    # authentication_classes = ()
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = ()
+    authentication_classes = ()
 
     def get_object(self, JWT):
         try:
@@ -181,9 +181,15 @@ class UserAPIView(generics.views.APIView):
         )
 
 
+@api_view(["GET"])
+@permission_classes(())
 def get_refresh_token(request):
     try:
         refresh_token = request.COOKIES.get("refresh_token")
+
+        if not refresh_token:
+            return Response({"error": "No token"}, status=status.HTTP_400_BAD_REQUEST)
+
         return JsonResponse({"refresh": refresh_token}, safe=False)
     except Exception as e:
         return Response(e)
@@ -204,13 +210,13 @@ class TokenRefresh(jwt_views.TokenRefreshView):
         res.set_cookie(
             "access_token",
             serializer.validated_data["access"],
-            max_age=60 * 24 * 24 * 30,
+            max_age=60 * 1,
             httponly=True,
         )
         res.set_cookie(
             "refresh_token",
             serializer.validated_data["refresh"],
-            max_age=60 * 60 * 24 * 30,
+            max_age=60 * 1,
             httponly=True,
         )
 

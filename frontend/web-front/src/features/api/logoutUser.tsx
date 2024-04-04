@@ -8,7 +8,7 @@ export default async function logoutUser(router: NextRouter) {
 			{},
 			{
 				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-				// withCredentials: true,
+				withCredentials: true,
 			}
 		)
 		.then(() => router.push('/login'))

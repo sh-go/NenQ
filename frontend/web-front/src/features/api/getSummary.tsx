@@ -15,5 +15,7 @@ export default async function getSummary(cookies) {
 			const data = res.data as SummaryData;
 			return data;
 		})
-		.catch((e) => console.log(`エラーが発生しました: ${e}`));
+		.catch((e) => {
+			return undefined;
+		});
 }

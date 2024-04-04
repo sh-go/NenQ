@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { LogOut } from 'iconoir-react';
+import { IoIosLogOut } from 'react-icons/io';
 
 import getApi from '../features/api/getApi';
 import { Section } from '../components/layouts/Section';
@@ -13,6 +13,15 @@ import LogoutModal from '../features/components/LogoutModal';
 export async function getServerSideProps(context) {
 	const apidata = await getApi(context.req.cookies);
 	const summarydata = await getSummary(context.req.cookies);
+
+	if (!apidata || !summarydata) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/login',
+			},
+		};
+	}
 	return { props: { api: apidata, summary: summarydata } };
 }
 
@@ -27,13 +36,13 @@ export default function Home({ api, summary }) {
 					<div className="text-3xl dark:text-gray-200">
 						NenQ <span className="text-sm">ー年休管理アプリー</span>
 					</div>
-					<div className="flex gap-3">
-						<div className="px-2">
+					<div className="px-2 flex gap-3">
+						<div>
 							<ChangeDarkModeButton />
 						</div>
 						<div>
 							<button type="submit" onClick={() => setOpen(true)}>
-								<LogOut />
+								<IoIosLogOut size="2em" />
 							</button>
 						</div>
 					</div>

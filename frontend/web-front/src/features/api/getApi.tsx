@@ -14,5 +14,7 @@ export default async function getApi(cookies) {
 			const data = res.data as Data[];
 			return data;
 		})
-		.catch((e) => console.log(`エラーが発生しました: ${e}`));
+		.catch((e) => {
+			return undefined;
+		});
 }

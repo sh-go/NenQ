@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { IoIosLogOut } from 'react-icons/io';
 
 import getApi from '../features/api/getApi';
 import { Section } from '../components/layouts/Section';
@@ -8,7 +9,6 @@ import { Summary } from '../features/components/Summary';
 import { ContentsList } from '../features/components/ContentsList';
 import getSummary from '../features/api/getSummary';
 import LogoutModal from '../features/components/LogoutModal';
-import { IoIosLogOut } from 'react-icons/io';
 
 export async function getServerSideProps(context) {
 	const apidata = await getApi(context.req.cookies);

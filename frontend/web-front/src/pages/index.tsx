@@ -9,12 +9,14 @@ import { Summary } from '../features/components/Summary';
 import { ContentsList } from '../features/components/ContentsList';
 import getSummary from '../features/api/getSummary';
 import LogoutModal from '../features/components/LogoutModal';
+import getCarryOver from '../features/api/getCarryOver';
 
 export async function getServerSideProps(context) {
-	const apidata = await getApi(context.req.cookies);
-	const summarydata = await getSummary(context.req.cookies);
+	const apiData = await getApi(context.req.cookies);
+	const summaryData = await getSummary(context.req.cookies);
+	const carryOverData = await getCarryOver(context.req.cookies);
 
-	if (!apidata || !summarydata) {
+	if (!apiData || !summaryData || !carryOverData) {
 		return {
 			redirect: {
 				permanent: false,
@@ -22,10 +24,12 @@ export async function getServerSideProps(context) {
 			},
 		};
 	}
-	return { props: { api: apidata, summary: summarydata } };
+	return {
+		props: { api: apiData, summary: summaryData, carryOver: carryOverData },
+	};
 }
 
-export default function Home({ api, summary }) {
+export default function Home({ api, summary, carryOver }) {
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
 	const cancelButtonRef = useRef(null);
@@ -52,7 +56,7 @@ export default function Home({ api, summary }) {
 				<br />
 
 				<p className="px-2 mb-2 text-gray-500 dark:text-gray-400">取得状況</p>
-				<Summary data={summary} />
+				<Summary summaryData={summary} carryOverData={carryOver} />
 				<br />
 				<hr className="border-gray-500" />
 				<br />

@@ -6,12 +6,7 @@ import { RADIO_OPTIONS } from '../../const/RADIO_OPTIONS';
 type Props = {
 	label: string;
 	name: 'update' | 'date' | 'hour' | 'text';
-	register: UseFormRegister<{
-		update: string | string[];
-		date: number;
-		hour: number;
-		text: string | string[];
-	}>;
+	register: UseFormRegister<FieldValues>;
 	errors: FieldErrors<FieldValues>;
 	error_message: string;
 };

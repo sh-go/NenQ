@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Modal from './DeleteModal';
 
 type Props = {
-	data: Data[];
+	data: ListData[];
 };
 
 export const ContentsList: React.FC<Props> = ({ data }: Props) => {

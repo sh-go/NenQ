@@ -4,12 +4,11 @@ import { FieldValues, useForm } from 'react-hook-form';
 
 import { Section } from '../components/layouts/Section';
 import { InputForm } from '../components/elements/InputForm';
-import { InputRadioForm } from '../components/elements/InputRadioForm';
-import { FORM_ITEMS } from '../const/FORM_ITEMS';
 import Button from '../components/elements/Button';
 import useRequireLogin from '../features/hooks/useRequireLogin';
+import { CARRY_OVER_FORM_ITEMS } from '../const/CARRY_OVER_FORM_ITEMS';
 
-export default function Edit() {
+export default function UpdateCarryOver() {
 	const { currentUser } = useRequireLogin();
 	const router = useRouter();
 
@@ -19,24 +18,23 @@ export default function Edit() {
 		formState: { isDirty, isValid, errors },
 	} = useForm({
 		defaultValues: {
-			update: router.query.update as string,
 			date: parseInt(router.query.date as string, 10),
 			hour: parseInt(router.query.hour as string, 10),
-			text: router.query.text as string,
+			min: parseInt(router.query.min as string, 10),
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});
 
 	const onSubmit = async (data) => {
 		await axios
-			.patch(`http://localhost:8080/api/update/${router.query.id}`, data, {
+			.patch('http://localhost:8080/api/carryover/update', data, {
 				headers: {
 					'Content-Type': 'application/json; charset=utf-8',
 				},
 				withCredentials: true,
 			})
 			.then(() => router.push('/'))
-			.catch((e) => alert(`error: ${e}`));
+			.catch((e) => console.log(e));
 	};
 
 	return (
@@ -59,29 +57,19 @@ export default function Edit() {
 								onSubmit={handleSubmit(onSubmit)}
 								className="space-y-4 md:space-y-6"
 							>
-								{FORM_ITEMS.map((item) =>
-									item.type != 'radio' ? (
-										<InputForm
-											key={item.name}
-											label={item.label}
-											type={item.type}
-											name={item.name}
-											register={register}
-											errors={errors}
-											error_message={item.error_message}
-										/>
-									) : (
-										<InputRadioForm
-											key={item.name}
-											label={item.label}
-											name={item.name}
-											register={register}
-											errors={errors}
-											error_message={item.error_message}
-										/>
-									)
-								)}
+								{CARRY_OVER_FORM_ITEMS.map((item) => (
+									<InputForm
+										key={item.name}
+										label={item.label}
+										type={item.type}
+										name={item.name}
+										register={register}
+										errors={errors}
+										error_message={item.error_message}
+									/>
+								))}
 								<Button
+									submit
 									block
 									rounded
 									color="blue"

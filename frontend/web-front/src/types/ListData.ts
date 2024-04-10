@@ -1,4 +1,4 @@
-type Data = {
+type ListData = {
 	id: number;
 	update: string;
 	date: number;

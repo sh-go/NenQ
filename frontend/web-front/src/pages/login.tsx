@@ -11,7 +11,7 @@ export default function Login() {
 	const formItems: {
 		label: string;
 		type: string;
-		name: string;
+		name: 'email' | 'password';
 		error_message: string;
 	}[] = [
 		{

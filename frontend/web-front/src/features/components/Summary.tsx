@@ -1,11 +1,14 @@
-import axios from 'axios';
-import { NextResponse } from 'next/server';
+import { useRouter } from 'next/router';
+import { FiEdit } from 'react-icons/fi';
 
 type Props = {
-	data: SummaryData;
+	summaryData: SummaryData;
+	carryOverData: CarryOverData;
 };
 
-export const Summary = ({ data }: Props) => {
+export const Summary = ({ summaryData, carryOverData }: Props) => {
+	const router = useRouter();
+
 	return (
 		<div className="flex flex-col">
 			<div className="-m-1.5 overflow-x-auto">
@@ -18,26 +21,62 @@ export const Summary = ({ data }: Props) => {
 										scope="col"
 										className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
 									>
+										繰り越し
+										<span className="mx-1">
+											<button
+												type="submit"
+												onClick={() =>
+													router.push(
+														{
+															pathname: '/update_carryover',
+															query: {
+																id: carryOverData.id,
+																date: carryOverData.date,
+																hour: carryOverData.hour,
+																min: carryOverData.min,
+															},
+														},
+														'update_carryover'
+													)
+												}
+											>
+												<FiEdit
+													size="1.3em"
+													className="text-gray-500 hover:fill-gray-400"
+												/>
+											</button>
+										</span>
+									</th>
+									<th
+										scope="col"
+										className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+									>
 										取得済み
 									</th>
 									<th
 										scope="col"
 										className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
 									>
-										残り
+										利用可能
 									</th>
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-200 dark:divide-gray-700">
 								<tr>
 									<td className="px-6 py-4 whitespace-nowrap text-center text-3xl text-gray-700 dark:text-gray-200">
-										{data.used_date}日<span className="text-xl"> と </span>
-										{data.used_hour}時間{data.used_min}分
+										{carryOverData.date}日<span className="text-xl"> と </span>
+										{carryOverData.hour}時間{carryOverData.min}分
 									</td>
 									<td className="px-6 py-4 whitespace-nowrap text-center text-3xl text-gray-700 dark:text-gray-200">
-										{data.remain_date}日<span className="text-xl"> と </span>
-										{data.remain_hour}時間
-										{data.remain_min}分
+										{summaryData.used_date}日
+										<span className="text-xl"> と </span>
+										{summaryData.used_hour}時間{summaryData.used_min}分
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-center text-3xl text-gray-700 dark:text-gray-200">
+										{summaryData.remain_date}日
+										<span className="text-xl"> と </span>
+										{summaryData.remain_hour}時間
+										{summaryData.remain_min}分
 									</td>
 								</tr>
 							</tbody>

@@ -4,13 +4,16 @@ import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 type Props = {
 	label: string;
 	type: string;
-	name: 'update' | 'date' | 'hour' | 'text';
-	register: UseFormRegister<{
-		update: string | string[];
-		date: number;
-		hour: number;
-		text: string | string[];
-	}>;
+	name:
+		| 'email'
+		| 'password'
+		| 'update'
+		| 'date'
+		| 'hour'
+		| 'min'
+		| 'text'
+		| 'carry_over';
+	register: UseFormRegister<FieldValues>;
 	errors: FieldErrors<FieldValues>;
 	error_message: string;
 };

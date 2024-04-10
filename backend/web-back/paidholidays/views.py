@@ -15,7 +15,7 @@ from rest_framework_simplejwt import tokens as jwt_tokens
 from rest_framework_simplejwt import views as jwt_views
 
 from .models import CarryOver, PaidHolidays
-from .serializers import PaidHolidaysSerializer
+from .serializers import CarryOverSerializer, PaidHolidaysSerializer
 
 sys.path.append("../")
 from users.serializers import RegisterSerializer, UserSerializer
@@ -27,11 +27,15 @@ def get_summary_data(request):
         sum_input_date=Coalesce(Sum("date"), 0), sum_input_hour=Coalesce(Sum("hour"), 0)
     )
 
-    carry = CarryOver.objects.first()
+    carry = CarryOver.objects.filter(user=request.user).first()
     if carry is None:
-        carry_over_data = 0
+        carry_over_date = 0
+        carry_over_hour = 0
+        carry_over_min = 0
     else:
-        carry_over_data = carry.carry_over
+        carry_over_date = carry.date
+        carry_over_hour = carry.hour
+        carry_over_min = carry.min
 
     summary_dict["sum_input_all"] = (
         summary_dict["sum_input_date"] * 31 + summary_dict["sum_input_hour"] * 4
@@ -40,8 +44,8 @@ def get_summary_data(request):
     summary_dict["used_hour"] = (summary_dict["sum_input_all"] % 31) // 4
     summary_dict["used_min"] = (summary_dict["sum_input_all"] % 31) % 4 * 15
 
-    init = 20 + carry_over_data
-    summary_dict["remain_15min"] = init * 31 - summary_dict["sum_input_all"]
+    init = (20 + carry_over_date) * 31 + carry_over_hour * 4 + carry_over_min
+    summary_dict["remain_15min"] = init - summary_dict["sum_input_all"]
     summary_dict["remain_date"] = summary_dict["remain_15min"] // 31
     summary_dict["remain_hour"] = (summary_dict["remain_15min"] % 31) // 4
     summary_dict["remain_min"] = (summary_dict["remain_15min"] % 31) % 4 * 15
@@ -70,14 +74,16 @@ class UpdatePaidHolidays(generics.views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def patch(self, request, pk):
-        data = PaidHolidays.objects.filter(id=pk).first()
+        db_data = PaidHolidays.objects.filter(id=pk).first()
 
-        if not data:
+        if not db_data:
             return Response(
                 {"message": "No data found"}, status=status.HTTP_404_NOT_FOUND
             )
 
-        serializer = PaidHolidaysSerializer(data, data=request.data, partial=True)
+        serializer = PaidHolidaysSerializer(
+            instance=db_data, data=request.data, partial=True
+        )
 
         if serializer.is_valid():
             serializer.save()
@@ -93,41 +99,33 @@ class DeletePaidHolidays(generics.DestroyAPIView):
     serializer_class = PaidHolidaysSerializer
 
 
-class TokenObtainView(jwt_views.TokenObtainPairView):
-    # Token発行
-    def post(self, request, *args, **kwargs):
-        # 任意のSerializerを引っ張ってくる(今回はTokenObtainPairViewで使われているserializers.TokenObtainPairSerializer)
-        serializer = self.get_serializer(data=request.data)
+class GetCarryOver(generics.views.APIView):
+    def get(self, request, format=None):
+        data = CarryOver.objects.filter(user=request.user).first()
+        serializer = CarryOverSerializer(data)
+        return Response(serializer.data)
 
-        try:
-            serializer.is_valid(raise_exception=True)
 
-        except jwt_exp.TokenError as e:
-            raise jwt_exp.InvalidToken(e.args[0])
+class UpdateCarryOver(generics.views.APIView):
+    def patch(self, request):
+        db_data = CarryOver.objects.filter(user=request.user).first()
 
-        res = Response(serializer.validated_data, status=status.HTTP_200_OK)
+        if not db_data:
+            return Response(
+                {"message": "No data found"}, status=status.HTTP_404_NOT_FOUND
+            )
 
-        try:
-            res.delete_cookie("access_token")
-        except Exception as e:
-            Response(e)
-
-        # CookieヘッダーにTokenをセットする
-        res.set_cookie(
-            "access_token",
-            serializer.validated_data["access"],
-            max_age=60 * 1,  # 2分
-            httponly=True,
-        )
-        res.set_cookie(
-            "refresh_token",
-            serializer.validated_data["refresh"],
-            max_age=60 * 1,  # 6分
-            httponly=True,
+        serializer = CarryOverSerializer(
+            instance=db_data, data=request.data, partial=True
         )
 
-        # 最終的にはaccess_tokenとrefresh_tokenを返してもらう
-        return res
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "Update successfully"}, status=status.HTTP_202_ACCEPTED
+            )
+        else:
+            return Response({"message": "failed"}, status=serializer.errors)
 
 
 class UserRegisterView(generics.CreateAPIView):
@@ -179,6 +177,43 @@ class UserAPIView(generics.views.APIView):
         return Response(
             {"error": "user is not active"}, status=status.HTTP_400_BAD_REQUEST
         )
+
+
+class TokenObtainView(jwt_views.TokenObtainPairView):
+    # Token発行
+    def post(self, request, *args, **kwargs):
+        # 任意のSerializerを引っ張ってくる(今回はTokenObtainPairViewで使われているserializers.TokenObtainPairSerializer)
+        serializer = self.get_serializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+
+        except jwt_exp.TokenError as e:
+            raise jwt_exp.InvalidToken(e.args[0])
+
+        res = Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+        try:
+            res.delete_cookie("access_token")
+        except Exception as e:
+            Response(e)
+
+        # CookieヘッダーにTokenをセットする
+        res.set_cookie(
+            "access_token",
+            serializer.validated_data["access"],
+            max_age=60 * 1,  # 2分
+            httponly=True,
+        )
+        res.set_cookie(
+            "refresh_token",
+            serializer.validated_data["refresh"],
+            max_age=60 * 1,  # 6分
+            httponly=True,
+        )
+
+        # 最終的にはaccess_tokenとrefresh_tokenを返してもらう
+        return res
 
 
 @api_view(["GET"])

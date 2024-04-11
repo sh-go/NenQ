@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 import { Section } from '../components/layouts/Section';
 import useRequireLogin from '../features/hooks/useRequireLogin';
+import Button from '../components/elements/Button';
 
 export default function CreateUser() {
 	const { currentUser } = useRequireLogin();
@@ -13,7 +14,7 @@ export default function CreateUser() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { isDirty, isValid, errors },
 		getValues,
 		trigger,
 	} = useForm({ reValidateMode: 'onSubmit' });
@@ -154,12 +155,16 @@ export default function CreateUser() {
 										message ? <p className="text-rose-500">{message}</p> : null
 									}
 								/>
-								<button
-									type="submit"
-									className="w-full text-white bg-sky-800 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+								<Button
+									submit
+									block
+									rounded
+									color="blue"
+									disabled={!isDirty}
+									className="px-5 py-2.5"
 								>
-									登録
-								</button>
+									作成
+								</Button>
 							</form>
 						</div>
 					</div>

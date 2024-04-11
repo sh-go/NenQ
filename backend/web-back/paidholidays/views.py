@@ -135,7 +135,6 @@ class UserRegisterView(generics.CreateAPIView):
 
     @transaction.atomic
     def post(self, request):
-        print(request.data)
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -259,7 +258,8 @@ class TokenRefresh(jwt_views.TokenRefreshView):
 
 
 class LogoutView(generics.views.APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = ()
+    authentication_classes = ()
 
     def post(self, request):
         refresh_token = request.COOKIES.get("refresh_token")

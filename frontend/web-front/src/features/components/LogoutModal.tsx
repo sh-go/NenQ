@@ -1,13 +1,5 @@
-import {
-	Dispatch,
-	Fragment,
-	MutableRefObject,
-	SetStateAction,
-	useRef,
-	useState,
-} from 'react';
+import { Dispatch, Fragment, MutableRefObject, SetStateAction } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import deleteApi from '../api/deleteApi';
 import logoutUser from '../api/logoutUser';
 import { useRouter } from 'next/router';
 

@@ -82,6 +82,7 @@ export default function Edit() {
 									)
 								)}
 								<Button
+									submit
 									block
 									rounded
 									color="blue"

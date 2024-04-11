@@ -44,7 +44,7 @@ def get_summary_data(request):
     summary_dict["used_hour"] = (summary_dict["sum_input_all"] % 31) // 4
     summary_dict["used_min"] = (summary_dict["sum_input_all"] % 31) % 4 * 15
 
-    init = (20 + carry_over_date) * 31 + carry_over_hour * 4 + carry_over_min
+    init = (20 + carry_over_date) * 31 + carry_over_hour * 4 + carry_over_min // 15
     summary_dict["remain_15min"] = init - summary_dict["sum_input_all"]
     summary_dict["remain_date"] = summary_dict["remain_15min"] // 31
     summary_dict["remain_hour"] = (summary_dict["remain_15min"] % 31) // 4

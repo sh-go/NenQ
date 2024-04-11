@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import { Section } from '../components/layouts/Section';
 import { InputForm } from '../components/elements/InputForm';
@@ -16,7 +16,13 @@ export default function Create() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ reValidateMode: 'onSubmit' });
+	} = useForm({
+		defaultValues: {
+			date: 0,
+			hour: 0,
+		} as FieldValues,
+		reValidateMode: 'onSubmit',
+	});
 
 	const onSubmit = async (data) => {
 		const uuid = await axios

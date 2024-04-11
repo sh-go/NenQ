@@ -7,6 +7,7 @@ import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
 import { FORM_ITEMS } from '../const/FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
+import Button from '../components/elements/Button';
 
 export default function Create() {
 	const { currentUser } = useRequireLogin();
@@ -15,7 +16,7 @@ export default function Create() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { isDirty, isValid, errors },
 	} = useForm({
 		defaultValues: {
 			date: 0,
@@ -92,12 +93,16 @@ export default function Create() {
 										/>
 									)
 								)}
-								<button
-									type="submit"
-									className="w-full text-white bg-sky-800 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+								<Button
+									submit
+									block
+									rounded
+									color="blue"
+									disabled={!isDirty || !isValid}
+									className="px-5 py-2.5"
 								>
-									登録
-								</button>
+									更新
+								</Button>
 							</form>
 						</div>
 					</div>

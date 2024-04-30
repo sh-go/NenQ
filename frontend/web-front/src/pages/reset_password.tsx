@@ -41,7 +41,7 @@ export default function ResetPassword() {
 		<Section>
 			<div className="relative flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 				{passwordError && (
-					<div className="absolute top-20 left-72 z-10 flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+					<div className="absolute top-14 left-72 z-10 flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
 						<GoAlertFill className="flex-shrink-0 w-6 h-6" aria-hidden="true" />
 						<span className="sr-only">Info</span>
 						<div className="ms-3 text-sm font-medium">{passwordError}</div>
@@ -77,6 +77,12 @@ export default function ResetPassword() {
 									pattern: {
 										value: /^(?=.*[a-zA-Z])(?=.*\d).{8,20}$/,
 										message: '8〜20文字の半角英数字で入力してください',
+									},
+									onBlur: () => {
+										if (getValues('password')) {
+											trigger('password');
+											setPasswordError(null);
+										}
 									},
 								})}
 								className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

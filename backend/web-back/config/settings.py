@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "corsheaders",  # 追加
     "paidholidays.apps.PaidHolidaysConfig",  # 追加
     "users",  # 追加
+    "django_rest_passwordreset",  # 追加
 ]
 
 AUTH_USER_MODEL = "users.User"  # 追加
@@ -71,7 +72,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR, "templates/"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -180,3 +181,13 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:3000",
 ]
+
+# 追加
+# Email Backend Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Replace with your preferred backend
+
+EMAIL_PORT = 587  # Replace with your email port
+EMAIL_USE_TLS = True  # Set to False if your email server doesn't use TLS
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host for gmail -> 'smtp.gmail.com'
+EMAIL_HOST_USER = 'alive.vb.s2@gmail.com'  # Replace with your email username
+EMAIL_HOST_PASSWORD = 'cdxeyllljqklukrc'  # Replace with your email password

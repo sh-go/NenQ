@@ -2,7 +2,7 @@ import sys
 
 import jwt
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.db import transaction
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
@@ -15,7 +15,11 @@ from rest_framework_simplejwt import tokens as jwt_tokens
 from rest_framework_simplejwt import views as jwt_views
 
 from .models import CarryOver, PaidHolidays
-from .serializers import CarryOverSerializer, PaidHolidaysSerializer
+from .serializers import (
+    CarryOverSerializer,
+    ChangePasswordSerializer,
+    PaidHolidaysSerializer,
+)
 
 sys.path.append("../")
 from users.serializers import RegisterSerializer, UserSerializer
@@ -280,3 +284,23 @@ class LogoutView(generics.views.APIView):
             return res
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
+def change_password(request):
+    serializer = ChangePasswordSerializer(data=request.data)
+
+    if serializer.is_valid():
+        user = request.user
+        if user.check_password(serializer.data.get("old_password")):
+            user.set_password(serializer.data.get("new_password"))
+            user.save()
+            update_session_auth_hash(request, user)
+            return Response(
+                {"message": "Password changed successfully"}, status=status.HTTP_200_OK
+            )
+        return Response(
+            {"error": "Old password is not correct"}, status=status.HTTP_400_BAD_REQUEST
+        )
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

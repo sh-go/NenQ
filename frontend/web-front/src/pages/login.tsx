@@ -77,13 +77,15 @@ export default function Login() {
 									error_message={item.error_message}
 								/>
 							))}
-							<div className="text-right">
-								<a
-									href="#"
-									className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+							<div className="text-sm text-right text-gray-500 dark:text-gray-400">
+								<span
+									onClick={() => {
+										router.push('/forgot_password');
+									}}
+									className="font-medium text-primary-600 underline hover:cursor-pointer hover:text-sky-800 dark:text-primary-500"
 								>
 									パスワードを忘れた場合
-								</a>
+								</span>
 							</div>
 							<button
 								type="submit"
@@ -91,7 +93,7 @@ export default function Login() {
 							>
 								ログイン
 							</button>
-							<p className="text-sm font-light text-gray-500 dark:text-gray-400">
+							<p className="text-sm text-right font-light text-gray-500 dark:text-gray-400">
 								アカウント作成は
 								<span
 									onClick={() => router.push('/create_user')}

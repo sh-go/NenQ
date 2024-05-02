@@ -6,25 +6,22 @@ import { useRouter } from 'next/router';
 
 import { Section } from '../components/layouts/Section';
 import Button from '../components/elements/Button';
-import { IoCloseOutline } from 'react-icons/io5';
 import { GoAlertFill } from 'react-icons/go';
 
 export default function ResetPassword() {
 	const router = useRouter();
+	const [passwordError, setPasswordError] = useState(null);
 
 	const {
 		register,
 		handleSubmit,
-		formState: { isDirty, isValid, errors },
+		formState: { isDirty, errors },
 		getValues,
 		trigger,
 	} = useForm({ reValidateMode: 'onSubmit' });
 
-	const [passwordError, setPasswordError] = useState(null);
-
 	const onSubmit = async (data) => {
 		const postData = { password: data.password, token: router.query.token };
-		setPasswordError('');
 		await axios
 			.post('http://localhost:8080/api/password_reset/confirm/', postData, {
 				headers: {
@@ -47,7 +44,6 @@ export default function ResetPassword() {
 						<div className="ms-3 text-sm font-medium">{passwordError}</div>
 					</div>
 				)}
-
 				<a
 					onClick={() => router.push('/')}
 					className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -91,7 +87,7 @@ export default function ResetPassword() {
 								errors={errors}
 								name="password"
 								render={({ message }) => (
-									<p className="text-rose-400">{message}</p>
+									<p className="text-sm text-rose-400">{message}</p>
 								)}
 							/>
 							<label
@@ -122,7 +118,7 @@ export default function ResetPassword() {
 								errors={errors}
 								name="password_confirmmation"
 								render={({ message }) => (
-									<p className="text-rose-400">{message}</p>
+									<p className="text-sm text-rose-400">{message}</p>
 								)}
 							/>
 							<Button

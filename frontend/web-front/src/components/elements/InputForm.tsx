@@ -16,6 +16,7 @@ type Props = {
 	register: UseFormRegister<FieldValues>;
 	errors: FieldErrors<FieldValues>;
 	error_message: string;
+	showErrorMessage: boolean;
 };
 
 export const InputForm = ({
@@ -25,6 +26,7 @@ export const InputForm = ({
 	register,
 	errors,
 	error_message,
+	showErrorMessage = true,
 }: Props) => {
 	return (
 		<div>
@@ -44,11 +46,15 @@ export const InputForm = ({
 				})}
 				className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 			/>
-			<ErrorMessage
-				errors={errors}
-				name={name}
-				render={({ message }) => <p className="text-rose-500">{message}</p>}
-			/>
+			{showErrorMessage && (
+				<ErrorMessage
+					errors={errors}
+					name={name}
+					render={({ message }) => (
+						<p className="text-sm text-rose-400">{message}</p>
+					)}
+				/>
+			)}
 		</div>
 	);
 };

@@ -4,9 +4,12 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Section } from '../components/layouts/Section';
 import { InputForm } from '../components/elements/InputForm';
+import { useState } from 'react';
+import { GoAlertFill } from 'react-icons/go';
 
 export default function Login() {
 	const router = useRouter();
+	const [loginError, setLoginError] = useState(null);
 
 	const formItems: {
 		label: string;
@@ -35,6 +38,7 @@ export default function Login() {
 	} = useForm({ reValidateMode: 'onSubmit' });
 
 	const onSubmit = async (data) => {
+		setLoginError(null);
 		await axios
 			.post('http://localhost:8080/api/token', data, {
 				headers: {
@@ -45,15 +49,25 @@ export default function Login() {
 			.then((res) => {
 				router.push('/');
 			})
-			.catch((e) => console.log(`error: ${e}`));
+			.catch((e) => {
+				if (e.response.status === 401)
+					setLoginError('メールアドレスまたはパスワードが間違っています。');
+			});
 	};
 
 	return (
 		<Section>
-			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<div className="relative flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+				{loginError && (
+					<div className="flex items-center p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+						<GoAlertFill className="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+						<span className="sr-only">Info</span>
+						<div className="ms-3 text-sm">{loginError}</div>
+					</div>
+				)}
 				<a
-					href="#"
 					className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+					onClick={() => router.push('/')}
 				>
 					NenQ
 				</a>
@@ -75,6 +89,7 @@ export default function Login() {
 									register={register}
 									errors={errors}
 									error_message={item.error_message}
+									showErrorMessage={false}
 								/>
 							))}
 							<div className="text-sm text-right text-gray-500 dark:text-gray-400">

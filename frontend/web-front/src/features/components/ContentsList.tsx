@@ -1,6 +1,6 @@
-import { FiEdit, FiTrash } from 'react-icons/fi';
-import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import React, { useRef, useState } from 'react';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 import Modal from './DeleteModal';
 
 type Props = {
@@ -20,31 +20,31 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 					<tr>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
 							日付
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
 							取得日数
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
 							取得時間
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
 							種別
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+							className="px-6 py-3 text-right text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						></th>
 					</tr>
 				</thead>
@@ -53,16 +53,16 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 						return (
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
-									<td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-xl font-medium text-gray-700 dark:text-gray-200">
 										{item.update}
 									</td>
-									<td className="px-6 py-4 whitespace-nowrap text-xl text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-xl text-gray-700 dark:text-gray-200">
 										{item.date}
 									</td>
-									<td className="px-6 py-4 whitespace-nowrap text-xl text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-xl text-gray-700 dark:text-gray-200">
 										{item.hour}
 									</td>
-									<td className="px-6 py-4 whitespace-nowrap text-lg text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-lg text-gray-700 dark:text-gray-200">
 										{item.text}
 									</td>
 									<td className="float-right flex px-6 py-4">
@@ -84,7 +84,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												)
 											}
 										>
-											<FiEdit className="w-2 h-2 mx-1 text-gray-500 hover:fill-gray-400" />
+											<FiEdit className="mx-1 size-2 text-gray-500 hover:fill-gray-400" />
 										</button>
 										<button
 											type="submit"
@@ -93,7 +93,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												setOpen(true);
 											}}
 										>
-											<FiTrash className="w-2 h-2 mx-1 text-gray-500 hover:fill-gray-400" />
+											<FiTrash className="mx-1 size-2 text-gray-500 hover:fill-gray-400" />
 										</button>
 									</td>
 								</tr>

@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { Section } from '../components/layouts/Section';
-import Button from '../components/elements/Button';
 import { GoAlertFill } from 'react-icons/go';
+import Button from '../components/elements/Button';
+import { Section } from '../components/layouts/Section';
 
 export default function ResetPassword() {
 	const router = useRouter();
@@ -36,23 +36,23 @@ export default function ResetPassword() {
 
 	return (
 		<Section>
-			<div className="relative flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<div className="relative mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 				{passwordError && (
-					<div className="absolute top-14 left-72 z-10 flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-						<GoAlertFill className="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+					<div className="absolute left-72 top-14 z-10 mb-4 flex items-center rounded-lg bg-red-50 p-4 text-red-800 dark:bg-gray-800 dark:text-red-400">
+						<GoAlertFill className="size-6 shrink-0" aria-hidden="true" />
 						<span className="sr-only">Info</span>
 						<div className="ms-3 text-sm font-medium">{passwordError}</div>
 					</div>
 				)}
 				<a
 					onClick={() => router.push('/')}
-					className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+					className="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
 				>
 					NenQ
 				</a>
-				<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-					<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-						<h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+				<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
+					<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
+						<h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
 							パスワードをリセット
 						</h1>
 						<div className="text-center">{router.query.username}さん</div>
@@ -62,7 +62,7 @@ export default function ResetPassword() {
 						>
 							<label
 								htmlFor="password"
-								className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 							>
 								新しいパスワード
 							</label>
@@ -81,7 +81,7 @@ export default function ResetPassword() {
 										}
 									},
 								})}
-								className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -92,7 +92,7 @@ export default function ResetPassword() {
 							/>
 							<label
 								htmlFor="password_confirmmation"
-								className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 							>
 								確認用パスワード
 							</label>
@@ -112,7 +112,7 @@ export default function ResetPassword() {
 										}
 									},
 								})}
-								className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}

@@ -12,14 +12,14 @@ export const Summary = ({ summaryData, carryOverData }: Props) => {
 	return (
 		<div className="flex flex-col">
 			<div className="-m-1.5 overflow-x-auto">
-				<div className="p-1.5 min-w-full inline-block align-middle">
-					<div className="border rounded-lg overflow-hidden dark:border-gray-700">
+				<div className="inline-block min-w-full p-1.5 align-middle">
+					<div className="overflow-hidden rounded-lg border dark:border-gray-700">
 						<table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
 							<thead className="bg-gray-50 dark:bg-gray-700">
 								<tr>
 									<th
 										scope="col"
-										className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+										className="px-6 py-3 text-center text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 									>
 										繰り越し
 										<span className="mx-1">
@@ -49,13 +49,13 @@ export const Summary = ({ summaryData, carryOverData }: Props) => {
 									</th>
 									<th
 										scope="col"
-										className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+										className="px-6 py-3 text-center text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 									>
 										取得済み
 									</th>
 									<th
 										scope="col"
-										className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+										className="px-6 py-3 text-center text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 									>
 										利用可能
 									</th>
@@ -63,16 +63,16 @@ export const Summary = ({ summaryData, carryOverData }: Props) => {
 							</thead>
 							<tbody className="divide-y divide-gray-200 dark:divide-gray-700">
 								<tr>
-									<td className="px-6 py-4 whitespace-nowrap text-center text-3xl text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-3xl text-gray-700 dark:text-gray-200">
 										{carryOverData.date}日<span className="text-xl"> と </span>
 										{carryOverData.hour}時間{carryOverData.min}分
 									</td>
-									<td className="px-6 py-4 whitespace-nowrap text-center text-3xl text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-3xl text-gray-700 dark:text-gray-200">
 										{summaryData.used_date}日
 										<span className="text-xl"> と </span>
 										{summaryData.used_hour}時間{summaryData.used_min}分
 									</td>
-									<td className="px-6 py-4 whitespace-nowrap text-center text-3xl text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-3xl text-gray-700 dark:text-gray-200">
 										{summaryData.remain_date}日
 										<span className="text-xl"> と </span>
 										{summaryData.remain_hour}時間

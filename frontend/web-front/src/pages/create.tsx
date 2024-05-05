@@ -2,12 +2,12 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { FieldValues, useForm } from 'react-hook-form';
 
-import { Section } from '../components/layouts/Section';
+import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
+import { Section } from '../components/layouts/Section';
 import { FORM_ITEMS } from '../const/FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
-import Button from '../components/elements/Button';
 
 export default function Create() {
 	const { currentUser } = useRequireLogin();
@@ -55,16 +55,16 @@ export default function Create() {
 		currentUser != undefined &&
 		currentUser.isLogin && (
 			<Section>
-				<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+				<div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 					<a
 						href="#"
-						className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+						className="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
 					>
 						NenQ
 					</a>
-					<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-						<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-							<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+					<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
+						<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
+							<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
 								登録
 							</h1>
 							<form
@@ -80,7 +80,7 @@ export default function Create() {
 											name={item.name}
 											register={register}
 											errors={errors}
-											error_message={item.error_message}
+											errorMessage={item.error_message}
 										/>
 									) : (
 										<InputRadioForm
@@ -89,7 +89,7 @@ export default function Create() {
 											name={item.name}
 											register={register}
 											errors={errors}
-											error_message={item.error_message}
+											errorMessage={item.error_message}
 										/>
 									)
 								)}

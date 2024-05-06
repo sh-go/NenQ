@@ -34,13 +34,13 @@ export default function CreateUser() {
 			<div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 				<a
 					onClick={() => router.push('/')}
-					className="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
+					className="mb-6 flex items-center text-2xl font-semibold"
 				>
 					NenQ
 				</a>
 				<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
 					<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
-						<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
+						<h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
 							ユーザー登録
 						</h1>
 						<form
@@ -49,7 +49,7 @@ export default function CreateUser() {
 						>
 							<label
 								htmlFor="username"
-								className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium"
 							>
 								ユーザー名
 							</label>
@@ -62,7 +62,7 @@ export default function CreateUser() {
 										message: '20文字以下で入力してください',
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -71,10 +71,7 @@ export default function CreateUser() {
 									<p className="text-sm text-rose-500">{message}</p>
 								)}
 							/>
-							<label
-								htmlFor="email"
-								className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-							>
+							<label htmlFor="email" className="mb-2 block text-sm font-medium">
 								メールアドレス
 							</label>
 							<input
@@ -87,7 +84,7 @@ export default function CreateUser() {
 										message: '有効なメールアドレスではありません',
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -98,7 +95,7 @@ export default function CreateUser() {
 							/>
 							<label
 								htmlFor="password"
-								className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium"
 							>
 								パスワード
 							</label>
@@ -116,7 +113,7 @@ export default function CreateUser() {
 										message: '8〜20文字の半角英数字で入力してください',
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -127,7 +124,7 @@ export default function CreateUser() {
 							/>
 							<label
 								htmlFor="password_confirmmation"
-								className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium"
 							>
 								確認用パスワード
 							</label>
@@ -142,7 +139,7 @@ export default function CreateUser() {
 										);
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}

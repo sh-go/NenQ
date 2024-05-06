@@ -20,15 +20,13 @@ export const InputRadioForm = ({
 }: Props) => {
 	return (
 		<div>
-			<label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-				{label}
-			</label>
+			<label className="mb-2 block text-sm font-medium">{label}</label>
 
 			<div className="text-center">
 				{RADIO_OPTIONS.map((item) => (
 					<label
 						key={item.label}
-						className="w-full p-5 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+						className="w-full p-5 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 					>
 						<input
 							type="radio"

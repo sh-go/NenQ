@@ -84,7 +84,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												)
 											}
 										>
-											<FiEdit className="mx-1 size-2 text-gray-500 hover:fill-gray-400" />
+											<FiEdit className="mx-1 size-6 text-gray-500 hover:fill-gray-400" />
 										</button>
 										<button
 											type="submit"
@@ -93,7 +93,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												setOpen(true);
 											}}
 										>
-											<FiTrash className="mx-1 size-2 text-gray-500 hover:fill-gray-400" />
+											<FiTrash className="mx-1 size-6 text-gray-500 hover:fill-gray-400" />
 										</button>
 									</td>
 								</tr>

@@ -1,3 +1,3 @@
-GRANT ALL PRIVILEGES ON test_paidholidaysList.* TO 'user'@'%';
+GRANT ALL PRIVILEGES ON DATABASE paidholidaysList TO user;
 
 FLUSH PRIVILEGES

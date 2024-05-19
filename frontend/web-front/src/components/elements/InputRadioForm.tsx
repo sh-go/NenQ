@@ -8,7 +8,7 @@ type Props = {
 	name: 'update' | 'date' | 'hour' | 'text';
 	register: UseFormRegister<FieldValues>;
 	errors: FieldErrors<FieldValues>;
-	error_message: string;
+	errorMessage: string;
 };
 
 export const InputRadioForm = ({
@@ -16,19 +16,17 @@ export const InputRadioForm = ({
 	name,
 	register,
 	errors,
-	error_message,
+	errorMessage,
 }: Props) => {
 	return (
 		<div>
-			<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-				{label}
-			</label>
+			<label className="mb-2 block text-sm font-medium">{label}</label>
 
 			<div className="text-center">
 				{RADIO_OPTIONS.map((item) => (
 					<label
 						key={item.label}
-						className="sm:text-sm focus:ring-primary-600 focus:border-primary-600 w-full p-5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="w-full p-5 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 					>
 						<input
 							type="radio"
@@ -38,7 +36,7 @@ export const InputRadioForm = ({
 							{...register(name, {
 								required: {
 									value: true,
-									message: error_message,
+									message: errorMessage,
 								},
 							})}
 						/>

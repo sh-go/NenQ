@@ -1,14 +1,12 @@
-import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 
-import { Section } from '../components/layouts/Section';
-import useRequireLogin from '../features/hooks/useRequireLogin';
 import Button from '../components/elements/Button';
+import { Section } from '../components/layouts/Section';
 
 export default function CreateUser() {
-	const { currentUser } = useRequireLogin();
 	const router = useRouter();
 
 	const {
@@ -33,16 +31,16 @@ export default function CreateUser() {
 
 	return (
 		<Section>
-			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 				<a
 					onClick={() => router.push('/')}
-					className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+					className="mb-6 flex items-center text-2xl font-semibold"
 				>
 					NenQ
 				</a>
-				<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-					<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-						<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+				<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
+					<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
+						<h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
 							ユーザー登録
 						</h1>
 						<form
@@ -51,7 +49,7 @@ export default function CreateUser() {
 						>
 							<label
 								htmlFor="username"
-								className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium"
 							>
 								ユーザー名
 							</label>
@@ -64,7 +62,7 @@ export default function CreateUser() {
 										message: '20文字以下で入力してください',
 									},
 								})}
-								className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -73,10 +71,7 @@ export default function CreateUser() {
 									<p className="text-sm text-rose-500">{message}</p>
 								)}
 							/>
-							<label
-								htmlFor="email"
-								className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-							>
+							<label htmlFor="email" className="mb-2 block text-sm font-medium">
 								メールアドレス
 							</label>
 							<input
@@ -89,7 +84,7 @@ export default function CreateUser() {
 										message: '有効なメールアドレスではありません',
 									},
 								})}
-								className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -100,7 +95,7 @@ export default function CreateUser() {
 							/>
 							<label
 								htmlFor="password"
-								className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium"
 							>
 								パスワード
 							</label>
@@ -118,7 +113,7 @@ export default function CreateUser() {
 										message: '8〜20文字の半角英数字で入力してください',
 									},
 								})}
-								className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -129,7 +124,7 @@ export default function CreateUser() {
 							/>
 							<label
 								htmlFor="password_confirmmation"
-								className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+								className="mb-2 block text-sm font-medium"
 							>
 								確認用パスワード
 							</label>
@@ -144,7 +139,7 @@ export default function CreateUser() {
 										);
 									},
 								})}
-								className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 							/>
 							<ErrorMessage
 								errors={errors}

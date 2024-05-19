@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
 import { IoIosLogOut } from 'react-icons/io';
 
-import getApi from '../features/api/getApi';
-import { Section } from '../components/layouts/Section';
 import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButton';
-import { Summary } from '../features/components/Summary';
-import { ContentsList } from '../features/components/ContentsList';
-import getSummary from '../features/api/getSummary';
-import LogoutModal from '../features/components/LogoutModal';
+import { Section } from '../components/layouts/Section';
+import getApi from '../features/api/getApi';
 import getCarryOver from '../features/api/getCarryOver';
+import getSummary from '../features/api/getSummary';
+import { ContentsList } from '../features/components/ContentsList';
+import LogoutModal from '../features/components/LogoutModal';
+import { Summary } from '../features/components/Summary';
 
 export async function getServerSideProps(context) {
 	const apiData = await getApi(context.req.cookies);
@@ -40,7 +40,7 @@ export default function Home({ api, summary, carryOver }) {
 					<div className="text-3xl dark:text-gray-200">
 						NenQ <span className="text-sm">ー年休管理アプリー</span>
 					</div>
-					<div className="px-2 flex gap-3">
+					<div className="flex gap-3 px-2">
 						<div>
 							<ChangeDarkModeButton />
 						</div>
@@ -55,17 +55,17 @@ export default function Home({ api, summary, carryOver }) {
 				<hr className="border-gray-500" />
 				<br />
 
-				<p className="px-2 mb-2 text-gray-500 dark:text-gray-400">取得状況</p>
+				<p className="mb-2 px-2 text-gray-500 dark:text-gray-400">取得状況</p>
 				<Summary summaryData={summary} carryOverData={carryOver} />
 				<br />
 				<hr className="border-gray-500" />
 				<br />
 
-				<p className="px-2 mb-2 text-gray-500 dark:text-gray-400">年休一覧</p>
+				<p className="mb-2 px-2 text-gray-500 dark:text-gray-400">年休一覧</p>
 				<ContentsList data={api} />
 				<div className="fixed bottom-12 right-16">
 					<button
-						className="bg-rose-700 hover:bg-rose-800 text-gray-300 font-bold py-2 px-4 rounded-full shadow-lg"
+						className="rounded-full bg-rose-700 px-4 py-2 font-bold text-gray-300 shadow-lg hover:bg-rose-800"
 						onClick={() => router.push('/create')}
 					>
 						＋

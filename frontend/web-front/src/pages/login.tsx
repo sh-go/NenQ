@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import { Section } from '../components/layouts/Section';
-import { InputForm } from '../components/elements/InputForm';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { GoAlertFill } from 'react-icons/go';
+import Button from '../components/elements/Button';
+import { InputForm } from '../components/elements/InputForm';
+import { Section } from '../components/layouts/Section';
 
 export default function Login() {
 	const router = useRouter();
@@ -34,7 +34,7 @@ export default function Login() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isDirty },
 	} = useForm({ reValidateMode: 'onSubmit' });
 
 	const onSubmit = async (data) => {
@@ -57,23 +57,23 @@ export default function Login() {
 
 	return (
 		<Section>
-			<div className="relative flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<div className="relative mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 				{loginError && (
-					<div className="flex items-center p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
-						<GoAlertFill className="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+					<div className="flex items-center rounded-lg bg-red-50 p-4 text-red-800 dark:bg-gray-800 dark:text-red-400">
+						<GoAlertFill className="size-6 shrink-0" aria-hidden="true" />
 						<span className="sr-only">Info</span>
 						<div className="ms-3 text-sm">{loginError}</div>
 					</div>
 				)}
 				<a
-					className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+					className="mb-6 flex items-center text-2xl font-semibold"
 					onClick={() => router.push('/')}
 				>
 					NenQ
 				</a>
-				<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-					<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-						<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+				<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
+					<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
+						<h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
 							ログイン
 						</h1>
 						<form
@@ -88,31 +88,35 @@ export default function Login() {
 									name={item.name}
 									register={register}
 									errors={errors}
-									error_message={item.error_message}
+									errorMessage={item.error_message}
 									showErrorMessage={false}
 								/>
 							))}
-							<div className="text-sm text-right text-gray-500 dark:text-gray-400">
+							<div className="text-right text-sm text-gray-500 dark:text-gray-400">
 								<span
 									onClick={() => {
 										router.push('/forgot_password');
 									}}
-									className="font-medium text-primary-600 underline hover:cursor-pointer hover:text-sky-800 dark:text-primary-500"
+									className="font-medium underline hover:cursor-pointer hover:text-sky-800"
 								>
 									パスワードを忘れた場合
 								</span>
 							</div>
-							<button
-								type="submit"
-								className="w-full text-white bg-sky-800 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+							<Button
+								submit
+								block
+								rounded
+								color="blue"
+								disabled={!isDirty}
+								className="px-5 py-2.5"
 							>
 								ログイン
-							</button>
-							<p className="text-sm text-right font-light text-gray-500 dark:text-gray-400">
+							</Button>
+							<p className="text-right text-sm font-light text-gray-500 dark:text-gray-400">
 								アカウント作成は
 								<span
 									onClick={() => router.push('/create_user')}
-									className="font-medium text-primary-600 underline hover:cursor-pointer hover:text-sky-800 dark:text-primary-500"
+									className="font-medium underline hover:cursor-pointer hover:text-sky-800"
 								>
 									こちら
 								</span>

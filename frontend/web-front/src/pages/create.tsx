@@ -36,7 +36,7 @@ export default function Create() {
 			.then((userdata) => {
 				return userdata.data.uuid;
 			})
-			.catch((e) => alert(`error: ${e}`));
+			.catch((e) => router.push('/login'));
 
 		const postData = { ...data, user: uuid };
 
@@ -48,7 +48,7 @@ export default function Create() {
 				withCredentials: true,
 			})
 			.then(() => router.push('/'))
-			.catch((e) => alert(`error: ${e}`));
+			.catch((e) => router.push('/login'));
 	};
 
 	return (

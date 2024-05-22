@@ -1,15 +1,17 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { GoAlertFill } from 'react-icons/go';
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { Section } from '../components/layouts/Section';
+import { CurrentUserContext } from './_app';
 
 export default function Login() {
 	const router = useRouter();
 	const [loginError, setLoginError] = useState(null);
+	const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
 	const formItems: {
 		label: string;
@@ -47,6 +49,10 @@ export default function Login() {
 				withCredentials: true,
 			})
 			.then((res) => {
+				setCurrentUser({
+					isLogin: true,
+					// username: user.username,
+				});
 				router.push('/');
 			})
 			.catch((e) => {

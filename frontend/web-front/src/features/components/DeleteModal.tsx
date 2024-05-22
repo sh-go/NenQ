@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { useRouter } from 'next/router';
 import { Dispatch, Fragment, MutableRefObject, SetStateAction } from 'react';
 import deleteApi from '../api/deleteApi';
 
@@ -10,6 +11,8 @@ type Props = {
 };
 
 export default function Modal({ id, open, setOpen, cancelButtonRef }: Props) {
+	const router = useRouter();
+
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -64,7 +67,7 @@ export default function Modal({ id, open, setOpen, cancelButtonRef }: Props) {
 										type="button"
 										className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
 										onClick={() => {
-											deleteApi(id);
+											deleteApi(id, router);
 											setOpen(false);
 										}}
 									>

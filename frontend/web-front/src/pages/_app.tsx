@@ -1,11 +1,11 @@
+import { PagesProgressBar as ProgressBar } from 'next-nprogress-bar';
+import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ThemeProvider } from 'next-themes';
 import { createContext, useEffect, useState } from 'react';
-import { PagesProgressBar as ProgressBar } from 'next-nprogress-bar';
 
-import '../styles/global.css';
 import fetchCurrentUser from '../features/api/fetchCurrentUser';
+import '../styles/global.css';
 
 export const CurrentUserContext = createContext(undefined);
 
@@ -42,7 +42,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				<title>NenQ -年休管理アプリ-</title>
 			</Head>
-			<CurrentUserContext.Provider value={currentUser}>
+			<CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
 				<ThemeProvider attribute="class" defaultTheme="light">
 					<Component {...pageProps} />
 					<ProgressBar

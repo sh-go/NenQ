@@ -1,30 +1,28 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import { Dispatch, Fragment, MutableRefObject, SetStateAction } from 'react';
-import deleteApi from '../api/deleteApi';
+import deleteAllApi from '../api/deleteAllApi';
 
 type Props = {
-	id: number;
-	open: boolean;
-	setOpen: Dispatch<SetStateAction<boolean>>;
+	deleteAllOpen: boolean;
+	setDeleteAllOpen: Dispatch<SetStateAction<boolean>>;
 	cancelButtonRef: MutableRefObject<any>;
 };
 
-export default function DeleteModal({
-	id,
-	open,
-	setOpen,
+export default function DeleteAllModal({
+	deleteAllOpen,
+	setDeleteAllOpen,
 	cancelButtonRef,
 }: Props) {
 	const router = useRouter();
 
 	return (
-		<Transition.Root show={open} as={Fragment}>
+		<Transition.Root show={deleteAllOpen} as={Fragment}>
 			<Dialog
 				as="div"
 				className="relative z-10"
 				initialFocus={cancelButtonRef}
-				onClose={setOpen}
+				onClose={setDeleteAllOpen}
 			>
 				<Transition.Child
 					as={Fragment}
@@ -57,10 +55,11 @@ export default function DeleteModal({
 												as="h3"
 												className="text-base font-semibold leading-6 dark:text-gray-800"
 											>
-												取得年休の削除
+												一括削除
 											</Dialog.Title>
 											<div className="mt-2">
 												<p className="text-sm text-gray-500">
+													すべてのデータを削除します。{<br />}
 													削除したら元に戻せません。削除しますか？
 												</p>
 											</div>
@@ -72,8 +71,8 @@ export default function DeleteModal({
 										type="button"
 										className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
 										onClick={() => {
-											deleteApi(id, router);
-											setOpen(false);
+											deleteAllApi(router);
+											setDeleteAllOpen(false);
 										}}
 									>
 										削除
@@ -81,7 +80,7 @@ export default function DeleteModal({
 									<button
 										type="button"
 										className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:text-gray-800 sm:mt-0 sm:w-auto"
-										onClick={() => setOpen(false)}
+										onClick={() => setDeleteAllOpen(false)}
 										ref={cancelButtonRef}
 									>
 										キャンセル

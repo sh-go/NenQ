@@ -11,7 +11,7 @@ type BtnProps = {
 };
 
 const style = {
-	rounded: `rounded-lg`, //角を丸くする
+	rounded: `rounded-xl`, //角を丸くする
 	block: `flex justify-center w-full`, //最大幅まで伸ばす
 	default: `text-white focus:outline-none focus:ring-4 font-medium`,
 	sizes: {

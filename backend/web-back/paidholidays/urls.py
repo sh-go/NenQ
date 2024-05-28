@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     CreatePaidHolidays,
+    DeleteAllPaidHolidays,
     DeletePaidHolidays,
     DetailPaidHolidays,
     GetCarryOver,
@@ -23,6 +24,7 @@ urlpatterns = [
     path("create", CreatePaidHolidays.as_view()),
     path("update/<int:pk>", UpdatePaidHolidays.as_view()),
     path("delete/<int:pk>", DeletePaidHolidays.as_view()),
+    path("delete/all", DeleteAllPaidHolidays.as_view()),
     path("<int:pk>", DetailPaidHolidays.as_view()),
     path("summary", get_summary_data),
     path("carryover", GetCarryOver.as_view()),

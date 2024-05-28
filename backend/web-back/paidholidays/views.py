@@ -4,7 +4,7 @@ import jwt
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.db import transaction
-from django.db.models import Sum
+from django.db.models import ProtectedError, Sum
 from django.db.models.functions import Coalesce
 from django.http import JsonResponse
 from rest_framework import generics, permissions, status
@@ -101,6 +101,17 @@ class UpdatePaidHolidays(generics.views.APIView):
 class DeletePaidHolidays(generics.DestroyAPIView):
     queryset = PaidHolidays.objects.all()
     serializer_class = PaidHolidaysSerializer
+
+
+class DeleteAllPaidHolidays(generics.views.APIView):
+    def delete(self, request):
+        try:
+            PaidHolidays.objects.filter(user=self.request.user).delete()
+            return Response(
+                {"message": "Delete all successfully"}, status=status.HTTP_202_ACCEPTED
+            )
+        except ProtectedError as e:
+            return Response({"message": e}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GetCarryOver(generics.views.APIView):

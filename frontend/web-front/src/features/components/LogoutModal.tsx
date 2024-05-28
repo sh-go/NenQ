@@ -4,21 +4,25 @@ import { Dispatch, Fragment, MutableRefObject, SetStateAction } from 'react';
 import logoutUser from '../api/logoutUser';
 
 type Props = {
-	open: boolean;
-	setOpen: Dispatch<SetStateAction<boolean>>;
+	logoutOpen: boolean;
+	setLogoutOpen: Dispatch<SetStateAction<boolean>>;
 	cancelButtonRef: MutableRefObject<any>;
 };
 
-export default function LogoutModal({ open, setOpen, cancelButtonRef }: Props) {
+export default function LogoutModal({
+	logoutOpen,
+	setLogoutOpen,
+	cancelButtonRef,
+}: Props) {
 	const router = useRouter();
 
 	return (
-		<Transition.Root show={open} as={Fragment}>
+		<Transition.Root show={logoutOpen} as={Fragment}>
 			<Dialog
 				as="div"
 				className="relative z-10"
 				initialFocus={cancelButtonRef}
-				onClose={setOpen}
+				onClose={setLogoutOpen}
 			>
 				<Transition.Child
 					as={Fragment}
@@ -67,7 +71,7 @@ export default function LogoutModal({ open, setOpen, cancelButtonRef }: Props) {
 										className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
 										onClick={() => {
 											logoutUser(router);
-											setOpen(false);
+											setLogoutOpen(false);
 										}}
 									>
 										ログアウト
@@ -75,7 +79,7 @@ export default function LogoutModal({ open, setOpen, cancelButtonRef }: Props) {
 									<button
 										type="button"
 										className="mt-3 inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-										onClick={() => setOpen(false)}
+										onClick={() => setLogoutOpen(false)}
 										ref={cancelButtonRef}
 									>
 										キャンセル

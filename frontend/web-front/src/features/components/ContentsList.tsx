@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { FiEdit, FiTrash } from 'react-icons/fi';
-import Modal from './DeleteModal';
+import DeleteModal from './DeleteModal';
 
 type Props = {
 	data: ListData[];
@@ -14,9 +14,9 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 	const cancelButtonRef = useRef(null);
 
 	return (
-		<div className="overflow-hidden dark:border-gray-700">
+		<div className="overflow-hidden shadow-md dark:border-gray-700">
 			<table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-				<thead className="">
+				<thead>
 					<tr>
 						<th
 							scope="col"
@@ -102,7 +102,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 					})}
 				</tbody>
 			</table>
-			<Modal
+			<DeleteModal
 				id={id}
 				open={open}
 				setOpen={setOpen}

@@ -1,5 +1,6 @@
 mysql_volume/
 postgresql_volume/
+**/key.json
 
 
 # build output

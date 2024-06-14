@@ -13,26 +13,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from datetime import timedelta
 
-from dotenv import load_dotenv  # 追加
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /code
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)  # /code
 PROJECT_DIR = os.path.basename(BASE_DIR)  # 　追加 code
-
-# .envを読み込む
-load_dotenv(os.path.join(BASE_DIR, ".env"))  # 　追加
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "wq)cz6vr6!9&yfb%&))$42!_bc)m)o!*e)%+oe(wyy(loh8b_r"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -88,18 +76,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-# コメントアウト
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -124,28 +100,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ja"  # 変更
 
-TIME_ZONE = "Asia/Tokyo"  # 変更
+TIME_ZONE = os.environ["TZ"]  # 変更
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False  # 変更
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = "/static/"
-
-# 開発環境で静的ファイルを参照する先
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 追加
-
-# 本番環境で静的ファイルを参照する先
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # 追加
-
-# メディアファイルのパス
-MEDIA_URL = "/media/"  # 追加
 
 # 追加
 REST_FRAMEWORK = {
@@ -170,24 +132,4 @@ SIMPLE_JWT = {
 SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 
-# 追加
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
 CORS_ALLOW_CREDENTIALS = True
-
-# 追加
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8080",
-    "http://localhost:3000",
-]
-
-# 追加
-# Email Backend Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Replace with your preferred backend
-
-EMAIL_PORT = 587  # Replace with your email port
-EMAIL_USE_TLS = True  # Set to False if your email server doesn't use TLS
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host for gmail -> 'smtp.gmail.com'
-EMAIL_HOST_USER = 'alive.vb.s2@gmail.com'  # Replace with your email username
-EMAIL_HOST_PASSWORD = 'cdxeyllljqklukrc'  # Replace with your email password

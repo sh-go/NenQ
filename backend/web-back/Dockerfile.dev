@@ -20,6 +20,5 @@ RUN groupadd -g ${GID} ${GROUPNAME} -f && \
 RUN mkdir -p staticfiles && chown ${USERNAME}:${GROUPNAME} staticfiles
 
 USER ${USERNAME}
-EXPOSE 8000
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 web-back.config.wsgi:application
+EXPOSE 8000

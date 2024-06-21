@@ -9,6 +9,7 @@ services:
       - ./backend/web-back/.env
     build:
       context: ./backend/web-back
+      dockerfile: Dockerfile.dev
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
@@ -33,7 +34,7 @@ services:
     volumes:
       - static_volume:/code/staticfiles
     ports:
-      - '8080:80'
+      - '8080:8080'
     depends_on:
       - web-back
     networks:

@@ -10,10 +10,10 @@ provider "google-beta" {
 }
 
 
-resource "google_artifact_registry_repository" "nenq_project" {
+resource "google_artifact_registry_repository" "nenq_image_repository" {
     provider      = google-beta
     location      = var.default_region
-    repository_id = "nenq-project"
+    repository_id = var.repository_id
     description   = "NenQ用"
     format        = "DOCKER"
 
@@ -36,20 +36,39 @@ resource "google_cloud_run_v2_service" "nenq_project" {
 
     template {
         containers {
-            name  = "app"
-            image = "asia-northeast1-docker.pkg.dev/${var.project_id}/nenq-project/app:latest"
+            name  = "web-back"
+            image = "asia-northeast1-docker.pkg.dev/${var.project_id}/${var.repository_id}/web-back:v1"
             env {
                 name = "PORT"
-                value = "8888"
+                value = "8000"
+            }
+            startup_probe {
+                failure_threshold     = 1
+                initial_delay_seconds = 0
+                timeout_seconds       = 240
+                period_seconds        = 240
+                tcp_socket {
+                    port = 8000
+                }
             }
         }
 
         containers {
-            name = "proxy"
+            name = "nginx"
+            image = "asia-northeast1-docker.pkg.dev/${var.project_id}/${var.repository_id}/nginx:v1"
             ports {
                 container_port = 8080
             }
-            image = "asia-northeast1-docker.pkg.dev/${var.project_id}/nenq-project/proxy:latest"
+            depends_on = [ "web-back" ]
+            startup_probe {
+                failure_threshold     = 1
+                initial_delay_seconds = 0
+                timeout_seconds       = 240
+                period_seconds        = 240
+                tcp_socket {
+                    port = 8080
+                }
+            }
         }
 
         scaling {

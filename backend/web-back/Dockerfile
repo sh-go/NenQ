@@ -11,14 +11,4 @@ RUN pip install -r requirements.txt
 
 COPY . ./
 
-# ARG UID
-# ARG GID
-# ARG USERNAME
-# ARG GROUPNAME
-# RUN groupadd -g ${GID} ${GROUPNAME} -f && \
-#     useradd -m -s /bin/bash -u ${UID} -g ${GID} ${USERNAME}
-# RUN mkdir -p staticfiles && chown ${USERNAME}:${GROUPNAME} staticfiles
-
-# USER ${USERNAME}
-
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 config.wsgi:application

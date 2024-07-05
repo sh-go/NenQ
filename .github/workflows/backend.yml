@@ -33,8 +33,9 @@ jobs:
         run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/web-back:v1
 
       - name: deploy
-        run: gcloud run deploy web-back \
-          --project ${{ secrets.PROJECT_ID }} \
-          --image asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/web-back:v1 \
-          --region asia-northeast1 \
-          --service-account ${{ secrets.SERVICE_ACCOUNT }}
+        run: |
+          gcloud run deploy web-back \
+            --project ${{ secrets.PROJECT_ID }} \
+            --image asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/web-back:v1 \
+            --region asia-northeast1 \
+            --service-account ${{ secrets.SERVICE_ACCOUNT }}

@@ -24,9 +24,9 @@ jobs:
             web-back:
               - 'backend/web-back/**'
 
-  deploy-nginx:
-    needs: changes
+  image-push-nginx:
     if: ${{ needs.changes.outputs.nginx == 'true' }}
+    needs: changes
     defaults:
       run:
         working-directory: backend/nginx
@@ -62,9 +62,9 @@ jobs:
             --region asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }}
 
-  deploy-web-back:
-    needs: changes
+  image-push-web-back:
     if: ${{ needs.changes.outputs.web-back == 'true' }}
+    needs: changes
     defaults:
       run:
         working-directory: backend/web-back
@@ -96,8 +96,25 @@ jobs:
 
       - name: deploy
         run: |
-          gcloud run deploy web-back \
+          gcloud run deploy  \
             --project ${{ secrets.PROJECT_ID }} \
             --image asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
             --region asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }}
+
+  deploy:
+    if: ${{ always() }}
+    needs: [image-push-nginx, image-push-web-back]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: deploy as sidecar
+        run: |
+          gcloud beta run deploy nenq-project \
+            --container nginx \
+            --image='${{ env.image-name-nginx }}' \
+            --port='8080' \
+            --container web-back \
+            --image='${{ env.image-name-web-back }}'

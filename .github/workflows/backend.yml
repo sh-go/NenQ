@@ -54,14 +54,6 @@ jobs:
       - name: push
         run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1
 
-      - name: deploy
-        run: |
-          gcloud run deploy nginx \
-            --project ${{ secrets.PROJECT_ID }} \
-            --image asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1 \
-            --region asia-northeast1 \
-            --service-account ${{ secrets.SERVICE_ACCOUNT }}
-
   image-push-web-back:
     if: ${{ needs.changes.outputs.web-back == 'true' }}
     needs: changes
@@ -94,14 +86,6 @@ jobs:
       - name: push
         run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1
 
-      - name: deploy
-        run: |
-          gcloud run deploy  \
-            --project ${{ secrets.PROJECT_ID }} \
-            --image asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
-            --region asia-northeast1 \
-            --service-account ${{ secrets.SERVICE_ACCOUNT }}
-
   deploy:
     if: ${{ always() }}
     needs: [image-push-nginx, image-push-web-back]
@@ -113,6 +97,9 @@ jobs:
       - name: deploy as sidecar
         run: |
           gcloud beta run deploy nenq-project \
+            --project ${{ secrets.PROJECT_ID }} \
+            --region asia-northeast1 \
+            --service-account ${{ secrets.SERVICE_ACCOUNT }} \
             --container nginx \
             --image='${{ env.image-name-nginx }}' \
             --port='8080' \

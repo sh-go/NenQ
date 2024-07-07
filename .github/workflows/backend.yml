@@ -106,6 +106,7 @@ jobs:
 
       - name: deploy as sidecar
         run: |
+          gcloud components install beta
           gcloud beta run deploy nenq-project \
             --project ${{ secrets.PROJECT_ID }} \
             --region asia-northeast1 \

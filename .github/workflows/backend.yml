@@ -112,7 +112,7 @@ jobs:
             --region asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
             --container nginx \
-            --image='${{ env.image-name-nginx }}' \
+            --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}' \
             --port='8080' \
             --container web-back \
-            --image='${{ env.image-name-web-back }}'
+            --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}}'

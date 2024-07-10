@@ -111,7 +111,7 @@ jobs:
             --project ${{ secrets.PROJECT_ID }} \
             --region asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --update-secrets=/code/config/secret/.env=nenq-api-secret:latest
+            --update-secrets=/code/config/secret/.env=nenq-api-secret:latest \
             --container nginx \
             --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1' \
             --port='8080' \

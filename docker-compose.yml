@@ -6,7 +6,7 @@ services:
     stdin_open: true
     tty: true
     env_file:
-      - ./backend/web-back/.env
+      - ./backend/web-back/config/secret/.env
     build:
       context: ./backend/web-back
       dockerfile: Dockerfile.dev

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from .base import *
 
-dotenv_path = join(dirname(dirname(__file__)),"secret/.env")
+dotenv_path = join(dirname(dirname(__file__)), "secret/.env")
 load_dotenv(dotenv_path=dotenv_path)
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -19,11 +19,14 @@ ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
 DATABASES = {
     "default": {
         "ENGINE": os.environ["DB_ENGINE"],
-        "NAME": os.environ["DB_ENGINE"],
+        "NAME": os.environ["DB_NAME"],
         "USER": os.environ["DB_USER"],
         "PASSWORD": os.environ["DB_PASSWORD"],
         "HOST": os.environ["DB_HOST"],
         "PORT": os.environ["DB_PORT"],
+        "OPTIONS": {
+            "sslmode": "require",
+        },
     }
 }
 

@@ -104,6 +104,9 @@ jobs:
         with:
           project_id: ${{ secrets.PROJECT_ID }}
 
+      - name: migrate
+        run: python manage.py migrate
+
       - name: deploy
         run: |
           gcloud components install beta

@@ -105,7 +105,7 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
 
       - name: migrate
-        run: python manage.py migrate
+        run: python backend/web-back/manage.py migrate
 
       - name: deploy
         run: |

@@ -120,6 +120,7 @@ jobs:
         run: |
           gcloud run jobs create db-migrate \
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
+            --region=asia-northeast1
             --command=python \
             --args=manage.py,migrate \
             --parallelism=1 \

@@ -87,19 +87,10 @@ jobs:
   deploy:
     if: ${{ always() }}
     needs: [image-push-nginx, image-push-web-back]
-    defaults:
-      run:
-        working-directory: backend/web-back
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
-
-      - name: install lib for python
-        run: pip install -r requirements.txt
-
-      - name: migrate
-        run: python manage.py migrate
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
@@ -124,3 +115,14 @@ jobs:
             --container web-back \
             --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1' \
             --update-secrets=/code/config/secret/.env=nenq-api-secret:latest
+
+      - name: migrate
+        run: |
+          gcloud run jobs create db-migrate \
+            --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
+            --command=python \
+            --args=[manage.py, migrate] \
+            --parallelism=1 \
+            --max-retries=0 \
+            --execute-now \
+            --wait

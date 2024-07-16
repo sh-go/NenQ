@@ -121,8 +121,8 @@ jobs:
           gcloud run jobs update db-migrate \
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
             --region=asia-northeast1
-            --command=bin/bash \
-            --args=-c,python,manage.py,migrate \
+            --command=/bin/bash \
+            --args=-c,"python manage.py migrate" \
             --parallelism=1 \
             --max-retries=0 \
             --execute-now \

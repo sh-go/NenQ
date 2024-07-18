@@ -6,12 +6,11 @@ from os.path import dirname, join
 
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), "config/secret/.env")
-load_dotenv(dotenv_path=dotenv_path)
-
 
 def main():
-    load_dotenv()
+    dotenv_path = join(dirname(__file__), "config/secret/.env")
+    load_dotenv(dotenv_path=dotenv_path)
+
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.devlopment")
     try:
         from django.core.management import execute_from_command_line

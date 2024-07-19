@@ -7,6 +7,8 @@ from os.path import dirname, join
 from dotenv import load_dotenv
 
 print(__file__)
+print(dirname(__file__))
+print(dirname("__file__"))
 dotenv_path = join(dirname(__file__), "/config/secret/.env")
 load_dotenv(dotenv_path=dotenv_path)
 print(dotenv_path)

@@ -12,6 +12,7 @@ def main():
     load_dotenv(dotenv_path=dotenv_path)
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.devlopment")
+    print(os.environ["DJANGO_SETTINGS_MODULE"])
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

@@ -30,6 +30,9 @@ DATABASES = {
     }
 }
 
+# 静的ファイルを配信するURL
+STATIC_URL = "/static/"
+
 # 本番環境で静的ファイルを参照する先
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # 追加
 

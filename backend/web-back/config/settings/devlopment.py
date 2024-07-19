@@ -22,6 +22,7 @@ DATABASES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# 静的ファイルを配信するURL
 STATIC_URL = "/static/"
 
 # 開発環境で静的ファイルを参照する先

@@ -1,6 +1,6 @@
 import os
 
-from .base import *
+from .base import *  # noqa:F403
 
 DEBUG = True
 SECRET_KEY = "wq)cz6vr6!9&yfb%&))$42!_bc)m)o!*e)%+oe(wyy(loh8b_r"
@@ -26,13 +26,13 @@ DATABASES = {
 STATIC_URL = "/static/"
 
 # 開発環境で静的ファイルを参照する先
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 追加
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 追加  # noqa:F405
 
 # メディアファイルのパス
 MEDIA_URL = "/media/"  # 追加
 
 # 指定しないとベースディレクトリにアップロードされるので、設定
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # 追加
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # 追加  # noqa:F405
 
 # 追加
 # Email Backend Configuration

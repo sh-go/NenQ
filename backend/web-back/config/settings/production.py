@@ -1,11 +1,11 @@
 import os
-from os.path import dirname, join
+from os.path import join
 
 from dotenv import load_dotenv
 
-from .base import *
+from .base import *  # noqa:F403
 
-dotenv_path = join(dirname(dirname(__file__)), "secret/.env")
+dotenv_path = join(BASE_DIR, "/config/secret/.env")  # noqa:F405
 load_dotenv(dotenv_path=dotenv_path)
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -34,7 +34,7 @@ DATABASES = {
 STATIC_URL = "/static/"
 
 # 本番環境で静的ファイルを参照する先
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # 追加
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # 追加  # noqa:F405
 
 # 追加
 # Email Backend Configuration

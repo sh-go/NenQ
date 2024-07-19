@@ -2,15 +2,9 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from os.path import dirname, join
-
-from dotenv import load_dotenv
 
 
 def main():
-    dotenv_path = join(dirname(__file__), "config/secret/.env")
-    load_dotenv(dotenv_path=dotenv_path)
-
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.devlopment")
     print(os.environ["DJANGO_SETTINGS_MODULE"])
     try:

@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 dotenv_path = join(dirname(__file__), "config/secret/.env")
 print(dotenv_path)
-print(glob("code/**/.env"))
+print(glob("/code/**/.env", recursive=True))
 print(load_dotenv(dotenv_path=dotenv_path))
 
 

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from .base import *  # noqa:F403
 
-dotenv_path = join(BASE_DIR, "/config/secret/.env")  # noqa:F405
+dotenv_path = join(BASE_DIR, "config/secret/.env")  # noqa:F405
 load_dotenv(dotenv_path=dotenv_path)
 
 # SECURITY WARNING: keep the secret key used in production secret!

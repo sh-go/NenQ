@@ -13,6 +13,7 @@ print(load_dotenv(dotenv_path=dotenv_path))
 
 def main():
     print(os.environ["DJANGO_SETTINGS_MODULE"])
+
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.devlopment")
     print(os.environ["DJANGO_SETTINGS_MODULE"])
     # try:

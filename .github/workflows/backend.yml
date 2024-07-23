@@ -122,7 +122,8 @@ jobs:
       #       --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
       #       --region=asia-northeast1 \
       #       --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-      #       --command "python manage.py migrate" \
+      #       --command=python \
+      #       --args=manage.py,migrate \
       #       --set-secrets=/code/config/secret/.env=nenq-api-secret:latest \
       #       --parallelism=1 \
       #       --max-retries=0 \
@@ -135,7 +136,8 @@ jobs:
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --command "python manage.py createsuperuser --noinput" \
+            --command=python \
+            --args=manage.py,createsuperuser,--noinput \
             --set-secrets=/code/config/secret/.env=nenq-api-secret:latest \
             --parallelism=1 \
             --max-retries=0 \

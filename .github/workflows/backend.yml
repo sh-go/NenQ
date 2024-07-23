@@ -130,14 +130,28 @@ jobs:
       #       --execute-now \
       #       --wait
 
-      - name: create superuser
+      # - name: create superuser
+      #   run: |
+      #     gcloud run jobs update create-superuser \
+      #       --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
+      #       --region=asia-northeast1 \
+      #       --service-account ${{ secrets.SERVICE_ACCOUNT }} \
+      #       --command=python \
+      #       --args=manage.py,createsuperuser,--noinput \
+      #       --set-secrets=/code/config/secret/.env=nenq-api-secret:latest \
+      #       --parallelism=1 \
+      #       --max-retries=0 \
+      #       --execute-now \
+      #       --wait
+
+      - name: collectstatic
         run: |
-          gcloud run jobs update create-superuser \
+          gcloud run jobs create collectstatic \
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
             --command=python \
-            --args=manage.py,createsuperuser,--noinput \
+            --args=manage.py,collectstatic \
             --set-secrets=/code/config/secret/.env=nenq-api-secret:latest \
             --parallelism=1 \
             --max-retries=0 \

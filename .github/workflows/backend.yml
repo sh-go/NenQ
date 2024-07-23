@@ -102,28 +102,40 @@ jobs:
         with:
           project_id: ${{ secrets.PROJECT_ID }}
 
-      - name: deploy
-        run: |
-          gcloud components install beta
-          gcloud beta run deploy nenq-project \
-            --project ${{ secrets.PROJECT_ID }} \
-            --region asia-northeast1 \
-            --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --container nginx \
-            --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1' \
-            --port='8080' \
-            --container web-back \
-            --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1' \
-            --update-secrets=/code/config/secret/.env=nenq-api-secret:latest
+      # - name: deploy
+      #   run: |
+      #     gcloud components install beta
+      #     gcloud beta run deploy nenq-project \
+      #       --project ${{ secrets.PROJECT_ID }} \
+      #       --region asia-northeast1 \
+      #       --service-account ${{ secrets.SERVICE_ACCOUNT }} \
+      #       --container nginx \
+      #       --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1' \
+      #       --port='8080' \
+      #       --container web-back \
+      #       --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1' \
+      #       --update-secrets=/code/config/secret/.env=nenq-api-secret:latest
 
-      - name: migrate
+      # - name: migrate
+      #   run: |
+      #     gcloud run jobs update db-migrate \
+      #       --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
+      #       --region=asia-northeast1 \
+      #       --service-account ${{ secrets.SERVICE_ACCOUNT }} \
+      #       --command "python manage.py migrate" \
+      #       --set-secrets=/code/config/secret/.env=nenq-api-secret:latest \
+      #       --parallelism=1 \
+      #       --max-retries=0 \
+      #       --execute-now \
+      #       --wait
+
+      - name: create superuser
         run: |
-          gcloud run jobs update db-migrate \
+          gcloud run jobs create create-superuser \
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --command=python \
-            --args=manage.py,migrate \
+            --command "python manage.py createsuperuser --noinput" \
             --set-secrets=/code/config/secret/.env=nenq-api-secret:latest \
             --parallelism=1 \
             --max-retries=0 \

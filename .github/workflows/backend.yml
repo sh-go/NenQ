@@ -132,7 +132,7 @@ jobs:
 
       - name: create superuser
         run: |
-          gcloud run jobs create create-superuser \
+          gcloud run jobs update create-superuser \
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \

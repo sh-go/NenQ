@@ -146,12 +146,12 @@ jobs:
 
       - name: collectstatic
         run: |
-          gcloud run jobs create collectstatic \
+          gcloud run jobs update collectstatic \
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
             --command=python \
-            --args=manage.py,collectstatic \
+            --args=manage.py,collectstatic,--noinput \
             --set-secrets=/code/config/secret/.env=nenq-api-secret:latest \
             --parallelism=1 \
             --max-retries=0 \

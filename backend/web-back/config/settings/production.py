@@ -34,7 +34,7 @@ DATABASES = {
 STATIC_URL = "/static/"
 
 # 静的ファイルを参照する先
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 追加  # noqa:F405
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 追加  # noqa:F405
 
 # 静的ファイルを収集する先
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # 追加  # noqa:F405

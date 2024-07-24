@@ -33,7 +33,10 @@ DATABASES = {
 # 静的ファイルを配信するURL
 STATIC_URL = "/static/"
 
-# 本番環境で静的ファイルを参照する先
+# 静的ファイルを参照する先
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 追加  # noqa:F405
+
+# 静的ファイルを収集する先
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # 追加  # noqa:F405
 
 # 追加

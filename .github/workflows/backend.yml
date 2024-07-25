@@ -160,12 +160,12 @@ jobs:
 
       - name: check nginx error
         run: |
-          gcloud run jobs create check-nginx-error \
+          gcloud run jobs update check-nginx-error \
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --command=nginx \
-            --args=-t \
+            --command=sudo \
+            --args=nano,/var/log/nginx/error.log \
             --parallelism=1 \
             --max-retries=0 \
             --execute-now \

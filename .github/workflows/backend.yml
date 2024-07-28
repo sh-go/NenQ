@@ -164,8 +164,8 @@ jobs:
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --command=sudo \
-            --args=nginx,-t \
+            --command=vi \
+            --args=/var/log/nginx/error.log \
             --parallelism=1 \
             --max-retries=0 \
             --execute-now \

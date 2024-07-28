@@ -165,7 +165,7 @@ jobs:
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
             --command=which \
-            --args=nano \
+            --args=vim \
             --parallelism=1 \
             --max-retries=0 \
             --execute-now \

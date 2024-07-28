@@ -164,7 +164,7 @@ jobs:
             --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1 \
             --region=asia-northeast1 \
             --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --command=/bin/bash \
+            --command=/usr/bin/bash \
             --args=which,nano \
             --parallelism=1 \
             --max-retries=0 \

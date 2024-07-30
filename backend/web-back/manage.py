@@ -7,7 +7,7 @@ from os.path import dirname, join
 from dotenv import load_dotenv
 
 dotenv_path = join(dirname(__file__), "config/secret/.env")
-load_dotenv(dotenv_path=dotenv_path)
+load_dotenv(dotenv_path=dotenv_path, override=True)
 
 
 def main():

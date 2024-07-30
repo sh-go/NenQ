@@ -102,19 +102,19 @@ jobs:
         with:
           project_id: ${{ secrets.PROJECT_ID }}
 
-      # - name: deploy
-      #   run: |
-      #     gcloud components install beta
-      #     gcloud beta run deploy nenq-project \
-      #       --project ${{ secrets.PROJECT_ID }} \
-      #       --region asia-northeast1 \
-      #       --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-      #       --container nginx \
-      #       --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1' \
-      #       --port='8080' \
-      #       --container web-back \
-      #       --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1' \
-      #       --update-secrets=/code/config/secret/.env=nenq-api-secret:latest
+      - name: deploy
+        run: |
+          gcloud components install beta
+          gcloud beta run deploy nenq-project \
+            --project ${{ secrets.PROJECT_ID }} \
+            --region asia-northeast1 \
+            --service-account ${{ secrets.SERVICE_ACCOUNT }} \
+            --container nginx \
+            --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1' \
+            --port='8080' \
+            --container web-back \
+            --image='asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-web-back }}:v1' \
+            --update-secrets=/code/config/secret/.env=nenq-api-secret:latest
 
       # - name: migrate
       #   run: |
@@ -158,15 +158,15 @@ jobs:
       #       --execute-now \
       #       --wait
 
-      - name: check nginx error
-        run: |
-          gcloud run jobs update check-nginx-error \
-            --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1 \
-            --region=asia-northeast1 \
-            --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --command=/bin/ash \
-            --args=-c,"vi ./var/log/nginx/error.log" \
-            --parallelism=1 \
-            --max-retries=0 \
-            --execute-now \
-            --wait
+      # - name: check nginx error
+      #   run: |
+      #     gcloud run jobs update check-nginx-error \
+      #       --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITRY_ID }}/${{ env.image-name-nginx }}:v1 \
+      #       --region=asia-northeast1 \
+      #       --service-account ${{ secrets.SERVICE_ACCOUNT }} \
+      #       --command=/bin/ash \
+      #       --args=-c,"vi ./var/log/nginx/error.log" \
+      #       --parallelism=1 \
+      #       --max-retries=0 \
+      #       --execute-now \
+      #       --wait

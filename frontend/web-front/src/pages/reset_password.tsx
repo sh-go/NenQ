@@ -23,11 +23,7 @@ export default function ResetPassword() {
 	const onSubmit = async (data) => {
 		const postData = { password: data.password, token: router.query.token };
 		await axios
-			.post('http://localhost:8080/api/password_reset/confirm/', postData, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-			})
+			.post('/api/password_reset/confirm/', postData)
 			.then(() => router.push('/login'))
 			.catch((e) => {
 				setPasswordError(e.response.data.password[0]);

@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { createContext, useEffect, useState } from 'react';
 
+import axiosConfig from '../config/axiosConfig';
 import fetchCurrentUser from '../features/api/fetchCurrentUser';
 import '../styles/global.css';
 
@@ -11,6 +12,7 @@ export const CurrentUserContext = createContext(undefined);
 
 export default function App({ Component, pageProps, router }: AppProps) {
 	const [currentUser, setCurrentUser] = useState<CurrentUserState>(undefined);
+	axiosConfig();
 	console.log('Appスタート');
 
 	useEffect(() => {

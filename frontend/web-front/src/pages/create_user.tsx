@@ -19,12 +19,7 @@ export default function CreateUser() {
 
 	const onSubmit = async (data) => {
 		await axios
-			.post('http://localhost:8080/api/user/create', data, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				withCredentials: true,
-			})
+			.post('/api/user/create', data)
 			.then(() => router.push('/login'))
 			.catch((e) => alert(e));
 	};

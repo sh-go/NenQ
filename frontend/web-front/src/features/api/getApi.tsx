@@ -4,7 +4,7 @@ export default async function getApi(cookies) {
 	const access_token = cookies['access_token'];
 
 	return await axios
-		.get('http://nginx-back:80/api/list', {
+		.get('http://nginx-backend:80/api/list', {
 			headers: {
 				'Content-Type': 'application/json;',
 				Authorization: `JWT ${access_token}`,
@@ -15,6 +15,7 @@ export default async function getApi(cookies) {
 			return data;
 		})
 		.catch((e) => {
+			console.log(`エラー：${e}`);
 			return undefined;
 		});
 }

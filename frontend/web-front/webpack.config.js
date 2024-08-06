@@ -3,7 +3,6 @@ const path = require('path');
 module.exports = {
 	mode: 'development',
 	entry: './src/pages/index.tsx',
-	entry: './src/index.tsx',
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'main.js',
@@ -43,6 +42,13 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.json'],
+		fallback: {
+			fs: false,
+			os: false,
+			path: false,
+			stream: false,
+			zlib: false,
+		},
 	},
 	target: 'web',
 };

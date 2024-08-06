@@ -42,12 +42,7 @@ export default function Login() {
 	const onSubmit = async (data) => {
 		setLoginError(null);
 		await axios
-			.post('http://localhost:8080/api/token', data, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				withCredentials: true,
-			})
+			.post('/api/token', data)
 			.then((res) => {
 				setCurrentUser({
 					isLogin: true,

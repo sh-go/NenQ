@@ -27,12 +27,7 @@ export default function Create() {
 
 	const onSubmit = async (data) => {
 		const uuid = await axios
-			.get('http://localhost:8080/api/user', {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				withCredentials: true,
-			})
+			.get('/api/user')
 			.then((userdata) => {
 				return userdata.data.uuid;
 			})
@@ -41,12 +36,7 @@ export default function Create() {
 		const postData = { ...data, user: uuid };
 
 		await axios
-			.post('http://localhost:8080/api/create', postData, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				withCredentials: true,
-			})
+			.post('/api/create', postData)
 			.then(() => router.push('/'))
 			.catch((e) => router.push('/login'));
 	};

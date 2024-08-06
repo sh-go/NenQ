@@ -38,10 +38,7 @@ export default async function fetchCurrentUser() {
 
 async function fetchUser() {
 	return await axios
-		.get('http://localhost:8080/api/user', {
-			headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			withCredentials: true,
-		})
+		.get('/api/user')
 		.then((res) => {
 			return res.data;
 		})
@@ -52,10 +49,7 @@ async function fetchUser() {
 
 async function getRefreshToken() {
 	return axios
-		.get('http://localhost:8080/api/refresh', {
-			headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			withCredentials: true,
-		})
+		.get('/api/refresh')
 		.then((res) => {
 			return res.data;
 		})
@@ -66,10 +60,7 @@ async function getRefreshToken() {
 
 async function setNewTokens(refresh) {
 	return axios
-		.post('http://localhost:8080/api/refresh/token', refresh, {
-			headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			withCredentials: true,
-		})
+		.post('/api/refresh/token', refresh)
 		.then((res) => {
 			return res.data;
 		})

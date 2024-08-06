@@ -27,12 +27,7 @@ export default function UpdateCarryOver() {
 
 	const onSubmit = async (data) => {
 		await axios
-			.patch('http://localhost:8080/api/carryover/update', data, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				withCredentials: true,
-			})
+			.patch('/api/carryover/update', data)
 			.then(() => router.push('/'))
 			.catch((e) => console.log(e));
 	};

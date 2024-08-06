@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   web-back:
     container_name: python-backend
@@ -27,14 +25,14 @@ services:
       - db
 
   backend-server:
-    container_name: nginx-back
+    container_name: nginx-backend
     build:
       context: ./backend/nginx
       dockerfile: Dockerfile.dev
     volumes:
       - static_volume:/code/staticfiles
     ports:
-      - '8080:8080'
+      - '8080:80'
     depends_on:
       - web-back
     networks:

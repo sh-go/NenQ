@@ -29,12 +29,7 @@ export default function Edit() {
 
 	const onSubmit = async (data) => {
 		await axios
-			.patch(`http://localhost:8080/api/update/${router.query.id}`, data, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				withCredentials: true,
-			})
+			.patch(`/api/update/${router.query.id}`, data)
 			.then(() => router.push('/'))
 			.catch((e) => alert(`error: ${e}`));
 	};

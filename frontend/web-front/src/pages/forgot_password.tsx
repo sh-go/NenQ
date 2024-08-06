@@ -18,12 +18,7 @@ export default function forgotPassword() {
 
 	const onSubmit = async (data) => {
 		await axios
-			.post('http://localhost:8080/api/password_reset/', data, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				withCredentials: true,
-			})
+			.post('/api/password_reset/', data)
 			.then(() => {
 				alert('メールを送信しました！');
 				router.push('/');

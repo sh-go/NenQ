@@ -48,9 +48,5 @@ EMAIL_HOST_USER = "alive.vb.s2@gmail.com"  # Replace with your email username
 EMAIL_HOST_PASSWORD = "cdxeyllljqklukrc"
 
 # 追加
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:8080"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:8080"]

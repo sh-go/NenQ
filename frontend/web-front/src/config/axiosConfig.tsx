@@ -5,9 +5,9 @@ axios.defaults.headers.common['Content-Type'] =
 axios.defaults.withCredentials = true;
 
 export const serverSideAxios = axios.create({
-	baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app:8080',
+	baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app',
 });
 
 export const clientSideAxios = axios.create({
-	baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app:8080',
+	baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app',
 });

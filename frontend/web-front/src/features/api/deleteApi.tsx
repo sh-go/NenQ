@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { NextRouter } from 'next/router';
+import { clientSideAxios } from '../../config/axiosConfig';
 
 export default async function deleteApi(id: number, router: NextRouter) {
-	await axios
+	await clientSideAxios
 		.delete(`/api/delete/${id}`)
 		.then(() => {
 			alert('削除しました！');

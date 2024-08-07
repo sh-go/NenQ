@@ -1,10 +1,10 @@
 import { ErrorMessage } from '@hookform/error-message';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import Button from '../components/elements/Button';
 import { Section } from '../components/layouts/Section';
+import { clientSideAxios } from '../config/axiosConfig';
 
 export default function CreateUser() {
 	const router = useRouter();
@@ -18,7 +18,7 @@ export default function CreateUser() {
 	} = useForm({ reValidateMode: 'onSubmit' });
 
 	const onSubmit = async (data) => {
-		await axios
+		await clientSideAxios
 			.post('/api/user/create', data)
 			.then(() => router.push('/login'))
 			.catch((e) => alert(e));

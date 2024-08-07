@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { clientSideAxios } from '../../config/axiosConfig';
 
 export default async function fetchCurrentUser() {
 	try {
@@ -37,7 +37,7 @@ export default async function fetchCurrentUser() {
 }
 
 async function fetchUser() {
-	return await axios
+	return await clientSideAxios
 		.get('/api/user')
 		.then((res) => {
 			return res.data;
@@ -48,7 +48,7 @@ async function fetchUser() {
 }
 
 async function getRefreshToken() {
-	return axios
+	return clientSideAxios
 		.get('/api/refresh')
 		.then((res) => {
 			return res.data;
@@ -59,7 +59,7 @@ async function getRefreshToken() {
 }
 
 async function setNewTokens(refresh) {
-	return axios
+	return clientSideAxios
 		.post('/api/refresh/token', refresh)
 		.then((res) => {
 			return res.data;

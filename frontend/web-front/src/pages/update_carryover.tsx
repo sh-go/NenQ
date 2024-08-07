@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { Section } from '../components/layouts/Section';
+import { clientSideAxios } from '../config/axiosConfig';
 import { CARRY_OVER_FORM_ITEMS } from '../const/CARRY_OVER_FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
 
@@ -26,7 +26,7 @@ export default function UpdateCarryOver() {
 	});
 
 	const onSubmit = async (data) => {
-		await axios
+		await clientSideAxios
 			.patch('/api/carryover/update', data)
 			.then(() => router.push('/'))
 			.catch((e) => console.log(e));

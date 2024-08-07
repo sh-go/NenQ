@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { FieldValues, useForm } from 'react-hook-form';
 
@@ -6,6 +5,7 @@ import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
 import { Section } from '../components/layouts/Section';
+import { clientSideAxios } from '../config/axiosConfig';
 import { FORM_ITEMS } from '../const/FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
 
@@ -28,7 +28,7 @@ export default function Edit() {
 	});
 
 	const onSubmit = async (data) => {
-		await axios
+		await clientSideAxios
 			.patch(`/api/update/${router.query.id}`, data)
 			.then(() => router.push('/'))
 			.catch((e) => alert(`error: ${e}`));

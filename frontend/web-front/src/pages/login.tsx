@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -6,6 +5,7 @@ import { GoAlertFill } from 'react-icons/go';
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { Section } from '../components/layouts/Section';
+import { clientSideAxios } from '../config/axiosConfig';
 import { CurrentUserContext } from './_app';
 
 export default function Login() {
@@ -41,7 +41,7 @@ export default function Login() {
 
 	const onSubmit = async (data) => {
 		setLoginError(null);
-		await axios
+		await clientSideAxios
 			.post('/api/token', data)
 			.then((res) => {
 				setCurrentUser({

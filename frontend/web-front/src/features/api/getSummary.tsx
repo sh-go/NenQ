@@ -1,12 +1,11 @@
-import axios from 'axios';
+import { serverSideAxios } from '../../config/axiosConfig';
 
 export default async function getSummary(cookies) {
 	const access_token = cookies['access_token'];
 
-	return await axios
-		.get('http://nginx-backend:80/api/summary', {
+	return await serverSideAxios
+		.get('/api/summary', {
 			headers: {
-				'Content-Type': 'application/json;',
 				Authorization: `JWT ${access_token}`,
 			},
 		})

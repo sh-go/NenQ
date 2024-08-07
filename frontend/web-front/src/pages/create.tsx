@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { FieldValues, useForm } from 'react-hook-form';
 
@@ -6,6 +5,7 @@ import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
 import { Section } from '../components/layouts/Section';
+import { clientSideAxios } from '../config/axiosConfig';
 import { FORM_ITEMS } from '../const/FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
 
@@ -26,7 +26,7 @@ export default function Create() {
 	});
 
 	const onSubmit = async (data) => {
-		const uuid = await axios
+		const uuid = await clientSideAxios
 			.get('/api/user')
 			.then((userdata) => {
 				return userdata.data.uuid;
@@ -35,7 +35,7 @@ export default function Create() {
 
 		const postData = { ...data, user: uuid };
 
-		await axios
+		await clientSideAxios
 			.post('/api/create', postData)
 			.then(() => router.push('/'))
 			.catch((e) => router.push('/login'));

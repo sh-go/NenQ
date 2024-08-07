@@ -1,5 +1,4 @@
 import { ErrorMessage } from '@hookform/error-message';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { GoAlertFill } from 'react-icons/go';
 import Button from '../components/elements/Button';
 import { Section } from '../components/layouts/Section';
+import { clientSideAxios } from '../config/axiosConfig';
 
 export default function ResetPassword() {
 	const router = useRouter();
@@ -22,7 +22,7 @@ export default function ResetPassword() {
 
 	const onSubmit = async (data) => {
 		const postData = { password: data.password, token: router.query.token };
-		await axios
+		await clientSideAxios
 			.post('/api/password_reset/confirm/', postData)
 			.then(() => router.push('/login'))
 			.catch((e) => {

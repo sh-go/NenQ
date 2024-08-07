@@ -1,12 +1,11 @@
-import axios from 'axios';
+import { serverSideAxios } from '../../config/axiosConfig';
 
 export default async function getCarryOver(cookies) {
 	const access_token = cookies['access_token'];
 
-	return await axios
-		.get('http://nginx-backend:80/api/carryover', {
+	return await serverSideAxios
+		.get('/api/carryover', {
 			headers: {
-				'Content-Type': 'application/json;',
 				Authorization: `JWT ${access_token}`,
 			},
 		})

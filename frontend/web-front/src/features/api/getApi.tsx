@@ -14,7 +14,7 @@ export default async function getApi(cookies) {
 			return data;
 		})
 		.catch((e) => {
-			console.log(`エラー：${e}`);
+			console.log(`getApiエラー：${e}`);
 			return undefined;
 		});
 }

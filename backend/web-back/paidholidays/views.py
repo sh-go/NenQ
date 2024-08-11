@@ -219,6 +219,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
             max_age=60 * 1,  # 2分
             httponly=True,
             samesite="None",
+            secure=True,
         )
         res.set_cookie(
             "refresh_token",
@@ -226,6 +227,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
             max_age=60 * 1,  # 6分
             httponly=True,
             samesite="None",
+            secure=True,
         )
 
         # 最終的にはaccess_tokenとrefresh_tokenを返してもらう
@@ -263,12 +265,16 @@ class TokenRefresh(jwt_views.TokenRefreshView):
             serializer.validated_data["access"],
             max_age=60 * 1,
             httponly=True,
+            samesite="None",
+            secure=True,
         )
         res.set_cookie(
             "refresh_token",
             serializer.validated_data["refresh"],
             max_age=60 * 1,
             httponly=True,
+            samesite="None",
+            secure=True,
         )
 
         return res

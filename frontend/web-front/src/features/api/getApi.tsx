@@ -6,7 +6,7 @@ export default async function getApi(cookies) {
 	return await serverSideAxios
 		.get('/api/list', {
 			headers: {
-				Authorization: `JWT ${access_token}`,
+				Authorization: `Bearer ${access_token}`,
 			},
 		})
 		.then((res) => {

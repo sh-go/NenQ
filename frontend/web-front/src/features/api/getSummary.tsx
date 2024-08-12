@@ -6,7 +6,7 @@ export default async function getSummary(cookies) {
 	return await serverSideAxios
 		.get('/api/summary', {
 			headers: {
-				Authorization: `JWT ${access_token}`,
+				Authorization: `Bearer ${access_token}`,
 			},
 		})
 		.then((res) => {

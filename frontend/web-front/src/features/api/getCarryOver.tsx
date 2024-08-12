@@ -6,7 +6,7 @@ export default async function getCarryOver(cookies) {
 	return await serverSideAxios
 		.get('/api/carryover', {
 			headers: {
-				Authorization: `Bearer ${access_token}`,
+				Authorization: `JWT ${access_token}`,
 			},
 		})
 		.then((res) => {
@@ -15,6 +15,6 @@ export default async function getCarryOver(cookies) {
 		})
 		.catch((e) => {
 			console.log(`getCarryOverエラー：${e}`);
-			return undefined;
+			throw e.response.data;
 		});
 }

@@ -9,11 +9,11 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] =
 axios.defaults.withCredentials = true;
 
 export const serverSideAxios = axios.create({
-	// baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app',
-	baseURL: 'http://nginx-backend:80',
+	baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app',
+	// baseURL: 'http://nginx-backend:80',
 });
 
 export const clientSideAxios = axios.create({
-	// baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app',
-	baseURL: 'http://localhost:8080',
+	baseURL: 'https://nenq-project-5o3fk7swva-an.a.run.app',
+	// baseURL: 'http://localhost:8080',
 });

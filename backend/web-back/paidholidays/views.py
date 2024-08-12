@@ -216,7 +216,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
         res.set_cookie(
             "access_token",
             serializer.validated_data["access"],
-            max_age=60 * 1,  # 2分
+            max_age=24 * 60 * 60 * 60,  # 24時間
             httponly=True,
             samesite="None",
             secure=True,
@@ -224,7 +224,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
         res.set_cookie(
             "refresh_token",
             serializer.validated_data["refresh"],
-            max_age=60 * 1,  # 6分
+            max_age=7 * 24 * 60 * 60 * 60,  # 7日
             httponly=True,
             samesite="None",
             secure=True,
@@ -263,7 +263,7 @@ class TokenRefresh(jwt_views.TokenRefreshView):
         res.set_cookie(
             "access_token",
             serializer.validated_data["access"],
-            max_age=60 * 1,
+            max_age=24 * 60 * 60 * 60,  # 24時間
             httponly=True,
             samesite="None",
             secure=True,
@@ -271,7 +271,7 @@ class TokenRefresh(jwt_views.TokenRefreshView):
         res.set_cookie(
             "refresh_token",
             serializer.validated_data["refresh"],
-            max_age=60 * 1,
+            max_age=7 * 24 * 60 * 60 * 60,  # 7日
             httponly=True,
             samesite="None",
             secure=True,

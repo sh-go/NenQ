@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { IoIosLogOut } from 'react-icons/io';
 
+import { GetServerSidePropsContext } from 'next';
 import Button from '../components/elements/Button';
 import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButton';
 import { Section } from '../components/layouts/Section';
@@ -13,7 +14,8 @@ import DeleteAllModal from '../features/components/DeleteAllModal';
 import LogoutModal from '../features/components/LogoutModal';
 import { Summary } from '../features/components/Summary';
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+	console.log(`コンテキストの内容：${context.req}`);
 	const apiData = await getApi(context.req.cookies);
 	const summaryData = await getSummary(context.req.cookies);
 	const carryOverData = await getCarryOver(context.req.cookies);

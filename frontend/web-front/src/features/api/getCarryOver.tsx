@@ -15,6 +15,6 @@ export default async function getCarryOver(cookies) {
 		})
 		.catch((e) => {
 			console.log(`getCarryOverエラー：${e}`);
-			throw e.response.data;
+			return undefined;
 		});
 }

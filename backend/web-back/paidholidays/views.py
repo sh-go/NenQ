@@ -220,6 +220,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
             httponly=True,
             samesite="None",
             secure=True,
+            domain="nenq.vercel.app",
         )
         res.set_cookie(
             "refresh_token",
@@ -228,6 +229,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
             httponly=True,
             samesite="None",
             secure=True,
+            domain="nenq.vercel.app",
         )
 
         # 最終的にはaccess_tokenとrefresh_tokenを返してもらう
@@ -267,6 +269,7 @@ class TokenRefresh(jwt_views.TokenRefreshView):
             httponly=True,
             samesite="None",
             secure=True,
+            domain="nenq.vercel.app",
         )
         res.set_cookie(
             "refresh_token",
@@ -275,6 +278,7 @@ class TokenRefresh(jwt_views.TokenRefreshView):
             httponly=True,
             samesite="None",
             secure=True,
+            domain="nenq.vercel.app",
         )
 
         return res

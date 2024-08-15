@@ -51,7 +51,7 @@ export default function Login() {
 				});
 				console.log(`resの内容：${res.request}`);
 				console.log(getCookie('access_token'));
-				router.push('/');
+				// router.push('/');
 			})
 			.catch((e) => {
 				if (e.response.status === 401)

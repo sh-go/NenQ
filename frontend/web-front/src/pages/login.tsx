@@ -49,7 +49,8 @@ export default function Login() {
 					isLogin: true,
 					// username: user.username,
 				});
-				console.log(`resの内容：${res.request}`);
+				console.dir('resの内容：');
+				console.dir(res.request);
 				console.log(getCookie('access_token'));
 				// router.push('/');
 			})

@@ -16,7 +16,7 @@ import { Summary } from '../features/components/Summary';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	console.dir('headersの内容：');
-	console.dir(context.req.cookies['access_token']);
+	console.dir(context.req.headers);
 	const access_token = context.req.cookies['access_token'];
 	const apiData = await getApi(access_token);
 	const summaryData = await getSummary(access_token);

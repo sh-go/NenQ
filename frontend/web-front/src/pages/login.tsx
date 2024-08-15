@@ -48,9 +48,10 @@ export default function Login() {
 					isLogin: true,
 					// username: user.username,
 				});
-				console.dir('resの内容：');
-				console.dir(res.data['access']);
-				// router.push('/');
+				router.push({
+					pathname: '/',
+					query: { access_token: res.data['access'] },
+				});
 			})
 			.catch((e) => {
 				if (e.response.status === 401)

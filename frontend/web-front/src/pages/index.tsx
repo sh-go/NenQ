@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { IoIosLogOut } from 'react-icons/io';
 
-import { getCookie } from 'cookies-next';
 import { GetServerSidePropsContext } from 'next';
 import Button from '../components/elements/Button';
 import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButton';
@@ -16,11 +15,8 @@ import LogoutModal from '../features/components/LogoutModal';
 import { Summary } from '../features/components/Summary';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	console.dir('cookieの内容：');
-	const { req, res } = context;
-	console.dir(getCookie('access_token', { req, res }));
-
-	const access_token = context.req.cookies['access_token'];
+	const router = useRouter();
+	const access_token = router.query.access_token;
 	const apiData = await getApi(access_token);
 	const summaryData = await getSummary(access_token);
 	const carryOverData = await getCarryOver(access_token);

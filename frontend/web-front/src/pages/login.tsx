@@ -50,7 +50,7 @@ export default function Login() {
 					// username: user.username,
 				});
 				console.dir('resの内容：');
-				console.dir(res.headers);
+				console.dir(res);
 				console.log(getCookie('access_token'));
 				// router.push('/');
 			})

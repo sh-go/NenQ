@@ -1,8 +1,6 @@
 import { serverSideAxios } from '../../config/axiosConfig';
 
-export default async function getCarryOver(cookies) {
-	const access_token = cookies['access_token'];
-
+export default async function getCarryOver(access_token) {
 	return await serverSideAxios
 		.get('/api/carryover', {
 			headers: {

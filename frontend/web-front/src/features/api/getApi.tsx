@@ -1,8 +1,6 @@
 import { serverSideAxios } from '../../config/axiosConfig';
 
-export default async function getApi(cookies) {
-	const access_token = cookies['access_token'];
-
+export default async function getApi(access_token) {
 	return await serverSideAxios
 		.get('/api/list', {
 			headers: {

@@ -15,8 +15,7 @@ import LogoutModal from '../features/components/LogoutModal';
 import { Summary } from '../features/components/Summary';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const router = useRouter();
-	const access_token = router.query.access_token;
+	const access_token = context.req.headers.cookie['access_token'];
 	const apiData = await getApi(access_token);
 	const summaryData = await getSummary(access_token);
 	const carryOverData = await getCarryOver(access_token);

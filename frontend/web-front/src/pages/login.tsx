@@ -48,10 +48,7 @@ export default function Login() {
 					isLogin: true,
 					// username: user.username,
 				});
-				router.push({
-					pathname: '/',
-					query: { access_token: res.data['access'] },
-				});
+				router.push('/');
 			})
 			.catch((e) => {
 				if (e.response.status === 401)

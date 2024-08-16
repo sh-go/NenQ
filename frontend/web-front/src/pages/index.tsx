@@ -16,6 +16,8 @@ import { Summary } from '../features/components/Summary';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const access_token = context.req.headers.cookie['access_token'];
+	console.log(`アクセストークン：${access_token}`);
+	console.dir(context.req.headers.cookie);
 	const apiData = await getApi(access_token);
 	const summaryData = await getSummary(access_token);
 	const carryOverData = await getCarryOver(access_token);

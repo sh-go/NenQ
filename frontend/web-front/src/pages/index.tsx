@@ -6,6 +6,9 @@ import { GetServerSidePropsContext } from 'next';
 import Button from '../components/elements/Button';
 import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButton';
 import { Section } from '../components/layouts/Section';
+import getApi from '../features/api/getApi';
+import getCarryOver from '../features/api/getCarryOver';
+import getSummary from '../features/api/getSummary';
 import { ContentsList } from '../features/components/ContentsList';
 import DeleteAllModal from '../features/components/DeleteAllModal';
 import LogoutModal from '../features/components/LogoutModal';
@@ -13,30 +16,23 @@ import { Summary } from '../features/components/Summary';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	console.dir(context.req.headers.cookie);
-	// console.dir(context.req.cookies);
 	const access_token = context.req.headers.cookie['access_token'];
+
+	const apiData = await getApi(access_token);
+	const summaryData = await getSummary(access_token);
+	const carryOverData = await getCarryOver(access_token);
+
+	if (!apiData || !summaryData || !carryOverData) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/login',
+			},
+		};
+	}
 	return {
-		redirect: {
-			permanent: false,
-			destination: '/login',
-		},
+		props: { api: apiData, summary: summaryData, carryOver: carryOverData },
 	};
-
-	// const apiData = await getApi(access_token);
-	// const summaryData = await getSummary(access_token);
-	// const carryOverData = await getCarryOver(access_token);
-
-	// if (!apiData || !summaryData || !carryOverData) {
-	// 	return {
-	// 		redirect: {
-	// 			permanent: false,
-	// 			destination: '/login',
-	// 		},
-	// 	};
-	// }
-	// return {
-	// 	props: { api: apiData, summary: summaryData, carryOver: carryOverData },
-	// };
 }
 
 export default function Home({ api, summary, carryOver }) {

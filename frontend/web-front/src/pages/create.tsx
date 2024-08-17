@@ -27,7 +27,7 @@ export default function Create() {
 
 	const onSubmit = async (data) => {
 		const uuid = await clientSideAxios
-			.get('/api/user', { withCredentials: true })
+			.get('/api/user')
 			.then((userdata) => {
 				return userdata.data.uuid;
 			})

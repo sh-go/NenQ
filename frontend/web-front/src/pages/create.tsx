@@ -29,7 +29,6 @@ export default function Create() {
 		const uuid = await clientSideAxios
 			.get('/api/user')
 			.then((userdata) => {
-				console.dir(userdata);
 				return userdata.data.uuid;
 			})
 			.catch((e) => router.push('/login'));
@@ -37,11 +36,11 @@ export default function Create() {
 		const postData = { ...data, user: uuid };
 
 		await clientSideAxios
-			.post('/api/create', postData)
+			.post('/api/create', (data = postData))
 			.then(() => router.push('/'))
 			.catch((e) => {
-				console.dir(e);
-				router.push('/login');
+				console.log(e);
+				// router.push('/login');
 			});
 	};
 

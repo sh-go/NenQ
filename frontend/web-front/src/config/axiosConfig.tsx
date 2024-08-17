@@ -5,7 +5,7 @@ axios.defaults.headers.common['Content-Type'] =
 	'application/json;charset=utf-8';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] =
 	'https://nenq.site';
-// axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.withCredentials = true;
 
 export const serverSideAxios = axios.create({

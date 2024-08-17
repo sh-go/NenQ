@@ -15,8 +15,8 @@ import LogoutModal from '../features/components/LogoutModal';
 import { Summary } from '../features/components/Summary';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	console.dir(context.req.headers.cookie);
-	const access_token = context.req.headers.cookie['access_token'];
+	console.dir(context.req.cookies);
+	const access_token = context.req.cookies['access_token'];
 
 	const apiData = await getApi(access_token);
 	const summaryData = await getSummary(access_token);

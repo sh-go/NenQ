@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
-class CookieHandlerJWTAuthnetication(JWTAuthentication):
+class CookieHandlerJWTAuthentication(JWTAuthentication):
     def authenticate(self, request):
         access_token = request.COOKIE.get("access_token")
 

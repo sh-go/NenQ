@@ -117,7 +117,7 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "paidholidays.authentication.CookieHandlerJWTAuthnetication",
+        "paidholidays.authentication.CookieHandlerJWTAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }

@@ -36,7 +36,7 @@ export default function Create() {
 		const postData = { ...data, user: uuid };
 
 		await clientSideAxios
-			.post('/api/create', postData, { withCredentials: true })
+			.post('/api/create', postData)
 			.then(() => router.push('/'))
 			.catch((e) => {
 				console.log(e);

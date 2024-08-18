@@ -15,5 +15,5 @@ class CookieHandlerJWTAuthentication(JWTAuthentication):
                 header_type=settings.SIMPLE_JWT["AUTH_HEADER_TYPES"][0],
                 access_token=access_token,
             )
-            print(request.META["HTTP_AUTHORIZATION"])
+            print(settings.SIMPLE_JWT["AUTH_HEADER_TYPES"])
         return super().authenticate(request)

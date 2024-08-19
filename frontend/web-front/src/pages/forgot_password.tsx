@@ -21,7 +21,7 @@ export default function forgotPassword() {
 			.post('/api/password_reset/', data)
 			.then(() => {
 				alert('メールを送信しました！');
-				router.push('/');
+				router.push('/login');
 			})
 			.catch((e) => {
 				if (e.response.status === 400)
@@ -45,7 +45,7 @@ export default function forgotPassword() {
 				>
 					NenQ
 				</a>
-				<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
+				<div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0 dark:border dark:border-gray-700 dark:bg-gray-800">
 					<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
 						<h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
 							パスワードリセット
@@ -60,7 +60,7 @@ export default function forgotPassword() {
 							<input
 								type="email"
 								{...register('email', {})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 							/>
 							<Button
 								submit

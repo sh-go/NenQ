@@ -3,7 +3,7 @@ import { clientSideAxios } from '../../config/axiosConfig';
 
 export default async function logoutUser(router: NextRouter) {
 	await clientSideAxios
-		.post('/api/logout', {})
+		.post('/api/logout')
 		.then(() => router.push('/login'))
-		.catch((e) => alert(e));
+		.catch((e) => console.log(e));
 }

@@ -287,10 +287,10 @@ class TokenRefresh(jwt_views.TokenRefreshView):
 class LogoutView(generics.views.APIView):
     permission_classes = ()
     authentication_classes = ()
-    print("this is logout view")
 
     def post(self, request):
         refresh_token = request.COOKIES.get("refresh_token")
+        print(f"リフレッシュトークン：{refresh_token}")
 
         try:
             res = Response()

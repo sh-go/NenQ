@@ -290,12 +290,15 @@ class LogoutView(generics.views.APIView):
 
     def post(self, request):
         refresh_token = request.COOKIES.get("refresh_token")
-        print(f"リフレッシュトークン：{refresh_token}")
 
         try:
-            res = Response()
+            print("try開始")
+            res = Response(
+                {"message": "Logged out successfully"}, status=status.HTTP_200_OK
+            )
             res.delete_cookie("access_token")
             res.delete_cookie("refresh_token")
+            print("try終了")
         except Exception:
             return Response(
                 {"Error": "cannnot delete tokens in cookie"},

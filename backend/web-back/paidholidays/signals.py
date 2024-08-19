@@ -24,7 +24,7 @@ def password_reset_token_created(
         "username": reset_password_token.user.username,
         "email": reset_password_token.user.email,
         "reset_password_url": "{}?username={}&token={}".format(
-            "http://localhost:3000/reset_password",
+            "https://nenq.site/reset_password",
             reset_password_token.user.username,
             reset_password_token.key,
         ),
@@ -32,15 +32,15 @@ def password_reset_token_created(
 
     # render email text
     email_html_message = render_to_string("email/password_reset_email.html", context)
-    email_plaintext_message = render_to_string(
-        "email/password_reset_email.txt", context
-    )
+    # email_plaintext_message = render_to_string(
+    #     "email/password_reset_email.txt", context
+    # )
 
     msg = EmailMultiAlternatives(
         # title:
         "Password Reset for {title}".format(title="Your Website Title"),
         # message:
-        email_plaintext_message,
+        "",
         # from:
         "noreply@yourdomain.com",
         # to:

@@ -39,8 +39,7 @@ export default function Create() {
 			.post('/api/create', postData)
 			.then(() => router.push('/'))
 			.catch((e) => {
-				console.log(e);
-				// router.push('/login');
+				router.push('/login');
 			});
 	};
 

@@ -20,31 +20,31 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 					<tr>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
+							className="p-3 text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
 							日付
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
+							className="p-3 text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
-							取得日数
+							日数
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
+							className=" bg-slate-400 px-3 text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
-							取得時間
+							時間
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
+							className="p-3 text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
 							種別
 						</th>
 						<th
 							scope="col"
-							className="px-6 py-3 text-right text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
+							className="p-3 text-right text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						></th>
 					</tr>
 				</thead>
@@ -53,19 +53,19 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 						return (
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
-									<td className="whitespace-nowrap px-6 py-4 text-xl font-medium text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.update}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-xl text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.date}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-xl text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.hour}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-lg text-gray-700 dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-xs text-gray-700 dark:text-gray-200 sm:text-lg">
 										{item.text}
 									</td>
-									<td className="float-right flex px-6 py-4">
+									<td className="flex justify-center px-2 py-4 ">
 										<button
 											type="submit"
 											onClick={() =>
@@ -84,7 +84,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												)
 											}
 										>
-											<FiEdit className="mx-1 size-6 text-gray-500 hover:fill-gray-400" />
+											<FiEdit className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
 										</button>
 										<button
 											type="submit"
@@ -93,7 +93,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 												setOpen(true);
 											}}
 										>
-											<FiTrash className="mx-1 size-6 text-gray-500 hover:fill-gray-400" />
+											<FiTrash className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
 										</button>
 									</td>
 								</tr>

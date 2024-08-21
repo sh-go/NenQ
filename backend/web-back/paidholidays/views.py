@@ -24,6 +24,11 @@ from .serializers import (
 sys.path.append("../")
 from users.serializers import RegisterSerializer, UserSerializer
 
+if settings.DEBUG:
+    domain = "localhost"
+else:
+    domain = "nenq.site"
+
 
 @api_view(["GET"])
 def get_summary_data(request):
@@ -208,7 +213,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
         res = Response(serializer.validated_data, status=status.HTTP_200_OK)
 
         try:
-            res.delete_cookie("access_token", domain="nenq.site")
+            res.delete_cookie("access_token", domain=domain)
         except Exception as e:
             Response(e)
 
@@ -220,7 +225,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
             httponly=True,
             samesite="None",
             secure=True,
-            domain="nenq.site",
+            domain=domain,
         )
         res.set_cookie(
             "refresh_token",
@@ -229,7 +234,7 @@ class TokenObtainView(jwt_views.TokenObtainPairView):
             httponly=True,
             samesite="None",
             secure=True,
-            domain="nenq.site",
+            domain=domain,
         )
 
         # 最終的にはaccess_tokenとrefresh_tokenを返してもらう
@@ -260,8 +265,8 @@ class TokenRefresh(jwt_views.TokenRefreshView):
             raise jwt_exp.InvalidToken(e.args[0])
 
         res = Response(serializer.validated_data, status=status.HTTP_200_OK)
-        res.delete_cookie("access_token", domain="nenq.site")
-        res.delete_cookie("refresh_token", domain="nenq.site")
+        res.delete_cookie("access_token", domain=domain)
+        res.delete_cookie("refresh_token", domain=domain)
         res.set_cookie(
             "access_token",
             serializer.validated_data["access"],
@@ -269,7 +274,7 @@ class TokenRefresh(jwt_views.TokenRefreshView):
             httponly=True,
             samesite="None",
             secure=True,
-            domain="nenq.site",
+            domain=domain,
         )
         res.set_cookie(
             "refresh_token",
@@ -278,7 +283,7 @@ class TokenRefresh(jwt_views.TokenRefreshView):
             httponly=True,
             samesite="None",
             secure=True,
-            domain="nenq.site",
+            domain=domain,
         )
 
         return res
@@ -295,11 +300,11 @@ class LogoutView(generics.views.APIView):
             res = Response(
                 {"message": "Logged out successfully"}, status=status.HTTP_200_OK
             )
-            res.delete_cookie("access_token", domain="nenq.site")
-            res.delete_cookie("refresh_token", domain="nenq.site")
+            res.delete_cookie("access_token", domain=domain)
+            res.delete_cookie("refresh_token", domain=domain)
         except Exception:
             return Response(
-                {"Error": "cannnot delete tokens in cookie"},
+                {"Error": "Cannnot delete tokens in cookie"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -307,8 +312,10 @@ class LogoutView(generics.views.APIView):
             token = jwt_tokens.RefreshToken(refresh_token)
             token.blacklist()
             return res
-        except Exception as e:
-            return Response(e, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(
+                {"error": "Logged out incorrectly"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 @api_view(["POST"])

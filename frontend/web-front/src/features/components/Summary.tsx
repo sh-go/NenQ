@@ -63,20 +63,32 @@ export const Summary = ({ summaryData, carryOverData }: Props) => {
 							</thead>
 							<tbody className="divide-y divide-gray-200 dark:divide-gray-700">
 								<tr>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-3xl text-gray-700 dark:text-gray-200">
-										{carryOverData.date}日<span className="text-xl"> と </span>
-										{carryOverData.hour}時間{carryOverData.min}分
+									<td className="whitespace-nowrap px-3 text-center text-base text-gray-700 dark:text-gray-200 sm:text-3xl">
+										<div className="flex-row items-baseline justify-center sm:flex">
+											<p>{carryOverData.date}日</p>
+											<p className="hidden px-1 text-xl sm:inline"> と </p>
+											<p>
+												{carryOverData.hour}時間{carryOverData.min}分
+											</p>
+										</div>
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-3xl text-gray-700 dark:text-gray-200">
-										{summaryData.used_date}日
-										<span className="text-xl"> と </span>
-										{summaryData.used_hour}時間{summaryData.used_min}分
+									<td className="whitespace-nowrap p-3 text-center text-base text-gray-700 dark:text-gray-200 sm:text-3xl">
+										<div className="flex-row items-baseline justify-center sm:flex">
+											<p>{summaryData.used_date}日</p>
+											<p className="hidden px-1 text-xl sm:inline"> と </p>
+											<p>
+												{summaryData.used_hour}時間{summaryData.used_min}分
+											</p>
+										</div>
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-3xl text-gray-700 dark:text-gray-200">
-										{summaryData.remain_date}日
-										<span className="text-xl"> と </span>
-										{summaryData.remain_hour}時間
-										{summaryData.remain_min}分
+									<td className="whitespace-nowrap p-3 text-center text-base text-gray-700 dark:text-gray-200 sm:text-3xl">
+										<div className="flex-row items-baseline justify-center sm:flex">
+											<p>{summaryData.remain_date}日</p>
+											<p className="hidden px-1 text-xl sm:block"> と </p>
+											<p>
+												{summaryData.remain_hour}時間{summaryData.remain_min}分
+											</p>
+										</div>
 									</td>
 								</tr>
 							</tbody>

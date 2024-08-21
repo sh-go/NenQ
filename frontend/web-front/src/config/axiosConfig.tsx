@@ -5,6 +5,7 @@ axios.defaults.headers.common['Content-Type'] =
 	'application/json;charset=utf-8';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] =
 	'https://nenq.site';
+// 'http://localhost:8080';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.withCredentials = true;
 

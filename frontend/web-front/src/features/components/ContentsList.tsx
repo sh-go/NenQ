@@ -32,7 +32,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 						</th>
 						<th
 							scope="col"
-							className=" bg-slate-400 px-3 text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
+							className="p-3 text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
 						>
 							時間
 						</th>
@@ -53,16 +53,16 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 						return (
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
-									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
+									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 sm:text-xl dark:text-gray-200">
 										{item.update}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 sm:text-xl dark:text-gray-200">
 										{item.date}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 sm:text-xl dark:text-gray-200">
 										{item.hour}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-xs text-gray-700 dark:text-gray-200 sm:text-lg">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-xs text-gray-700 sm:text-lg dark:text-gray-200">
 										{item.text}
 									</td>
 									<td className="flex justify-center px-2 py-4 ">

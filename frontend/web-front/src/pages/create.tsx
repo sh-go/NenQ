@@ -6,7 +6,7 @@ import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
 import { Section } from '../components/layouts/Section';
 import { clientSideAxios } from '../config/axiosConfig';
-import { FORM_ITEMS } from '../const/FORM_ITEMS';
+import { CREATE_FORM_ITEMS } from '../const/CREATE_FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
 
 export default function Create() {
@@ -51,7 +51,7 @@ export default function Create() {
 					<a href="#" className="mb-6 flex items-center text-2xl font-semibold">
 						NenQ
 					</a>
-					<div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0 dark:border dark:border-gray-700 dark:bg-gray-800">
+					<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
 						<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
 							<h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
 								登録
@@ -60,7 +60,7 @@ export default function Create() {
 								onSubmit={handleSubmit(onSubmit)}
 								className="space-y-4 md:space-y-6"
 							>
-								{FORM_ITEMS.map((item) =>
+								{CREATE_FORM_ITEMS.map((item) =>
 									item.type != 'radio' ? (
 										<InputForm
 											key={item.name}

@@ -6,7 +6,7 @@ import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
 import { Section } from '../components/layouts/Section';
 import { clientSideAxios } from '../config/axiosConfig';
-import { FORM_ITEMS } from '../const/FORM_ITEMS';
+import { CREATE_FORM_ITEMS } from '../const/CREATE_FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
 
 export default function Edit() {
@@ -51,7 +51,7 @@ export default function Edit() {
 								onSubmit={handleSubmit(onSubmit)}
 								className="space-y-4 md:space-y-6"
 							>
-								{FORM_ITEMS.map((item) =>
+								{CREATE_FORM_ITEMS.map((item) =>
 									item.type != 'radio' ? (
 										<InputForm
 											key={item.name}

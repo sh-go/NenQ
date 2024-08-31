@@ -1,4 +1,4 @@
-export const FORM_ITEMS: {
+export const CREATE_FORM_ITEMS: {
 	label: string;
 	type: string;
 	name: 'update' | 'date' | 'hour' | 'text';

@@ -1,8 +1,8 @@
+import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import { IoIosLogOut } from 'react-icons/io';
 
-import { GetServerSidePropsContext } from 'next';
 import Button from '../components/elements/Button';
 import { ChangeDarkModeButton } from '../components/elements/ChangeDarkModeButton';
 import { Section } from '../components/layouts/Section';
@@ -60,7 +60,9 @@ export default function Home({ api, summary, carryOver }) {
 			</div>
 			<Section>
 				<p className="mb-2 px-2">取得状況</p>
-				<Summary summaryData={summary} carryOverData={carryOver} />
+				<Suspense fallback="<div>loading...</div>">
+					<Summary summaryData={summary} carryOverData={carryOver} />
+				</Suspense>
 				<br />
 				<hr className="border-gray-300" />
 				<br />

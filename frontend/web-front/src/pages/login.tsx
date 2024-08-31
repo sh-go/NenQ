@@ -6,32 +6,17 @@ import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { Section } from '../components/layouts/Section';
 import { clientSideAxios } from '../config/axiosConfig';
+import { LOGIN_FORM_ITEMS } from '../const/LOGIN_FORM_ITEMS';
 import { CurrentUserContext } from './_app';
 
 export default function Login() {
 	const router = useRouter();
 	const [loginError, setLoginError] = useState(null);
 	const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-
-	const formItems: {
-		label: string;
-		type: string;
-		name: 'email' | 'password';
-		error_message: string;
-	}[] = [
-		{
-			label: 'メールアドレス',
-			type: 'email',
-			name: 'email',
-			error_message: 'メールアドレスを入力してください',
-		},
-		{
-			label: 'パスワード',
-			type: 'password',
-			name: 'password',
-			error_message: 'パスワードを入力してください',
-		},
-	];
+	const [showPassword, setShowPassword] = useState(false);
+	const togglePasswordVisiblity = () => {
+		setShowPassword(showPassword ? false : true);
+	};
 
 	const {
 		register,
@@ -81,7 +66,7 @@ export default function Login() {
 							onSubmit={handleSubmit(onSubmit)}
 							className="space-y-4 md:space-y-6"
 						>
-							{formItems.map((item) => (
+							{LOGIN_FORM_ITEMS.map((item) => (
 								<InputForm
 									key={item.name}
 									label={item.label}
@@ -90,6 +75,8 @@ export default function Login() {
 									register={register}
 									errors={errors}
 									errorMessage={item.error_message}
+									showPassword={showPassword}
+									togglePasswordVisiblity={togglePasswordVisiblity}
 									showErrorMessage={false}
 								/>
 							))}

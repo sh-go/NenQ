@@ -41,7 +41,7 @@ export default function Home({ api, summary, carryOver }) {
 	const cancelButtonRef = useRef(null);
 	return (
 		<div>
-			<div className="mb-10 bg-white px-6 py-4 dark:bg-gray-700">
+			<div className="mb-4 bg-white px-6 py-3 dark:bg-gray-700">
 				<div className="flex items-center justify-between">
 					<div className="text-3xl">
 						NenQ <span className="text-sm">ー年休管理アプリー</span>

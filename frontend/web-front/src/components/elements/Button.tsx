@@ -5,7 +5,7 @@ type BtnProps = {
 	color?: 'blue' | 'green' | 'red' | 'yellow' | 'indigo' | 'dark';
 	disabled?: boolean;
 	rounded?: boolean;
-	size?: 'sm' | 'md' | 'lg';
+	size?: 'sm' | 'md' | 'lg' | 'xl';
 	submit?: boolean;
 	onClick?: (event: any) => void;
 };
@@ -19,6 +19,7 @@ const style = {
 		sm: 'text-sm',
 		md: '',
 		lg: 'text-lg',
+		xl: 'text-xl',
 	},
 	colors: {
 		//色
@@ -48,7 +49,7 @@ const Button = ({
 		onClick={onClick}
 		className={`${className} ${block ? style.block : ''}
                     ${color ? style.colors[color] : style.colors.dark}
-                    ${style.default} ${rounded ? style.rounded : 'rounded'}
+                    ${style.default} ${rounded ? style.rounded : ''}
                     ${style.sizes[size]} `}
 	>
 		{children}

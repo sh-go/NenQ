@@ -53,7 +53,7 @@ export default function Login() {
 				)}
 				<a
 					className="mb-6 flex items-center text-2xl font-semibold"
-					onClick={() => router.push('/')}
+					onClick={() => router.push('/home')}
 				>
 					NenQ
 				</a>

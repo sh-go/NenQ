@@ -14,7 +14,7 @@ export default function Home() {
 					<div className="ml-2 text-2xl sm:text-3xl">
 						NenQ <span className="text-xs">ー年休管理アプリー</span>
 					</div>
-					<div className="flex h-full w-48 sm:w-64">
+					<div className="flex h-full min-w-48 sm:w-56">
 						<Button
 							children={'登録する'}
 							block
@@ -25,16 +25,18 @@ export default function Home() {
 						/>
 						<Button
 							children={
-								<>
-									<FiLogIn />
-									<span className="ml-2">ログイン</span>
-								</>
+								<div>
+									<div className="flex justify-center">
+										<FiLogIn size={25} />
+									</div>
+									<div className="">ログイン</div>
+								</div>
 							}
 							block
 							onClick={() => {
 								router.push('/login');
 							}}
-							className="items-center bg-gray-500 p-2 font-semibold transition hover:bg-gray-600"
+							className="items-center bg-gray-500 p-2 font-semibold transition hover:bg-gray-600 sm:basis-2/3"
 						/>
 					</div>
 				</div>
@@ -96,10 +98,10 @@ export default function Home() {
 						/>
 						<Button
 							children={
-								<>
+								<div className="flex">
 									<FiLogIn size={25} />
 									<span className="ml-2">ログイン</span>
-								</>
+								</div>
 							}
 							size="xl"
 							block

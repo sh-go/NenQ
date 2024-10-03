@@ -11,7 +11,7 @@ export default function Home() {
 		<div className="bg-orange-50">
 			<div className="flex min-h-14 justify-center bg-white">
 				<div className="flex w-full items-center justify-between sm:w-content-width">
-					<div className="ml-2 text-2xl sm:text-3xl">
+					<div className="ml-2 text-2xl text-gray-600 sm:text-3xl">
 						NenQ <span className="text-xs">ー年休管理アプリー</span>
 					</div>
 					<div className="flex h-full min-w-48 sm:w-56">

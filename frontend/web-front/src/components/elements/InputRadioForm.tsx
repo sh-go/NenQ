@@ -22,11 +22,11 @@ export const InputRadioForm = ({
 		<div>
 			<label className="mb-2 block text-sm font-medium">{label}</label>
 
-			<div className="text-center">
+			<div className="space-x-8 text-center text-sm">
 				{RADIO_OPTIONS.map((item) => (
 					<label
 						key={item.label}
-						className="w-full p-5 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+						className="w-full dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 					>
 						<input
 							type="radio"
@@ -39,6 +39,7 @@ export const InputRadioForm = ({
 									message: errorMessage,
 								},
 							})}
+							className="mx-2"
 						/>
 						{item.label}
 					</label>

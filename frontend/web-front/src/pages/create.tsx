@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
-import { FieldValues, useForm } from 'react-hook-form';
+import { Controller, FieldValues, useForm } from 'react-hook-form';
 
+import { useState } from 'react';
+import Datepicker from 'react-tailwindcss-datepicker';
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
@@ -11,16 +13,24 @@ import useRequireLogin from '../features/hooks/useRequireLogin';
 
 export default function Create() {
 	const { currentUser } = useRequireLogin();
+
 	const router = useRouter();
+
+	const [defaultDate, setDefaultDate] = useState({
+		startDate: new Date(),
+		endDate: new Date(),
+	});
 
 	const {
 		register,
 		handleSubmit,
 		formState: { isDirty, isValid, errors },
+		control,
 	} = useForm({
 		defaultValues: {
 			date: 0,
 			hour: 0,
+			update: defaultDate,
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});
@@ -53,7 +63,7 @@ export default function Create() {
 					</a>
 					<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
 						<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
-							<h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
+							<h1 className="text-center text-xl font-bold leading-tight tracking-tight md:text-2xl">
 								登録
 							</h1>
 							<form
@@ -61,20 +71,47 @@ export default function Create() {
 								className="space-y-4 md:space-y-6"
 							>
 								{CREATE_FORM_ITEMS.map((item) =>
-									item.type != 'radio' ? (
-										<InputForm
+									item.type == 'date' ? (
+										<div>
+											<label
+												htmlFor={item.name}
+												className="mb-2 block text-sm font-medium"
+											>
+												{item.label}
+											</label>
+											<Controller
+												control={control}
+												name={item.name}
+												key={item.name}
+												render={({ field: { onChange, value, name } }) => (
+													<Datepicker
+														inputName={name}
+														inputId={name}
+														useRange={false}
+														asSingle={true}
+														value={value}
+														onChange={onChange}
+														i18n="ja"
+														required={true}
+														inputClassName="min-w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+													/>
+												)}
+											/>
+										</div>
+									) : item.type == 'radio' ? (
+										<InputRadioForm
 											key={item.name}
 											label={item.label}
-											type={item.type}
 											name={item.name}
 											register={register}
 											errors={errors}
 											errorMessage={item.error_message}
 										/>
 									) : (
-										<InputRadioForm
+										<InputForm
 											key={item.name}
 											label={item.label}
+											type={item.type}
 											name={item.name}
 											register={register}
 											errors={errors}

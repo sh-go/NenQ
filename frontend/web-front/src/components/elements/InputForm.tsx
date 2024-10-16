@@ -1,5 +1,4 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { useState } from 'react';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -34,11 +33,6 @@ export const InputForm = ({
 	togglePasswordVisiblity,
 	showErrorMessage = true,
 }: Props) => {
-	const [value, setValue] = useState({
-		startDate: null,
-		endDate: null,
-	});
-
 	return (
 		<div>
 			<label htmlFor={name} className="mb-2 block text-sm font-medium">

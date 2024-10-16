@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 
-import { useState } from 'react';
+import { differenceInDays, format } from 'date-fns';
 import Datepicker from 'react-tailwindcss-datepicker';
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
@@ -11,15 +11,17 @@ import { clientSideAxios } from '../config/axiosConfig';
 import { CREATE_FORM_ITEMS } from '../const/CREATE_FORM_ITEMS';
 import useRequireLogin from '../features/hooks/useRequireLogin';
 
+type InputData = {
+	date: number;
+	hour: number;
+	text: string;
+	update: { startDate: Date; endDate: Date };
+};
+
 export default function Create() {
 	const { currentUser } = useRequireLogin();
 
 	const router = useRouter();
-
-	const [defaultDate, setDefaultDate] = useState({
-		startDate: new Date(),
-		endDate: new Date(),
-	});
 
 	const {
 		register,
@@ -30,12 +32,12 @@ export default function Create() {
 		defaultValues: {
 			date: 0,
 			hour: 0,
-			update: defaultDate,
+			update: { startDate: new Date(), endDate: new Date() },
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});
 
-	const onSubmit = async (data) => {
+	const onSubmit = async (data: InputData) => {
 		const uuid = await clientSideAxios
 			.get('/api/user')
 			.then((userdata) => {
@@ -43,13 +45,20 @@ export default function Create() {
 			})
 			.catch((e) => router.push('/login'));
 
-		const postData = { ...data, user: uuid };
+		const { date, hour, text, update } = data;
+
+		const diffDays = differenceInDays(update.startDate, update.endDate);
+
+		const convertUpdate =
+			diffDays == 0 ? format(update.startDate, 'yyyy-MM-dd') : null;
+
+		const postData = { date, hour, text, update: convertUpdate, user: uuid };
 
 		await clientSideAxios
 			.post('/api/create', postData)
 			.then(() => router.push('/'))
 			.catch((e) => {
-				router.push('/login');
+				console.log(e);
 			});
 	};
 
@@ -72,7 +81,7 @@ export default function Create() {
 							>
 								{CREATE_FORM_ITEMS.map((item) =>
 									item.type == 'date' ? (
-										<div>
+										<div key={item.name}>
 											<label
 												htmlFor={item.name}
 												className="mb-2 block text-sm font-medium"
@@ -82,16 +91,13 @@ export default function Create() {
 											<Controller
 												control={control}
 												name={item.name}
-												key={item.name}
 												render={({ field: { onChange, value, name } }) => (
 													<Datepicker
-														inputName={name}
 														inputId={name}
-														useRange={false}
-														asSingle={true}
 														value={value}
+														asSingle={true}
 														onChange={onChange}
-														i18n="ja"
+														i18n={'ja'}
 														required={true}
 														inputClassName="min-w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 													/>

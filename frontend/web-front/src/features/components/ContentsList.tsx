@@ -14,7 +14,7 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 	const cancelButtonRef = useRef(null);
 
 	return (
-		<div className="overflow-hidden shadow-md dark:border-gray-700">
+		<div className="mb-20 overflow-hidden shadow-md dark:border-gray-700">
 			<table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
 				<thead>
 					<tr>
@@ -53,16 +53,16 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 						return (
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
-									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 sm:text-xl dark:text-gray-200">
+									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.update}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 sm:text-xl dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.date}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 sm:text-xl dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.hour}
 									</td>
-									<td className="whitespace-nowrap px-6 py-4 text-center text-xs text-gray-700 sm:text-lg dark:text-gray-200">
+									<td className="whitespace-nowrap px-6 py-4 text-center text-xs text-gray-700 dark:text-gray-200 sm:text-lg">
 										{item.text}
 									</td>
 									<td className="flex justify-center px-2 py-4 ">

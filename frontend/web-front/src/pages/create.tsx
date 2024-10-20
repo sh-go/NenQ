@@ -59,6 +59,7 @@ export default function Create() {
 			.then(() => router.push('/'))
 			.catch((e) => {
 				console.log(e);
+				alert(e);
 			});
 	};
 

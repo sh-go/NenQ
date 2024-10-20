@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 
-import { differenceInDays, format } from 'date-fns';
 import Datepicker from 'react-tailwindcss-datepicker';
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
@@ -47,19 +46,19 @@ export default function Create() {
 
 		const { date, hour, text, update } = data;
 
-		const diffDays = differenceInDays(update.startDate, update.endDate);
+		// const diffDays = differenceInDays(update.startDate, update.endDate);
 
-		const convertUpdate =
-			diffDays == 0 ? format(update.startDate, 'yyyy-MM-dd') : '';
+		// const convertUpdate =
+		// 	diffDays == 0 ? format(update.startDate, 'yyyy-MM-dd') : '';
 
-		const postData = { date, hour, text, update: convertUpdate, user: uuid };
+		// const postData = { date, hour, text, update: convertUpdate, user: uuid };
+		const postData = { ...data, user: uuid };
 
 		await clientSideAxios
 			.post('/api/create', postData)
 			.then(() => router.push('/'))
 			.catch((e) => {
 				console.log(e);
-				alert(e);
 			});
 	};
 

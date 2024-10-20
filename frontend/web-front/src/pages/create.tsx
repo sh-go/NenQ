@@ -50,7 +50,7 @@ export default function Create() {
 		const diffDays = differenceInDays(update.startDate, update.endDate);
 
 		const convertUpdate =
-			diffDays == 0 ? format(update.startDate, 'yyyy-MM-dd') : null;
+			diffDays == 0 ? format(update.startDate, 'yyyy-MM-dd') : '';
 
 		const postData = { date, hour, text, update: convertUpdate, user: uuid };
 

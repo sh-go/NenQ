@@ -96,7 +96,7 @@ export default function Create() {
 														inputId={name}
 														value={value}
 														asSingle={true}
-														useRange={false}
+														// useRange={false}
 														onChange={onChange}
 														i18n={'ja'}
 														required={true}

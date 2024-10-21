@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
-import { Controller, FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
-import Datepicker from 'react-tailwindcss-datepicker';
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
 import { InputRadioForm } from '../components/elements/InputRadioForm';
@@ -88,7 +87,7 @@ export default function Create() {
 											>
 												{item.label}
 											</label>
-											<Controller
+											{/* <Controller
 												control={control}
 												name={item.name}
 												render={({ field: { onChange, value, name } }) => (
@@ -103,7 +102,7 @@ export default function Create() {
 														inputClassName="min-w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 													/>
 												)}
-											/>
+											/> */}
 										</div>
 									) : item.type == 'radio' ? (
 										<InputRadioForm

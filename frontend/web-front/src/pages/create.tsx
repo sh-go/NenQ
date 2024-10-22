@@ -32,7 +32,7 @@ export default function Create() {
 		defaultValues: {
 			date: 0,
 			hour: 0,
-			update: { startDate: new Date(), endDate: new Date() },
+			// update: { startDate: new Date(), endDate: new Date() },
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});

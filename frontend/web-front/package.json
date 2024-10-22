@@ -27,7 +27,7 @@
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.48.2",
 		"react-icons": "^5.0.1",
-		"react-tailwindcss-datepicker": "^1.7.1"
+		"react-tailwindcss-datepicker": "^1.7.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.22.9",

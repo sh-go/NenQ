@@ -93,12 +93,12 @@ export default function Create() {
 												name={item.name}
 												render={({ field: { onChange, value, name } }) => (
 													<Datepicker
-														inputId={name}
+														// inputId={name}
 														value={value}
 														asSingle={true}
-														// useRange={false}
+														useRange={false}
 														onChange={onChange}
-														i18n={'ja'}
+														// i18n={'ja'}
 														required={true}
 														inputClassName="min-w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
 													/>

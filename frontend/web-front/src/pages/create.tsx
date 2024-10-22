@@ -32,7 +32,7 @@ export default function Create() {
 		defaultValues: {
 			date: 0,
 			hour: 0,
-			// update: { startDate: new Date(), endDate: new Date() },
+			update: { startDate: new Date(), endDate: new Date() },
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});
@@ -93,7 +93,7 @@ export default function Create() {
 												name={item.name}
 												render={({ field: { onChange, value, name } }) => (
 													<Datepicker
-														// inputId={name}
+														inputId={name}
 														value={value}
 														asSingle={true}
 														useRange={false}

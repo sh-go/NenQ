@@ -37,7 +37,7 @@ export default function Create() {
 		reValidateMode: 'onSubmit',
 	});
 
-	const onSubmit = async (data) => {
+	const onSubmit = async (data: InputData) => {
 		const uuid = await clientSideAxios
 			.get('/api/user')
 			.then((userdata) => {

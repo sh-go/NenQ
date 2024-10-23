@@ -37,7 +37,7 @@ export default function Create() {
 		reValidateMode: 'onSubmit',
 	});
 
-	const onSubmit = async (data) => {
+	const onSubmit = async (data: InputData) => {
 		const uuid = await clientSideAxios
 			.get('/api/user')
 			.then((userdata) => {
@@ -133,7 +133,7 @@ export default function Create() {
 									rounded
 									color="blue"
 									disabled={!isDirty || !isValid}
-									className="px-5 py-2.5"
+									className="basis-3/4 px-3 py-2.5"
 								>
 									更新
 								</Button>

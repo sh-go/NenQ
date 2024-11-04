@@ -10,6 +10,7 @@ import getApi from '../features/api/getApi';
 import getCarryOver from '../features/api/getCarryOver';
 import getSummary from '../features/api/getSummary';
 import { ContentsList } from '../features/components/ContentsList';
+import CreateModal from '../features/components/CreateModal';
 import DeleteAllModal from '../features/components/DeleteAllModal';
 import LogoutModal from '../features/components/LogoutModal';
 import { Summary } from '../features/components/Summary';
@@ -37,6 +38,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function Home({ api, summary, carryOver }) {
 	const router = useRouter();
 	const [logoutOpen, setLogoutOpen] = useState(false);
+	const [createOpen, setCreateOpen] = useState(false);
 	const [deleteAllOpen, setDeleteAllOpen] = useState(false);
 	const cancelButtonRef = useRef(null);
 	return (
@@ -72,7 +74,7 @@ export default function Home({ api, summary, carryOver }) {
 						<Button
 							rounded
 							className="hidden bg-rose-500 px-4 py-2 text-sm font-bold text-white shadow-lg hover:bg-rose-800 dark:bg-rose-700 dark:hover:bg-rose-800 sm:block"
-							onClick={() => router.push('/create')}
+							onClick={() => setCreateOpen(true)}
 						>
 							＋　追加
 						</Button>
@@ -91,6 +93,11 @@ export default function Home({ api, summary, carryOver }) {
 				setLogoutOpen={setLogoutOpen}
 				cancelButtonRef={cancelButtonRef}
 			/>
+			<CreateModal
+				createOpen={createOpen}
+				setCreateOpen={setCreateOpen}
+				cancelButtonRef={cancelButtonRef}
+			/>
 			<DeleteAllModal
 				deleteAllOpen={deleteAllOpen}
 				setDeleteAllOpen={setDeleteAllOpen}
@@ -99,7 +106,7 @@ export default function Home({ api, summary, carryOver }) {
 			<div>
 				<Button
 					className="fixed bottom-5 right-5 block rounded-full bg-rose-500 px-4 py-2 text-lg font-bold text-white shadow-lg hover:bg-rose-800 dark:bg-rose-700 dark:hover:bg-rose-800 sm:hidden"
-					onClick={() => router.push('/create')}
+					onClick={() => setCreateOpen(true)}
 				>
 					＋
 				</Button>

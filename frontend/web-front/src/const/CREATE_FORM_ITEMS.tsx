@@ -5,13 +5,14 @@ export const CREATE_FORM_ITEMS: {
 	error_message: string;
 }[] = [
 	{
-		label: '取得した日',
-		type: 'date',
-		name: 'update',
-		error_message: '日付を入力してください',
+		label: '種別',
+		type: 'text',
+		name: 'text',
+		error_message: '取得した種別を選んでください',
 	},
+
 	{
-		label: '日数',
+		label: '日',
 		type: 'number',
 		name: 'date',
 		error_message: '取得した日数を入力してください',
@@ -21,11 +22,5 @@ export const CREATE_FORM_ITEMS: {
 		type: 'number',
 		name: 'hour',
 		error_message: '取得した時間数を入力してください',
-	},
-	{
-		label: '種別',
-		type: 'radio',
-		name: 'text',
-		error_message: '取得した種別を選んでください',
 	},
 ];

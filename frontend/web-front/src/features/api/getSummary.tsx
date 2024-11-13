@@ -1,6 +1,6 @@
 import { serverSideAxios } from '../../config/axiosConfig';
 
-export default async function getSummary(access_token) {
+export default async function getSummary(access_token): Promise<SummaryData> {
 	return await serverSideAxios
 		.get('/api/summary', {
 			headers: {

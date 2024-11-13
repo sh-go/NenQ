@@ -1,3 +1,5 @@
+import React from 'react';
+
 type BtnProps = {
 	block?: boolean;
 	children: React.ReactNode;
@@ -32,7 +34,7 @@ const style = {
 	},
 };
 
-const Button = ({
+export default function Button({
 	block = false,
 	children,
 	className,
@@ -42,18 +44,18 @@ const Button = ({
 	size = 'md',
 	submit,
 	onClick,
-}: BtnProps) => (
-	<button
-		type={submit ? 'submit' : 'button'}
-		disabled={disabled}
-		onClick={onClick}
-		className={`${className} ${block ? style.block : ''}
+}: BtnProps): React.JSX.Element {
+	return (
+		<button
+			type={submit ? 'submit' : 'button'}
+			disabled={disabled}
+			onClick={onClick}
+			className={`${className} ${block ? style.block : ''}
                     ${color ? style.colors[color] : style.colors.dark}
                     ${style.default} ${rounded ? style.rounded : ''}
                     ${style.sizes[size]} `}
-	>
-		{children}
-	</button>
-);
-
-export default Button;
+		>
+			{children}
+		</button>
+	);
+}

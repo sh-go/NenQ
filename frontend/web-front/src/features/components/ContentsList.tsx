@@ -7,10 +7,13 @@ type Props = {
 	data: ListData[];
 };
 
-export const ContentsList: React.FC<Props> = ({ data }: Props) => {
+export default function ContentsList({ data }: Props): React.JSX.Element {
 	const router = useRouter();
+
 	const [id, setId] = useState(null);
+
 	const [open, setOpen] = useState(false);
+
 	const cancelButtonRef = useRef(null);
 
 	return (
@@ -110,4 +113,4 @@ export const ContentsList: React.FC<Props> = ({ data }: Props) => {
 			/>
 		</div>
 	);
-};
+}

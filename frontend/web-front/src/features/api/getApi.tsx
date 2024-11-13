@@ -1,6 +1,6 @@
 import { serverSideAxios } from '../../config/axiosConfig';
 
-export default async function getApi(access_token) {
+export default async function getApi(access_token): Promise<ListData[]> {
 	return await serverSideAxios
 		.get('/api/list', {
 			headers: {

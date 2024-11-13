@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { GoAlertFill } from 'react-icons/go';
 import Button from '../components/elements/Button';
-import { Section } from '../components/layouts/Section';
+import Section from '../components/layouts/Section';
 import { clientSideAxios } from '../config/axiosConfig';
 
 export default function forgotPassword() {

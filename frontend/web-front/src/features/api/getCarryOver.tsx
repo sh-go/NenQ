@@ -1,6 +1,8 @@
 import { serverSideAxios } from '../../config/axiosConfig';
 
-export default async function getCarryOver(access_token) {
+export default async function getCarryOver(
+	access_token
+): Promise<CarryOverData> {
 	return await serverSideAxios
 		.get('/api/carryover', {
 			headers: {

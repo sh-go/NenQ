@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FiLogIn } from 'react-icons/fi';
 import Button from '../components/elements/Button';
-import { Section } from '../components/layouts/Section';
+import Section from '../components/layouts/Section';
 
 export default function Home() {
 	const router = useRouter();
@@ -10,7 +10,7 @@ export default function Home() {
 	return (
 		<div className="bg-orange-50">
 			<div className="flex min-h-14 justify-center bg-white">
-				<div className="flex w-full items-center justify-between sm:w-content-width">
+				<div className="sm:w-content-width flex w-full items-center justify-between">
 					<div className="ml-2 text-2xl text-gray-600 sm:text-3xl">
 						NenQ <span className="text-xs">ー年休管理アプリー</span>
 					</div>

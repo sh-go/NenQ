@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import Button from '../components/elements/Button';
-import { Section } from '../components/layouts/Section';
+import Section from '../components/layouts/Section';
 import { clientSideAxios } from '../config/axiosConfig';
 
 export default function CreateUser() {
@@ -33,7 +33,7 @@ export default function CreateUser() {
 				>
 					NenQ
 				</a>
-				<div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
+				<div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0 dark:border dark:border-gray-700 dark:bg-gray-800">
 					<div className="space-y-4 p-6 sm:p-8 md:space-y-6">
 						<h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
 							ユーザー登録
@@ -57,7 +57,7 @@ export default function CreateUser() {
 										message: '20文字以下で入力してください',
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -79,7 +79,7 @@ export default function CreateUser() {
 										message: '有効なメールアドレスではありません',
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -108,7 +108,7 @@ export default function CreateUser() {
 										message: '8〜20文字の半角英数字で入力してください',
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 							/>
 							<ErrorMessage
 								errors={errors}
@@ -134,7 +134,7 @@ export default function CreateUser() {
 										);
 									},
 								})}
-								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+								className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 							/>
 							<ErrorMessage
 								errors={errors}

@@ -6,7 +6,12 @@ import {
 	TransitionChild,
 } from '@headlessui/react';
 import { useRouter } from 'next/router';
-import { Dispatch, Fragment, MutableRefObject, SetStateAction } from 'react';
+import React, {
+	Dispatch,
+	Fragment,
+	MutableRefObject,
+	SetStateAction,
+} from 'react';
 import logoutUser from '../api/logoutUser';
 
 type Props = {
@@ -19,7 +24,7 @@ export default function LogoutModal({
 	logoutOpen,
 	setLogoutOpen,
 	cancelButtonRef,
-}: Props) {
+}: Props): React.JSX.Element {
 	const router = useRouter();
 
 	return (

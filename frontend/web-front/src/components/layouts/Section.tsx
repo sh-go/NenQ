@@ -1,7 +1,9 @@
 import React from 'react';
 
-export const Section: React.FC<{ children?: React.ReactNode }> = ({
-	children,
-}) => {
-	return <section className="px-content-side-width">{children}</section>;
+type Props = {
+	children: React.ReactNode;
 };
+
+export default function Section({ children }: Props): React.JSX.Element {
+	return <section className="px-content-side-width">{children}</section>;
+}

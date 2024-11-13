@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import React from 'react';
 import { FiEdit } from 'react-icons/fi';
 
 type Props = {
@@ -6,7 +7,10 @@ type Props = {
 	carryOverData: CarryOverData;
 };
 
-export const Summary = ({ summaryData, carryOverData }: Props) => {
+export default function Summary({
+	summaryData,
+	carryOverData,
+}: Props): React.JSX.Element {
 	const router = useRouter();
 
 	return (
@@ -98,4 +102,4 @@ export const Summary = ({ summaryData, carryOverData }: Props) => {
 			</div>
 		</div>
 	);
-};
+}

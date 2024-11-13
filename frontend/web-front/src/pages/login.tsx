@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { GoAlertFill } from 'react-icons/go';
 import Button from '../components/elements/Button';
 import { InputForm } from '../components/elements/InputForm';
-import { Section } from '../components/layouts/Section';
+import Section from '../components/layouts/Section';
 import { clientSideAxios } from '../config/axiosConfig';
 import { LOGIN_FORM_ITEMS } from '../const/LOGIN_FORM_ITEMS';
 import { CurrentUserContext } from './_app';

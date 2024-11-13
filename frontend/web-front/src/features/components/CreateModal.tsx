@@ -1,10 +1,6 @@
 import {
 	Dialog,
 	DialogPanel,
-	Listbox,
-	ListboxButton,
-	ListboxOption,
-	ListboxOptions,
 	Transition,
 	TransitionChild,
 } from '@headlessui/react';
@@ -19,12 +15,12 @@ import {
 	useState,
 } from 'react';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
-import { FiCheck } from 'react-icons/fi';
-import { HiOutlineChevronUpDown } from 'react-icons/hi2';
 import Datepicker from 'react-tailwindcss-datepicker';
 import Button from '../../components/elements/Button';
 import { clientSideAxios } from '../../config/axiosConfig';
+import { category } from '../../const/CATEGORY';
 import { CREATE_FORM_ITEMS } from '../../const/CREATE_FORM_ITEMS';
+import CategoryListBox from './CategoryListBox';
 
 type Props = {
 	createOpen: boolean;
@@ -38,21 +34,14 @@ type InputData = {
 	text: string;
 	update: { startDate: Date; endDate: Date };
 };
-
-const category = [
-	{ id: 1, name: '休暇', unavailable: false },
-	{ id: 2, name: '遅刻', unavailable: false },
-	{ id: 3, name: '早退', unavailable: false },
-];
-
 export default function CreateModal({
 	createOpen,
 	setCreateOpen,
 	cancelButtonRef,
-}: Props) {
+}: Props): JSX.Element {
 	const router = useRouter();
 
-	const [selectedNumber, setSelectedNumber] = useState(category[0]);
+	const [selectedCategory, setSelectedCategory] = useState(category[0]);
 
 	const {
 		register,
@@ -141,38 +130,11 @@ export default function CreateModal({
 														<div className="w-1/3">
 															{item.type == 'text' ? (
 																<div className="h-full">
-																	<Listbox
-																		value={selectedNumber}
-																		onChange={setSelectedNumber}
-																	>
-																		<div className="relative flex h-full items-center">
-																			<ListboxButton className="relative block h-full w-3/4 rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-left text-sm/6 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 dark:border-gray-700 dark:bg-slate-800">
-																				{selectedNumber.name}
-																				<HiOutlineChevronUpDown
-																					className="group pointer-events-none absolute right-2.5 top-3.5 size-4 fill-white/60"
-																					aria-hidden="true"
-																				/>
-																			</ListboxButton>
-																			<ListboxOptions
-																				anchor="bottom"
-																				transition
-																				className="z-10 w-[var(--button-width)] rounded-xl border border-gray-300 bg-gray-50 p-1 transition duration-100 ease-in [--anchor-gap:8px] focus:outline-none data-[leave]:data-[closed]:opacity-0 dark:border-gray-700 dark:bg-slate-800"
-																			>
-																				{category.map((ctg) => (
-																					<ListboxOption
-																						key={ctg.name}
-																						value={ctg}
-																						className="group flex cursor-default select-none items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-gray-300/75 dark:data-[focus]:bg-white/10"
-																					>
-																						<FiCheck className="invisible size-4 group-data-[selected]:visible" />
-																						<div className="text-sm/6">
-																							{ctg.name}
-																						</div>
-																					</ListboxOption>
-																				))}
-																			</ListboxOptions>
-																		</div>
-																	</Listbox>
+																	<CategoryListBox
+																		category={category}
+																		selectedCategory={selectedCategory}
+																		setSelectedCategory={setSelectedCategory}
+																	/>
 																</div>
 															) : item.type == 'number' ? (
 																<div className="flex flex-row items-center">
@@ -238,7 +200,6 @@ export default function CreateModal({
 															)}
 														/>
 													</div>
-
 													<div className="flex flex-row-reverse">
 														<Button
 															submit

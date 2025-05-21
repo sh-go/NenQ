@@ -31,7 +31,7 @@ GCP の Cloud Run・Artifact Registry・Secret Manager を活用し、
 
 | レイヤー       | 技術                                                      |
 | -------------- | --------------------------------------------------------- |
-| フロントエンド | Next.js / TypeScript / Tailwind CSS                       |
+| フロントエンド | Next.js / TypeScript / Tailwind CSS / HeadlessUI          |
 | バックエンド   | Django / Django REST Framework                            |
 | データベース   | PostgreSQL / Neon                                         |
 | インフラ       | GCP Cloud Run（API） / Vercel（Web） / Docker / Terraform |

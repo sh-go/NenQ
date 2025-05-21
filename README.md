@@ -20,7 +20,7 @@ GCP の Cloud Run・Artifact Registry・Secret Manager を活用し、
 
 ---
 
-## 🚀 デモ
+## 🚀 アプリ
 
 🔗 <https://nenq.vercel.app>  
 ※ ログイン後、年休管理・記録・残数確認が可能です。
@@ -33,7 +33,7 @@ GCP の Cloud Run・Artifact Registry・Secret Manager を活用し、
 | -------------- | --------------------------------------------------------- |
 | フロントエンド | Next.js / TypeScript / Tailwind CSS                       |
 | バックエンド   | Django / Django REST Framework                            |
-| データベース   | Neon（本番環境） / SQLite（開発環境）                     |
+| データベース   | PostgreSQL / Neon                                         |
 | インフラ       | GCP Cloud Run（API） / Vercel（Web） / Docker / Terraform |
 | CI/CD          | GitHub Actions（両方自動ビルド・デプロイ）                |
 
@@ -50,15 +50,15 @@ GCP の Cloud Run・Artifact Registry・Secret Manager を活用し、
 
 ## 📦 バージョン情報
 
-| ツール / 言語 | バージョン            |
-| ------------- | --------------------- |
-| Node.js       | 20.4.0                |
-| TypeScript    | 5.1.6                 |
-| Next.js       | 14.2.5                |
-| Python        | 3.11.12               |
-| Django        | 4.2.13                |
-| PostgreSQL    | 16（Neon / ローカル） |
-| Terraform     | 1.8.5                 |
+| ツール / 言語 | バージョン |
+| ------------- | ---------- |
+| Node.js       | 20.4.0     |
+| TypeScript    | 5.1.6      |
+| Next.js       | 14.2.5     |
+| Python        | 3.11.12    |
+| Django        | 4.2.13     |
+| PostgreSQL    | 16         |
+| Terraform     | 1.8.5      |
 
 ---
 

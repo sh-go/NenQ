@@ -66,7 +66,16 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 										{item.hour}
 									</td>
 									<td className="whitespace-nowrap p-4 text-center text-xs text-gray-700 dark:text-gray-200 sm:text-lg">
-										{item.text}
+										<div className="flex items-center justify-center gap-2">
+											{item.text === '休暇' ? (
+												<div className="size-3 rounded-full bg-green-600" />
+											) : item.text === '遅刻' ? (
+												<div className="size-3 rounded-full bg-blue-600" />
+											) : item.text === '早退' ? (
+												<div className="size-3 rounded-full bg-amber-600" />
+											) : null}
+											{item.text}
+										</div>
 									</td>
 									<td className="flex justify-center px-2 py-4 ">
 										<button

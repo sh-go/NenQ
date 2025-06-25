@@ -12,7 +12,7 @@ export const CREATE_FORM_ITEMS: {
 	},
 
 	{
-		label: '日',
+		label: '日数',
 		type: 'number',
 		name: 'date',
 		error_message: '取得した日数を入力してください',

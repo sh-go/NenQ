@@ -4,7 +4,7 @@ type BtnProps = {
 	block?: boolean;
 	children: React.ReactNode;
 	className?: string;
-	color?: 'blue' | 'green' | 'red' | 'yellow' | 'indigo' | 'dark';
+	color?: 'blue' | 'green' | 'red' | 'yellow' | 'indigo' | 'dark' | 'gray';
 	disabled?: boolean;
 	rounded?: boolean;
 	size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -13,7 +13,7 @@ type BtnProps = {
 };
 
 const style = {
-	rounded: `rounded-xl`, //角を丸くする
+	rounded: `rounded-lg`, //角を丸くする
 	block: `flex justify-center w-full`, //最大幅まで伸ばす
 	default: `text-white focus:outline-none focus:ring-4 font-medium`,
 	sizes: {
@@ -28,6 +28,7 @@ const style = {
 		blue: `bg-sky-500 hover:bg-sky-600 disabled:bg-gray-300 dark:bg-sky-700 dark:hover:bg-sky-900 dark:disabled:bg-gray-500`,
 		green: `bg-green-600 focus:ring-2 focus:ring-offset-2 hover:bg-green-700 focus:ring-green-500`,
 		red: `bg-red-600 focus:ring-2 focus:ring-offset-2 hover:bg-red-700 focus:ring-red-500`,
+		gray: `bg-gray-700 focus:ring-2 focus:ring-offset-2 hover:bg-black-600 focus:ring-gray-500`,
 		dark: `bg-black focus:ring-2 focus:ring-offset-2 hover:bg-black-600 focus:ring-gray-500`,
 		yellow: `bg-yellow-500 focus:ring-2 focus:ring-offset-2 hover:bg-yellow-600 focus:ring-yellow-500 `,
 		indigo: `bg-indigo-600 focus:ring-2 focus:ring-offset-2 hover:bg-indigo-700 focus:ring-indigo-600`,

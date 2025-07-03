@@ -69,6 +69,7 @@ export default function CreateModal({
 		currentUpdate.startDate
 	);
 
+	// 期間の長さを監視して、日付と時間の初期値を設定
 	useEffect(() => {
 		if (!isDirty) {
 			// 初回レンダー時はここでだけスキップ
@@ -76,6 +77,7 @@ export default function CreateModal({
 		}
 
 		if (currentDateRange >= 1) {
+			setValue('text', '休暇');
 			setValue('date', currentDateRange + 1);
 			setValue('hour', 0);
 		} else {
@@ -87,7 +89,7 @@ export default function CreateModal({
 				setValue('hour', null);
 			}
 		}
-	}, [currentUpdate, setValue]);
+	}, [currentUpdate, currentCategory, setValue]);
 
 	const isRangeMode = currentDateRange !== 0;
 
@@ -160,7 +162,7 @@ export default function CreateModal({
 												onSubmit={handleSubmit(onSubmit)}
 												className="w-full space-y-4 pl-3 sm:p-0"
 											>
-												<div className="flex flex-row">
+												<div className="flex h-10 flex-row">
 													<Controller
 														control={control}
 														name="update"
@@ -203,7 +205,7 @@ export default function CreateModal({
 														}}
 													/>
 												</div>
-												<div className="flex flex-row">
+												<div className="flex h-10 flex-row">
 													{CREATE_FORM_ITEMS.map((item) => (
 														<div key={item.name} className="w-1/3">
 															{item.type == 'text' ? (
@@ -225,18 +227,19 @@ export default function CreateModal({
 																	/>
 																</div>
 															) : item.type == 'number' ? (
-																<div className="flex flex-row items-center">
+																<div className="flex h-full flex-row items-center">
 																	<input
 																		id={item.name}
 																		name={item.name}
 																		type={item.type}
 																		placeholder={item.label}
 																		inputMode="numeric"
+																		disabled={currentCategory === '休暇'}
 																		min="0"
 																		{...register(item.name, {
 																			required: item.error_message,
 																		})}
-																		className="min-w-0 basis-1/2 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm dark:border-gray-700 dark:bg-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+																		className="min-w-0 basis-1/2 rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm dark:border-gray-700 dark:bg-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 																	/>
 																	{
 																		<ErrorMessage
@@ -259,16 +262,16 @@ export default function CreateModal({
 												<div className="flex justify-end">
 													<div className="flex gap-2">
 														<Button
-															submit
+															size="sm"
 															rounded
-															color="blue"
+															color="gray"
 															onClick={() => setCreateOpen(false)}
-															disabled={!isDirty || !isValid}
 															className="px-4 py-2.5"
 														>
 															キャンセル
 														</Button>
 														<Button
+															size="sm"
 															submit
 															rounded
 															color="blue"

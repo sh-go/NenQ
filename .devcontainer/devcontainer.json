@@ -11,17 +11,17 @@
 					"editor.defaultFormatter": "ms-python.black-formatter",
 					"editor.formatOnSave": true,
 					"editor.codeActionsOnSave": {
-						"source.fixAll": true,
-						"source.organizeImports": true
+						"source.fixAll.ruff": "explicit",
+						"source.organizeImports.ruff": "explicit"
 					}
 				},
 				"[typescript]": {
 					"editor.defaultFormatter": "esbenp.prettier-vscode",
 					"editor.formatOnSave": true,
-					"editor.codeActionsOnSave": {
-						"source.fixAll.eslint": true,
-						"source.organizeImports": true
-					}
+					"editor.codeActionsOnSave": [
+						"source.fixAll.eslint",
+						"source.organizeImports"
+					]
 				}
 			},
 			"extensions": [

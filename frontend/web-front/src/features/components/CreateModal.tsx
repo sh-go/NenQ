@@ -175,7 +175,10 @@ export default function CreateModal({
 																currentUpdate.endDate?.getFullYear();
 
 															const useRangeMode =
-																startYear !== thisYear || endYear !== thisYear;
+																currentUpdate.startDate &&
+																currentUpdate.endDate &&
+																(startYear !== thisYear ||
+																	endYear !== thisYear);
 
 															const widthClass = useRangeMode ? 'w-72' : 'w-52';
 

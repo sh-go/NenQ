@@ -9,14 +9,19 @@ import { FiCheck } from 'react-icons/fi';
 import { HiOutlineChevronUpDown } from 'react-icons/hi2';
 
 type Props = {
-	value: any;
-	onChange: (...event: any[]) => void;
+	/** 選択中の時間 (id) */
+	value: number | null;
+	/** 親フォームへ選択結果を通知する */
+	onChange: (value: number | null) => void;
+	/** 選択肢一覧 */
 	hours: {
 		id: number;
 		name: string;
 		unavailable: boolean;
 	}[];
+	/** 入力を無効化するか */
 	isDisabled?: boolean;
+	/** プレースホルダーとして表示するラベル */
 	label: string;
 };
 
@@ -27,11 +32,11 @@ export default function HourListBox({
 	isDisabled = false,
 	label,
 }: Props): React.JSX.Element {
-	const selected = hours.find((hour) => hour.name === value) || null;
+	const selected = hours.find((hour) => hour.id === value) || null;
 
 	return (
 		<Field disabled={isDisabled} className="h-full">
-			<Listbox value={selected} onChange={onChange}>
+			<Listbox value={selected} onChange={(hour) => onChange(hour.id)}>
 				<div className="relative flex h-full items-center">
 					<ListboxButton className="relative block h-full w-3/4 rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-left text-sm/6 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 dark:border-gray-700 dark:bg-slate-800">
 						{selected ? (
@@ -51,11 +56,11 @@ export default function HourListBox({
 					>
 						{hours.map((hour) => (
 							<ListboxOption
-								key={hour.name}
+								key={hour.id}
 								value={hour}
 								className="group flex cursor-default select-none items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-gray-300/75 dark:data-[focus]:bg-white/10"
 							>
-								<FiCheck className="invisible size-4 fill-white group-data-[selected]:visible" />
+								<FiCheck className="invisible size-4 group-data-[selected]:visible" />
 								<div className="text-sm/6">{hour.name}</div>
 							</ListboxOption>
 						))}

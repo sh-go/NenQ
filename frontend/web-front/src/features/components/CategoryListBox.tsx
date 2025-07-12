@@ -53,7 +53,7 @@ export default function CategoryListBox({
 					<ListboxOptions
 						anchor="bottom"
 						transition
-						className="z-10 w-[var(--button-width)] rounded-xl border border-gray-300 bg-gray-50 p-1 transition duration-100 ease-in [--anchor-gap:8px] focus:outline-none data-[leave]:data-[closed]:opacity-0 dark:border-gray-700 dark:bg-slate-800"
+						className="z-10 rounded-xl border border-gray-300 bg-gray-50 p-1 transition duration-100 ease-in [--anchor-gap:8px] focus:outline-none data-[leave]:data-[closed]:opacity-0 dark:border-gray-700 dark:bg-slate-800"
 					>
 						{category.map((ctg) => (
 							<ListboxOption

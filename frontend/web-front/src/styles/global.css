@@ -5,7 +5,6 @@
 :root {
 	--content-width: calc(100% - var(--content-side-width) * 2);
 	--content-side-width: 16px;
-	--create-modal-panel-width: 512px;
 
 	@media screen(md) {
 		--content-width: 960px;

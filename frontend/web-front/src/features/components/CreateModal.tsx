@@ -158,12 +158,12 @@ export default function CreateModal({
 							<DialogPanel className="relative w-full text-left shadow-xl transition-all sm:max-w-lg">
 								<div className="sm:flex sm:items-start">
 									<div className="mx-auto flex w-full flex-col items-center justify-center">
-										<div className="w-full rounded-xl bg-white p-1 shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:px-4 sm:py-6">
+										<div className="w-full rounded-xl bg-white shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:pb-3 sm:pt-6">
 											<form
 												onSubmit={handleSubmit(onSubmit)}
 												className="w-full space-y-4 pl-3 sm:p-0"
 											>
-												<div className="flex h-10 flex-row">
+												<div className="mx-3 mb-4 flex h-10 flex-row">
 													<Controller
 														control={control}
 														name="update"
@@ -249,16 +249,17 @@ export default function CreateModal({
 														</div>
 													))}
 												</div>
-												{/* <hr className="absolute left-1/2 top-1/2 my-2 w-[var(--create-modal-panel-width)] -translate-x-1/2 -translate-y-1/2 border-t border-gray-300 dark:border-gray-700" /> */}
 
-												<div className="flex justify-end">
+												<hr className="w-full border-gray-300 dark:border-gray-700" />
+
+												<div className="mx-3 flex justify-end">
 													<div className="flex gap-2">
 														<Button
 															size="sm"
 															rounded
 															color="gray"
 															onClick={() => setCreateOpen(false)}
-															className="px-4 py-2.5"
+															className="px-4 py-2"
 														>
 															キャンセル
 														</Button>
@@ -269,7 +270,7 @@ export default function CreateModal({
 															color="blue"
 															onClick={() => setCreateOpen(false)}
 															disabled={!isDirty || !isValid}
-															className="px-4 py-2.5"
+															className="px-4 py-2"
 														>
 															↑
 														</Button>

@@ -9,35 +9,34 @@ import { FiCheck } from 'react-icons/fi';
 import { HiOutlineChevronUpDown } from 'react-icons/hi2';
 
 type Props = {
-	/**  選択中のカテゴリー名 */
-	value: string | null;
+	/** 選択中の時間 (id) */
+	value: number | null;
 	/** 親フォームへ選択結果を通知する */
-	onChange: (...event: any[]) => void;
+	onChange: (value: number | null) => void;
 	/** 選択肢一覧 */
-	category: Category[];
+	hours: {
+		id: number;
+		name: string;
+		unavailable: boolean;
+	}[];
 	/** 入力を無効化するか */
 	isDisabled?: boolean;
 	/** プレースホルダーとして表示するラベル */
 	label: string;
 };
 
-export default function CategoryListBox({
+export default function HourListBox({
 	value,
 	onChange,
-	category,
+	hours,
 	isDisabled = false,
 	label,
 }: Props): React.JSX.Element {
-	const selected = category.find((ctg) => ctg.name === value) || null;
+	const selected = hours.find((hour) => hour.id === value) || null;
 
 	return (
 		<Field disabled={isDisabled} className="h-full">
-			<Listbox
-				value={selected}
-				onChange={(val) => {
-					onChange(val.name);
-				}}
-			>
+			<Listbox value={selected} onChange={(hour) => onChange(hour.id)}>
 				<div className="relative flex h-full items-center">
 					<ListboxButton className="relative block h-full w-[90px] rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-left text-sm/6 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 dark:border-gray-700 dark:bg-slate-800">
 						{selected ? (
@@ -53,16 +52,16 @@ export default function CategoryListBox({
 					<ListboxOptions
 						anchor="bottom"
 						transition
-						className="z-10 rounded-xl border border-gray-300 bg-gray-50 p-1 transition duration-100 ease-in [--anchor-gap:8px] focus:outline-none data-[leave]:data-[closed]:opacity-0 dark:border-gray-700 dark:bg-slate-800"
+						className="z-10  rounded-xl border border-gray-300 bg-gray-50 p-1 transition duration-100 ease-in [--anchor-gap:8px] focus:outline-none data-[leave]:data-[closed]:opacity-0 dark:border-gray-700 dark:bg-slate-800"
 					>
-						{category.map((ctg) => (
+						{hours.map((hour) => (
 							<ListboxOption
-								key={ctg.name}
-								value={ctg}
+								key={hour.id}
+								value={hour}
 								className="group flex cursor-default select-none items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-gray-300/75 dark:data-[focus]:bg-white/10"
 							>
 								<FiCheck className="invisible size-4 group-data-[selected]:visible" />
-								<div className="text-sm/6">{ctg.name}</div>
+								<div className="text-sm/6">{hour.name}</div>
 							</ListboxOption>
 						))}
 					</ListboxOptions>

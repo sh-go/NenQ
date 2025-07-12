@@ -4,7 +4,6 @@ import {
 	Transition,
 	TransitionChild,
 } from '@headlessui/react';
-import { ErrorMessage } from '@hookform/error-message';
 import { differenceInDays, format } from 'date-fns';
 import { useRouter } from 'next/router';
 import {
@@ -20,8 +19,10 @@ import Button from '../../components/elements/Button';
 import { clientSideAxios } from '../../config/axiosConfig';
 import { category } from '../../const/CATEGORY';
 import { CREATE_FORM_ITEMS } from '../../const/CREATE_FORM_ITEMS';
+import { hours } from '../../const/HOURS';
 import useIsMobile from '../hooks/useIsMobile';
 import CategoryListBox from './CategoryListBox';
+import HourListBox from './HourListBox';
 
 type Props = {
 	createOpen: boolean;
@@ -156,13 +157,13 @@ export default function CreateModal({
 						>
 							<DialogPanel className="relative w-full text-left shadow-xl transition-all sm:max-w-lg">
 								<div className="sm:flex sm:items-start">
-									<div className="mx-auto flex flex-col items-center justify-center">
-										<div className="w-full rounded-xl bg-white p-1 shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:p-6">
+									<div className="mx-auto flex w-full flex-col items-center justify-center">
+										<div className="w-full rounded-xl bg-white shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:pb-3 sm:pt-6">
 											<form
 												onSubmit={handleSubmit(onSubmit)}
 												className="w-full space-y-4 pl-3 sm:p-0"
 											>
-												<div className="flex h-10 flex-row">
+												<div className="mx-3 mb-5 flex h-10 flex-row">
 													<Controller
 														control={control}
 														name="update"
@@ -174,13 +175,13 @@ export default function CreateModal({
 																currentUpdate.endDate?.getFullYear();
 
 															const useRangeMode =
-																startYear !== thisYear || endYear !== thisYear;
+																currentUpdate.startDate &&
+																currentUpdate.endDate &&
+																(startYear !== thisYear ||
+																	endYear !== thisYear);
 
 															const widthClass = useRangeMode ? 'w-72' : 'w-52';
 
-															const toggleRightPosition = useRangeMode
-																? 'right-3'
-																: 'right-24';
 															return (
 																<Datepicker
 																	i18n={'ja'}
@@ -197,17 +198,15 @@ export default function CreateModal({
 																	required={true}
 																	startWeekOn="mon"
 																	popoverDirection={isMobile ? 'up' : 'down'}
-																	containerClassName="relative min-w-[300px] text-gray-700"
+																	containerClassName="relative text-gray-700"
 																	inputClassName={`${widthClass} h-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder:text-sm dark:border-gray-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
-																	toggleClassName={`absolute ${toggleRightPosition} h-full px-3 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
+																	toggleClassName={`absolute right-0 h-full px-2 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
 																/>
 															);
 														}}
 													/>
-												</div>
-												<div className="flex h-10 flex-row">
 													{CREATE_FORM_ITEMS.map((item) => (
-														<div key={item.name} className="w-1/3">
+														<div key={item.name} className="ml-2">
 															{item.type == 'text' ? (
 																<div className="h-full">
 																	<Controller
@@ -227,31 +226,22 @@ export default function CreateModal({
 																	/>
 																</div>
 															) : item.type == 'number' ? (
-																<div className="flex h-full flex-row items-center">
-																	<input
-																		id={item.name}
-																		name={item.name}
-																		type={item.type}
-																		placeholder={item.label}
-																		inputMode="numeric"
-																		disabled={currentCategory === '休暇'}
-																		min="0"
-																		{...register(item.name, {
-																			required: item.error_message,
-																		})}
-																		className="min-w-0 basis-1/2 rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm dark:border-gray-700 dark:bg-slate-800 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+																<div className="h-full">
+																	<Controller
+																		control={control}
+																		name="hour"
+																		render={({
+																			field: { value, onChange },
+																		}) => (
+																			<HourListBox
+																				value={value}
+																				onChange={onChange}
+																				hours={hours}
+																				isDisabled={isRangeMode}
+																				label={item.label}
+																			/>
+																		)}
 																	/>
-																	{
-																		<ErrorMessage
-																			errors={errors}
-																			name={item.name}
-																			render={({ message }) => (
-																				<p className="text-sm text-rose-400">
-																					{message}
-																				</p>
-																			)}
-																		/>
-																	}
 																</div>
 															) : (
 																<></>
@@ -259,14 +249,17 @@ export default function CreateModal({
 														</div>
 													))}
 												</div>
-												<div className="flex justify-end">
+
+												<hr className="w-full border-gray-300 dark:border-gray-700" />
+
+												<div className="mx-3 flex justify-end">
 													<div className="flex gap-2">
 														<Button
 															size="sm"
 															rounded
 															color="gray"
 															onClick={() => setCreateOpen(false)}
-															className="px-4 py-2.5"
+															className="px-4 py-2"
 														>
 															キャンセル
 														</Button>
@@ -277,7 +270,7 @@ export default function CreateModal({
 															color="blue"
 															onClick={() => setCreateOpen(false)}
 															disabled={!isDirty || !isValid}
-															className="px-4 py-2.5"
+															className="px-4 py-2"
 														>
 															↑
 														</Button>

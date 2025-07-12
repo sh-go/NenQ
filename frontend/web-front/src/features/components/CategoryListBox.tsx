@@ -39,14 +39,14 @@ export default function CategoryListBox({
 				}}
 			>
 				<div className="relative flex h-full items-center">
-					<ListboxButton className="relative block h-full w-3/4 rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-left text-sm/6 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 dark:border-gray-700 dark:bg-slate-800">
+					<ListboxButton className="relative block h-full w-[90px] rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-left text-sm/6 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 dark:border-gray-700 dark:bg-slate-800">
 						{selected ? (
 							selected.name
 						) : (
 							<span className="opacity-50">{label}</span>
 						)}
 						<HiOutlineChevronUpDown
-							className="group pointer-events-none absolute right-2.5 top-3.5 size-4 fill-white/60"
+							className="group pointer-events-none absolute right-2.5 top-2.5 size-4 fill-white/60"
 							aria-hidden="true"
 						/>
 					</ListboxButton>

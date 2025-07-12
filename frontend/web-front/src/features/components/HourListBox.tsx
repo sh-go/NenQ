@@ -38,7 +38,7 @@ export default function HourListBox({
 		<Field disabled={isDisabled} className="h-full">
 			<Listbox value={selected} onChange={(hour) => onChange(hour.id)}>
 				<div className="relative flex h-full items-center">
-					<ListboxButton className="relative block h-full w-3/4 rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-left text-sm/6 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 dark:border-gray-700 dark:bg-slate-800">
+					<ListboxButton className="relative block h-full w-[90px] rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-left text-sm/6 focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 dark:border-gray-700 dark:bg-slate-800">
 						{selected ? (
 							selected.name
 						) : (
@@ -52,7 +52,7 @@ export default function HourListBox({
 					<ListboxOptions
 						anchor="bottom"
 						transition
-						className="z-10 w-[var(--button-width)] rounded-xl border border-gray-300 bg-gray-50 p-1 transition duration-100 ease-in [--anchor-gap:8px] focus:outline-none data-[leave]:data-[closed]:opacity-0 dark:border-gray-700 dark:bg-slate-800"
+						className="z-10  rounded-xl border border-gray-300 bg-gray-50 p-1 transition duration-100 ease-in [--anchor-gap:8px] focus:outline-none data-[leave]:data-[closed]:opacity-0 dark:border-gray-700 dark:bg-slate-800"
 					>
 						{hours.map((hour) => (
 							<ListboxOption

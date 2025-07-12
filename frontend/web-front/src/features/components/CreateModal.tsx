@@ -158,7 +158,7 @@ export default function CreateModal({
 							<DialogPanel className="relative w-full text-left shadow-xl transition-all sm:max-w-lg">
 								<div className="sm:flex sm:items-start">
 									<div className="mx-auto flex w-full flex-col items-center justify-center">
-										<div className="w-full rounded-xl bg-white p-1 shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:p-6">
+										<div className="w-full rounded-xl bg-white p-1 shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:px-4 sm:py-6">
 											<form
 												onSubmit={handleSubmit(onSubmit)}
 												className="w-full space-y-4 pl-3 sm:p-0"
@@ -182,9 +182,6 @@ export default function CreateModal({
 
 															const widthClass = useRangeMode ? 'w-72' : 'w-52';
 
-															const toggleRightPosition = useRangeMode
-																? 'right-3'
-																: 'right-24';
 															return (
 																<Datepicker
 																	i18n={'ja'}
@@ -201,17 +198,15 @@ export default function CreateModal({
 																	required={true}
 																	startWeekOn="mon"
 																	popoverDirection={isMobile ? 'up' : 'down'}
-																	containerClassName="relative min-w-[300px] text-gray-700"
+																	containerClassName="relative text-gray-700"
 																	inputClassName={`${widthClass} h-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder:text-sm dark:border-gray-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
-																	toggleClassName={`absolute ${toggleRightPosition} h-full px-3 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
+																	toggleClassName={`absolute right-0 h-full px-2 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
 																/>
 															);
 														}}
 													/>
-												</div>
-												<div className="flex h-10 flex-row">
 													{CREATE_FORM_ITEMS.map((item) => (
-														<div key={item.name} className="w-1/3">
+														<div key={item.name} className="ml-2">
 															{item.type == 'text' ? (
 																<div className="h-full">
 																	<Controller
@@ -253,29 +248,31 @@ export default function CreateModal({
 															)}
 														</div>
 													))}
-													<div className="flex justify-end">
-														<div className="flex gap-2">
-															<Button
-																size="sm"
-																rounded
-																color="gray"
-																onClick={() => setCreateOpen(false)}
-																className="px-4 py-2.5"
-															>
-																キャンセル
-															</Button>
-															<Button
-																size="sm"
-																submit
-																rounded
-																color="blue"
-																onClick={() => setCreateOpen(false)}
-																disabled={!isDirty || !isValid}
-																className="px-4 py-2.5"
-															>
-																↑
-															</Button>
-														</div>
+												</div>
+												{/* <hr className="absolute left-1/2 top-1/2 my-2 w-[var(--create-modal-panel-width)] -translate-x-1/2 -translate-y-1/2 border-t border-gray-300 dark:border-gray-700" /> */}
+
+												<div className="flex justify-end">
+													<div className="flex gap-2">
+														<Button
+															size="sm"
+															rounded
+															color="gray"
+															onClick={() => setCreateOpen(false)}
+															className="px-4 py-2.5"
+														>
+															キャンセル
+														</Button>
+														<Button
+															size="sm"
+															submit
+															rounded
+															color="blue"
+															onClick={() => setCreateOpen(false)}
+															disabled={!isDirty || !isValid}
+															className="px-4 py-2.5"
+														>
+															↑
+														</Button>
 													</div>
 												</div>
 											</form>

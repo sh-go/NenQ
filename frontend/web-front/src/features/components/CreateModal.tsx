@@ -80,19 +80,21 @@ export default function CreateModal({
 		if (currentDateRange >= 1) {
 			setValue('text', '休暇');
 			setValue('date', currentDateRange + 1);
-			setValue('hour', 0);
+			setValue('hour', null);
 		} else {
 			if (currentCategory === '休暇') {
 				setValue('date', 1);
-				setValue('hour', 0);
+				setValue('hour', null);
 			} else {
 				setValue('date', 0);
-				setValue('hour', null);
+				setValue('hour', 0);
 			}
 		}
 	}, [currentUpdate, currentCategory, setValue]);
 
 	const isRangeMode = currentDateRange !== 0;
+
+	const isCategoryDayOff = currentCategory === '休暇';
 
 	const thisYear = new Date().getFullYear();
 
@@ -237,7 +239,7 @@ export default function CreateModal({
 																				value={value}
 																				onChange={onChange}
 																				hours={hours}
-																				isDisabled={isRangeMode}
+																				isDisabled={isCategoryDayOff}
 																				label={item.label}
 																			/>
 																		)}

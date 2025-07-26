@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import DeleteModal from './DeleteModal';
+import EditModal from './EditModal';
 
 type Props = {
 	data: ListData[];
@@ -12,7 +13,17 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 
 	const [id, setId] = useState(null);
 
-	const [open, setOpen] = useState(false);
+	const [editOpen, setEditOpen] = useState(false);
+
+	const [editValues, setEditValues] = useState<{
+		id: number;
+		update: { startDate: Date; endDate: Date };
+		date: number;
+		hour: number;
+		text: string;
+	} | null>(null);
+
+	const [deleteOpen, setDeleteOpen] = useState(false);
 
 	const cancelButtonRef = useRef(null);
 
@@ -57,7 +68,8 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
 									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
-										{item.update}
+										{item.update.startDate.toLocaleDateString()} 〜
+										{item.update.endDate.toLocaleDateString()}
 									</td>
 									<td className="whitespace-nowrap p-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.date}
@@ -80,21 +92,16 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 									<td className="flex justify-center px-2 py-4 ">
 										<button
 											type="submit"
-											onClick={() =>
-												router.push(
-													{
-														pathname: '/edit',
-														query: {
-															id: item.id,
-															update: item.update,
-															date: item.date,
-															hour: item.hour,
-															text: item.text,
-														},
-													},
-													'edit'
-												)
-											}
+											onClick={() => {
+												setEditOpen(true);
+												setEditValues({
+													id: item.id,
+													update: item.update,
+													date: item.date,
+													hour: item.hour,
+													text: item.text,
+												});
+											}}
 										>
 											<FiEdit className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
 										</button>
@@ -102,7 +109,7 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 											type="submit"
 											onClick={() => {
 												setId(item.id);
-												setOpen(true);
+												setDeleteOpen(true);
 											}}
 										>
 											<FiTrash className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
@@ -114,10 +121,17 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 					})}
 				</tbody>
 			</table>
+			<EditModal
+				editOpen={editOpen}
+				setEditOpen={setEditOpen}
+				editValues={editValues}
+				cancelButtonRef={cancelButtonRef}
+			/>
+
 			<DeleteModal
 				id={id}
-				open={open}
-				setOpen={setOpen}
+				open={deleteOpen}
+				setOpen={setDeleteOpen}
 				cancelButtonRef={cancelButtonRef}
 			/>
 		</div>

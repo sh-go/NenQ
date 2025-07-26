@@ -25,8 +25,15 @@ import CategoryListBox from './CategoryListBox';
 import HourListBox from './HourListBox';
 
 type Props = {
-	createOpen: boolean;
-	setCreateOpen: Dispatch<SetStateAction<boolean>>;
+	editOpen: boolean;
+	setEditOpen: Dispatch<SetStateAction<boolean>>;
+	editValues: {
+		id: number;
+		update: { startDate: Date; endDate: Date };
+		date: number;
+		hour: number;
+		text: string;
+	};
 	cancelButtonRef: MutableRefObject<any>;
 };
 
@@ -36,9 +43,10 @@ type InputData = {
 	text: string;
 	update: { startDate: Date; endDate: Date };
 };
-export default function CreateModal({
-	createOpen,
-	setCreateOpen,
+export default function EditModal({
+	editOpen,
+	setEditOpen,
+	editValues,
 	cancelButtonRef,
 }: Props): JSX.Element {
 	const router = useRouter();
@@ -55,10 +63,10 @@ export default function CreateModal({
 		setValue,
 	} = useForm({
 		defaultValues: {
-			date: null,
-			hour: null,
-			text: null,
-			update: { startDate: new Date(), endDate: new Date() },
+			date: parseInt(router.query.date as string, 10),
+			hour: parseInt(router.query.hour as string, 10),
+			text: router.query.text as string,
+			update: router.query.update,
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});
@@ -66,8 +74,8 @@ export default function CreateModal({
 	const [currentUpdate, currentCategory] = watch(['update', 'text']);
 
 	const currentDateRange = differenceInDays(
-		currentUpdate.endDate,
-		currentUpdate.startDate
+		currentUpdate?.endDate,
+		currentUpdate?.startDate
 	);
 
 	// 期間の長さを監視して、日付と時間の初期値を設定
@@ -111,17 +119,12 @@ export default function CreateModal({
 		const diffDays = differenceInDays(update.startDate, update.endDate);
 
 		const convertUpdate =
-			diffDays == 0
-				? {
-						startDate: format(update.startDate, 'yyyy-MM-dd'),
-						endDate: format(update.endDate, 'yyyy-MM-dd'),
-				  }
-				: null;
+			diffDays == 0 ? format(update.startDate, 'yyyy-MM-dd') : '';
 
-		const postData = { date, hour, text, update: convertUpdate, user: uuid };
+		const patchData = { date, hour, text, update: convertUpdate };
 
 		await clientSideAxios
-			.post('/api/create', postData)
+			.patch(`/api/update/${router.query.id}`, patchData)
 			.then(() => {
 				router.push('/');
 				reset();
@@ -132,12 +135,12 @@ export default function CreateModal({
 	};
 
 	return (
-		<Transition show={createOpen} as={Fragment}>
+		<Transition show={editOpen} as={Fragment}>
 			<Dialog
 				as="div"
 				className="relative z-10"
 				initialFocus={cancelButtonRef}
-				onClose={() => setCreateOpen(false)}
+				onClose={() => setEditOpen(false)}
 			>
 				<TransitionChild
 					as={Fragment}
@@ -265,7 +268,7 @@ export default function CreateModal({
 															size="sm"
 															rounded
 															color="gray"
-															onClick={() => setCreateOpen(false)}
+															onClick={() => setEditOpen(false)}
 															className="px-4 py-2"
 														>
 															キャンセル
@@ -275,7 +278,7 @@ export default function CreateModal({
 															submit
 															rounded
 															color="blue"
-															onClick={() => setCreateOpen(false)}
+															onClick={() => setEditOpen(false)}
 															disabled={!isDirty || !isValid}
 															className="px-4 py-2"
 														>

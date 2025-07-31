@@ -65,7 +65,7 @@ def get_summary_data(request):
 class ListPaidHolidays(generics.ListAPIView):
     def get_queryset(self):
         return PaidHolidays.objects.filter(user=self.request.user).order_by(
-            "-update_start"
+            "-start_date"
         )
 
     serializer_class = PaidHolidaysSerializer

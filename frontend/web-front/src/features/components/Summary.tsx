@@ -78,19 +78,19 @@ export default function Summary({
 									</td>
 									<td className="whitespace-nowrap p-3 text-center text-base text-gray-700 dark:text-gray-200 sm:text-3xl">
 										<div className="flex-row items-baseline justify-center sm:flex">
-											<p>{summaryData.used_date}日</p>
+											<p>{summaryData.usedDate}日</p>
 											<p className="hidden px-1 text-xl sm:inline"> と </p>
 											<p>
-												{summaryData.used_hour}時間{summaryData.used_min}分
+												{summaryData.usedHour}時間{summaryData.usedMin}分
 											</p>
 										</div>
 									</td>
 									<td className="whitespace-nowrap p-3 text-center text-base text-gray-700 dark:text-gray-200 sm:text-3xl">
 										<div className="flex-row items-baseline justify-center sm:flex">
-											<p>{summaryData.remain_date}日</p>
+											<p>{summaryData.remainDate}日</p>
 											<p className="hidden px-1 text-xl sm:block"> と </p>
 											<p>
-												{summaryData.remain_hour}時間{summaryData.remain_min}分
+												{summaryData.remainHour}時間{summaryData.remainMin}分
 											</p>
 										</div>
 									</td>

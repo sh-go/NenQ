@@ -17,7 +17,7 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 
 	const [editValues, setEditValues] = useState<{
 		id: number;
-		update: { startDate: Date; endDate: Date };
+		update: { startDate: string; endDate: string };
 		date: number;
 		hour: number;
 		text: string;
@@ -26,6 +26,7 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 	const [deleteOpen, setDeleteOpen] = useState(false);
 
 	const cancelButtonRef = useRef(null);
+	console.log('data:', data);
 
 	return (
 		<div className="mb-20 overflow-hidden shadow-md dark:border-gray-700">
@@ -68,8 +69,7 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
 									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
-										{item.update.startDate.toLocaleDateString()} 〜
-										{item.update.endDate.toLocaleDateString()}
+										{item.startDate} 〜{item.endDate}
 									</td>
 									<td className="whitespace-nowrap p-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.date}
@@ -96,7 +96,10 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 												setEditOpen(true);
 												setEditValues({
 													id: item.id,
-													update: item.update,
+													update: {
+														startDate: item.startDate,
+														endDate: item.endDate,
+													},
 													date: item.date,
 													hour: item.hour,
 													text: item.text,

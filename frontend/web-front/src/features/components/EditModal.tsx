@@ -29,7 +29,7 @@ type Props = {
 	setEditOpen: Dispatch<SetStateAction<boolean>>;
 	editValues: {
 		id: number;
-		update: { startDate: Date; endDate: Date };
+		update: { startDate: string; endDate: string };
 		date: number;
 		hour: number;
 		text: string;
@@ -63,10 +63,13 @@ export default function EditModal({
 		setValue,
 	} = useForm({
 		defaultValues: {
-			date: parseInt(router.query.date as string, 10),
-			hour: parseInt(router.query.hour as string, 10),
-			text: router.query.text as string,
-			update: router.query.update,
+			date: editValues?.date,
+			hour: editValues?.hour,
+			text: editValues?.text,
+			update: {
+				startDate: new Date(editValues?.update.startDate),
+				endDate: new Date(editValues?.update.endDate),
+			},
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});
@@ -118,13 +121,20 @@ export default function EditModal({
 
 		const diffDays = differenceInDays(update.startDate, update.endDate);
 
-		const convertUpdate =
-			diffDays == 0 ? format(update.startDate, 'yyyy-MM-dd') : '';
+		const convertStartDate = format(update.startDate, 'yyyy-MM-dd');
 
-		const patchData = { date, hour, text, update: convertUpdate };
+		const convertEndDate = format(update.endDate, 'yyyy-MM-dd');
+
+		const patchData = {
+			date,
+			hour,
+			text,
+			startDate: convertStartDate,
+			endDate: convertEndDate,
+		};
 
 		await clientSideAxios
-			.patch(`/api/update/${router.query.id}`, patchData)
+			.patch(`/api/update/${editValues.id}`, patchData)
 			.then(() => {
 				router.push('/');
 				reset();

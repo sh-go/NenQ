@@ -80,11 +80,11 @@ export default function CreateModal({
 		if (currentDateRange >= 1) {
 			setValue('text', '休暇');
 			setValue('date', currentDateRange + 1);
-			setValue('hour', null);
+			setValue('hour', 0);
 		} else {
 			if (currentCategory === '休暇') {
 				setValue('date', 1);
-				setValue('hour', null);
+				setValue('hour', 0);
 			} else {
 				setValue('date', 0);
 				setValue('hour', 0);
@@ -110,15 +110,18 @@ export default function CreateModal({
 
 		const diffDays = differenceInDays(update.startDate, update.endDate);
 
-		const convertUpdate =
-			diffDays == 0
-				? {
-						startDate: format(update.startDate, 'yyyy-MM-dd'),
-						endDate: format(update.endDate, 'yyyy-MM-dd'),
-				  }
-				: null;
+		const convertStartDate = format(update.startDate, 'yyyy-MM-dd');
 
-		const postData = { date, hour, text, update: convertUpdate, user: uuid };
+		const convertEndDate = format(update.endDate, 'yyyy-MM-dd');
+
+		const postData = {
+			date,
+			hour,
+			text,
+			startDate: convertStartDate,
+			endDate: convertEndDate,
+			user: uuid,
+		};
 
 		await clientSideAxios
 			.post('/api/create', postData)

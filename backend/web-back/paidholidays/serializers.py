@@ -9,10 +9,8 @@ class PaidHolidaysSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def update(self, instance, validated_data):
-        instance.update_start = validated_data.get(
-            "update_start", instance.update_start
-        )
-        instance.update_end = validated_data.get("update_end", instance.update_end)
+        instance.start_date = validated_data.get("start_date", instance.start_date)
+        instance.end_date = validated_data.get("end_date", instance.end_date)
         instance.date = validated_data.get("date", instance.date)
         instance.hour = validated_data.get("hour", instance.hour)
         instance.text = validated_data.get("text", instance.text)

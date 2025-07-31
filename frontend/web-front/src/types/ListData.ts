@@ -1,6 +1,7 @@
 type ListData = {
 	id: number;
-	update: { startDate: Date; endDate: Date };
+	startDate: string;
+	endDate: string;
 	date: number;
 	hour: number;
 	text: string;

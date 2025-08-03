@@ -26,7 +26,6 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 	const [deleteOpen, setDeleteOpen] = useState(false);
 
 	const cancelButtonRef = useRef(null);
-	console.log('data:', data);
 
 	return (
 		<div className="mb-20 overflow-hidden shadow-md dark:border-gray-700">

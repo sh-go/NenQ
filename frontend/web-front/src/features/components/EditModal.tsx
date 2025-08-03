@@ -74,6 +74,20 @@ export default function EditModal({
 		reValidateMode: 'onSubmit',
 	});
 
+	// 編集対象が切り替わった際にフォームの値を更新する
+	useEffect(() => {
+		if (!editValues) return;
+		reset({
+			date: editValues.date,
+			hour: editValues.hour,
+			text: editValues.text,
+			update: {
+				startDate: new Date(editValues.update.startDate),
+				endDate: new Date(editValues.update.endDate),
+			},
+		});
+	}, [editValues, reset]);
+
 	const [currentUpdate, currentCategory] = watch(['update', 'text']);
 
 	const currentDateRange = differenceInDays(

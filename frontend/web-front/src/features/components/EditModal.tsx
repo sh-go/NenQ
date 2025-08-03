@@ -25,8 +25,15 @@ import CategoryListBox from './CategoryListBox';
 import HourListBox from './HourListBox';
 
 type Props = {
-	createOpen: boolean;
-	setCreateOpen: Dispatch<SetStateAction<boolean>>;
+	editOpen: boolean;
+	setEditOpen: Dispatch<SetStateAction<boolean>>;
+	editValues: {
+		id: number;
+		update: { startDate: string; endDate: string };
+		date: number;
+		hour: number;
+		text: string;
+	};
 	cancelButtonRef: MutableRefObject<any>;
 };
 
@@ -36,9 +43,10 @@ type InputData = {
 	text: string;
 	update: { startDate: Date; endDate: Date };
 };
-export default function CreateModal({
-	createOpen,
-	setCreateOpen,
+export default function EditModal({
+	editOpen,
+	setEditOpen,
+	editValues,
 	cancelButtonRef,
 }: Props): JSX.Element {
 	const router = useRouter();
@@ -55,19 +63,36 @@ export default function CreateModal({
 		setValue,
 	} = useForm({
 		defaultValues: {
-			date: null,
-			hour: null,
-			text: null,
-			update: { startDate: new Date(), endDate: new Date() },
+			date: editValues?.date,
+			hour: editValues?.hour,
+			text: editValues?.text,
+			update: {
+				startDate: new Date(editValues?.update.startDate),
+				endDate: new Date(editValues?.update.endDate),
+			},
 		} as FieldValues,
 		reValidateMode: 'onSubmit',
 	});
 
+	// 編集対象が切り替わった際にフォームの値を更新する
+	useEffect(() => {
+		if (!editValues) return;
+		reset({
+			date: editValues.date,
+			hour: editValues.hour,
+			text: editValues.text,
+			update: {
+				startDate: new Date(editValues.update.startDate),
+				endDate: new Date(editValues.update.endDate),
+			},
+		});
+	}, [editValues, reset]);
+
 	const [currentUpdate, currentCategory] = watch(['update', 'text']);
 
 	const currentDateRange = differenceInDays(
-		currentUpdate.endDate,
-		currentUpdate.startDate
+		currentUpdate?.endDate,
+		currentUpdate?.startDate
 	);
 
 	// 期間の長さを監視して、日付と時間の初期値を設定
@@ -80,11 +105,11 @@ export default function CreateModal({
 		if (currentDateRange >= 1) {
 			setValue('text', '休暇');
 			setValue('date', currentDateRange + 1);
-			setValue('hour', 0);
+			setValue('hour', null);
 		} else {
 			if (currentCategory === '休暇') {
 				setValue('date', 1);
-				setValue('hour', 0);
+				setValue('hour', null);
 			} else {
 				setValue('date', 0);
 				setValue('hour', 0);
@@ -114,17 +139,16 @@ export default function CreateModal({
 
 		const convertEndDate = format(update.endDate, 'yyyy-MM-dd');
 
-		const postData = {
+		const patchData = {
 			date,
 			hour,
 			text,
 			startDate: convertStartDate,
 			endDate: convertEndDate,
-			user: uuid,
 		};
 
 		await clientSideAxios
-			.post('/api/create', postData)
+			.patch(`/api/update/${editValues.id}`, patchData)
 			.then(() => {
 				router.push('/');
 				reset();
@@ -135,12 +159,12 @@ export default function CreateModal({
 	};
 
 	return (
-		<Transition show={createOpen} as={Fragment}>
+		<Transition show={editOpen} as={Fragment}>
 			<Dialog
 				as="div"
 				className="relative z-10"
 				initialFocus={cancelButtonRef}
-				onClose={() => setCreateOpen(false)}
+				onClose={() => setEditOpen(false)}
 			>
 				<TransitionChild
 					as={Fragment}
@@ -268,7 +292,7 @@ export default function CreateModal({
 															size="sm"
 															rounded
 															color="gray"
-															onClick={() => setCreateOpen(false)}
+															onClick={() => setEditOpen(false)}
 															className="px-4 py-2"
 														>
 															キャンセル
@@ -278,7 +302,7 @@ export default function CreateModal({
 															submit
 															rounded
 															color="blue"
-															onClick={() => setCreateOpen(false)}
+															onClick={() => setEditOpen(false)}
 															disabled={!isDirty || !isValid}
 															className="px-4 py-2"
 														>

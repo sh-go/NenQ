@@ -12,7 +12,8 @@ class PaidHolidays(models.Model):
         on_delete=models.CASCADE,
         related_name="user_paidholidays",
     )
-    update = models.DateField(default=timezone.now)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(null=True, blank=False)
     date = models.PositiveIntegerField(null=True, blank=False, default=0)
     hour = models.PositiveIntegerField(null=True, blank=False, default=0)
     text = models.CharField(
@@ -23,7 +24,7 @@ class PaidHolidays(models.Model):
     slug = models.SlugField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user} - {self.update} - 取得日数{self.date} - 取得時間{self.hour} - {self.text}"
+        return f"{self.user} - 開始日{self.start_date} - 終了日{self.end_date} - 取得日数{self.date} - 取得時間{self.hour} - {self.text}"
 
 
 class CarryOver(models.Model):

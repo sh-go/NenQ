@@ -1,4 +1,3 @@
-import { PagesProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -44,16 +43,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
 				<title>NenQ -年休管理アプリ-</title>
 			</Head>
 			<CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
-				<ThemeProvider attribute="class" defaultTheme="light">
-					<Component {...pageProps} />
-					<ProgressBar
-						height="3px"
-						color="#0eb7c9"
-						options={{ showSpinner: false }}
-						shallowRouting
-					/>
-				</ThemeProvider>
-			</CurrentUserContext.Provider>
-		</>
-	);
+                                <ThemeProvider attribute="class" defaultTheme="light">
+                                        <Component {...pageProps} />
+                                </ThemeProvider>
+                        </CurrentUserContext.Provider>
+                </>
+        );
 }

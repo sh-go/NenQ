@@ -84,7 +84,7 @@ export default function Home(): React.JSX.Element {
 						<div className="flex gap-4">
 							<Button
 								rounded
-								className="hidden bg-rose-500 px-4 py-2 text-sm font-bold text-white shadow-lg hover:bg-rose-800 dark:bg-rose-700 dark:hover:bg-rose-800 sm:block"
+								className="hidden bg-rose-500 px-4 py-2 text-sm font-bold text-white shadow-lg hover:bg-rose-800 sm:block dark:bg-rose-700 dark:hover:bg-rose-800"
 								onClick={() => setCreateOpen(true)}
 							>
 								＋　追加
@@ -116,7 +116,7 @@ export default function Home(): React.JSX.Element {
 				/>
 				<div>
 					<Button
-						className="fixed bottom-5 right-5 block rounded-full bg-rose-500 px-4 py-2 text-lg font-bold text-white shadow-lg hover:bg-rose-800 dark:bg-rose-700 dark:hover:bg-rose-800 sm:hidden"
+						className="fixed bottom-5 right-5 block rounded-full bg-rose-500 px-4 py-2 text-lg font-bold text-white shadow-lg hover:bg-rose-800 sm:hidden dark:bg-rose-700 dark:hover:bg-rose-800"
 						onClick={() => setCreateOpen(true)}
 					>
 						＋

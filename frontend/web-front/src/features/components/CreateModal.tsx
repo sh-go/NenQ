@@ -168,12 +168,12 @@ export default function CreateModal({
 							<DialogPanel className="relative w-full text-left shadow-xl transition-all sm:max-w-lg">
 								<div className="sm:flex sm:items-start">
 									<div className="mx-auto flex w-full flex-col items-center justify-center">
-										<div className="w-full rounded-xl bg-white shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:pb-3 sm:pt-6">
+										<div className="w-full rounded-xl bg-white py-2 shadow dark:border dark:border-gray-700 dark:bg-slate-800 sm:pb-3 sm:pt-6">
 											<form
 												onSubmit={handleSubmit(onSubmit)}
-												className="w-full space-y-4 pl-3 sm:p-0"
+												className="mx-auto w-full space-y-4 sm:p-0"
 											>
-												<div className="mx-3 mb-5 flex h-10 flex-row">
+												<div className="mx-3 h-full space-y-2 sm:flex sm:space-y-0">
 													<Controller
 														control={control}
 														name="update"
@@ -192,33 +192,39 @@ export default function CreateModal({
 
 															const widthClass = useRangeMode ? 'w-72' : 'w-52';
 
+															const toggleBottonPosition = useRangeMode
+																? 'left-[250px]'
+																: 'left-[168px]';
+
 															return (
-																<Datepicker
-																	i18n={'ja'}
-																	inputId={name}
-																	value={value}
-																	useRange={!isMobile}
-																	readOnly={true}
-																	separator=" 〜 "
-																	displayFormat={
-																		useRangeMode ? 'YYYY年M月D日' : 'M月D日'
-																	}
-																	onChange={onChange}
-																	placeholder="日付"
-																	required={true}
-																	startWeekOn="mon"
-																	popoverDirection={isMobile ? 'up' : 'down'}
-																	containerClassName="relative text-gray-700"
-																	inputClassName={`${widthClass} h-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder:text-sm dark:border-gray-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
-																	toggleClassName={`absolute right-0 h-full px-2 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
-																/>
+																<div>
+																	<Datepicker
+																		i18n={'ja'}
+																		inputId={name}
+																		value={value}
+																		useRange={!isMobile}
+																		readOnly={true}
+																		separator=" 〜 "
+																		displayFormat={
+																			useRangeMode ? 'YYYY年M月D日' : 'M月D日'
+																		}
+																		onChange={onChange}
+																		placeholder="日付"
+																		required={true}
+																		startWeekOn="mon"
+																		popoverDirection={isMobile ? 'up' : 'down'}
+																		containerClassName="relative text-gray-700"
+																		inputClassName={`${widthClass} h-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder:text-sm dark:border-gray-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
+																		toggleClassName={`absolute ${toggleBottonPosition} h-full px-2 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
+																	/>
+																</div>
 															);
 														}}
 													/>
-													{CREATE_FORM_ITEMS.map((item) => (
-														<div key={item.name} className="ml-2">
-															{item.type == 'text' ? (
-																<div className="h-full">
+													<div className="flex w-full items-center gap-2 sm:gap-0">
+														{CREATE_FORM_ITEMS.map((item) => (
+															<div key={item.name} className="sm:ml-2">
+																{item.type == 'text' ? (
 																	<Controller
 																		control={control}
 																		name="text"
@@ -234,9 +240,7 @@ export default function CreateModal({
 																			/>
 																		)}
 																	/>
-																</div>
-															) : item.type == 'number' ? (
-																<div className="h-full">
+																) : item.type == 'number' ? (
 																	<Controller
 																		control={control}
 																		name="hour"
@@ -252,12 +256,12 @@ export default function CreateModal({
 																			/>
 																		)}
 																	/>
-																</div>
-															) : (
-																<></>
-															)}
-														</div>
-													))}
+																) : (
+																	<></>
+																)}
+															</div>
+														))}
+													</div>
 												</div>
 
 												<hr className="w-full border-gray-300 dark:border-gray-700" />

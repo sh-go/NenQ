@@ -192,6 +192,10 @@ export default function CreateModal({
 
 															const widthClass = useRangeMode ? 'w-72' : 'w-52';
 
+															const toggleBottonPosition = useRangeMode
+																? 'left-[250px]'
+																: 'left-[168px]';
+
 															return (
 																<div>
 																	<Datepicker
@@ -211,13 +215,13 @@ export default function CreateModal({
 																		popoverDirection={isMobile ? 'up' : 'down'}
 																		containerClassName="relative text-gray-700"
 																		inputClassName={`${widthClass} h-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm placeholder:text-sm dark:border-gray-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
-																		toggleClassName={`absolute right-0 h-full px-2 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
+																		toggleClassName={`absolute ${toggleBottonPosition} h-full px-2 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed`}
 																	/>
 																</div>
 															);
 														}}
 													/>
-													<div className="flex w-full items-center">
+													<div className="flex w-full items-center gap-2 sm:gap-0">
 														{CREATE_FORM_ITEMS.map((item) => (
 															<div key={item.name} className="sm:ml-2">
 																{item.type == 'text' ? (

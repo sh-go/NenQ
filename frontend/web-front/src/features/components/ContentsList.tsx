@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { FiEdit, FiTrash } from 'react-icons/fi';
+import useIsMobile from '../hooks/useIsMobile';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
 
@@ -11,6 +12,8 @@ type Props = {
 
 export default function ContentsList({ data }: Props): React.JSX.Element {
 	const router = useRouter();
+
+	const isMobile = useIsMobile();
 
 	const [id, setId] = useState(null);
 
@@ -68,16 +71,21 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 						return (
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
-									<td className="whitespace-pre-wrap px-2 py-4 text-center text-xs text-gray-700 dark:text-gray-200 sm:text-xl">
-										{item.startDate === item.endDate
-											? format(new Date(item.startDate), 'yyyy年M月d日')
-											: `${format(
-													new Date(item.startDate),
-													'yyyy年M月d日'
-											  )}　\n〜${format(
-													new Date(item.endDate),
-													'yyyy年M月d日'
-											  )}`}
+									<td className="w-0 whitespace-nowrap py-4 text-center text-xs text-gray-700 dark:text-gray-200 sm:px-8 sm:text-xl">
+										{item.startDate === item.endDate ? (
+											format(new Date(item.startDate), 'yyyy年M月d日')
+										) : !isMobile ? (
+											`${format(
+												new Date(item.startDate),
+												'yyyy年M月d日'
+											)} 〜 ${format(new Date(item.endDate), 'yyyy年M月d日')}`
+										) : (
+											<>
+												{format(new Date(item.startDate), 'yyyy年M月d日')}
+												<br />
+												　〜{format(new Date(item.endDate), 'yyyy年M月d日')}
+											</>
+										)}
 									</td>
 									<td className="whitespace-nowrap p-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.date}
@@ -97,34 +105,36 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 											{item.text}
 										</div>
 									</td>
-									<td className="flex justify-center px-2 py-4 ">
-										<button
-											type="submit"
-											onClick={() => {
-												setEditOpen(true);
-												setEditValues({
-													id: item.id,
-													update: {
-														startDate: item.startDate,
-														endDate: item.endDate,
-													},
-													date: item.date,
-													hour: item.hour,
-													text: item.text,
-												});
-											}}
-										>
-											<FiEdit className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
-										</button>
-										<button
-											type="submit"
-											onClick={() => {
-												setId(item.id);
-												setDeleteOpen(true);
-											}}
-										>
-											<FiTrash className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
-										</button>
+									<td className="">
+										<div className="flex justify-center sm:gap-7">
+											<button
+												type="submit"
+												onClick={() => {
+													setEditOpen(true);
+													setEditValues({
+														id: item.id,
+														update: {
+															startDate: item.startDate,
+															endDate: item.endDate,
+														},
+														date: item.date,
+														hour: item.hour,
+														text: item.text,
+													});
+												}}
+											>
+												<FiEdit className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
+											</button>
+											<button
+												type="submit"
+												onClick={() => {
+													setId(item.id);
+													setDeleteOpen(true);
+												}}
+											>
+												<FiTrash className="mx-1 size-4 text-gray-500 hover:fill-gray-400 sm:size-6" />
+											</button>
+										</div>
 									</td>
 								</tr>
 							</React.Fragment>

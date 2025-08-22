@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { FiEdit, FiTrash } from 'react-icons/fi';
@@ -67,8 +68,16 @@ export default function ContentsList({ data }: Props): React.JSX.Element {
 						return (
 							<React.Fragment key={item.id}>
 								<tr className="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
-									<td className="whitespace-nowrap px-2 py-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
-										{item.startDate} 〜{item.endDate}
+									<td className="whitespace-pre-wrap px-2 py-4 text-center text-xs text-gray-700 dark:text-gray-200 sm:text-xl">
+										{item.startDate === item.endDate
+											? format(new Date(item.startDate), 'yyyy年M月d日')
+											: `${format(
+													new Date(item.startDate),
+													'yyyy年M月d日'
+											  )}　\n〜${format(
+													new Date(item.endDate),
+													'yyyy年M月d日'
+											  )}`}
 									</td>
 									<td className="whitespace-nowrap p-4 text-center text-sm text-gray-700 dark:text-gray-200 sm:text-xl">
 										{item.date}

@@ -170,59 +170,61 @@ export default function Summary({
 					</div>
 				</div>
 			</div>
-			<div className="mt-4 flex justify-center md:mt-0 md:w-1/2">
-				<ResponsiveContainer width="100%" height={250}>
-					<PieChart>
-						<Pie
-							data={pieChartData}
-							dataKey="value"
-							nameKey="name"
-							cx="50%"
-							cy="50%"
-							innerRadius={60}
-							outerRadius={80}
+			<div className="mt-4 flex flex-row justify-center md:mt-0">
+				<div className="w-full">
+					<ResponsiveContainer width="100%" height={250}>
+						<PieChart>
+							<Pie
+								data={pieChartData}
+								dataKey="value"
+								nameKey="name"
+								cx="50%"
+								cy="50%"
+								innerRadius={60}
+								outerRadius={80}
+							>
+								{pieChartData.map((entry, index) => (
+									<Cell
+										key={`cell-${index}`}
+										fill={COLORS[index % COLORS.length]}
+									/>
+								))}
+							</Pie>
+							<Tooltip />
+							<Legend />
+						</PieChart>
+					</ResponsiveContainer>
+				</div>
+				<div className="w-full">
+					<ResponsiveContainer width="100%" height={250}>
+						<AreaChart
+							style={{
+								width: '100%',
+								maxWidth: '700px',
+								maxHeight: '70vh',
+								aspectRatio: 1.618,
+							}}
+							data={areaChartData}
+							margin={{
+								top: 20,
+								right: 0,
+								left: 0,
+								bottom: 0,
+							}}
 						>
-							{pieChartData.map((entry, index) => (
-								<Cell
-									key={`cell-${index}`}
-									fill={COLORS[index % COLORS.length]}
-								/>
-							))}
-						</Pie>
-						<Tooltip />
-						<Legend />
-					</PieChart>
-				</ResponsiveContainer>
-			</div>
-			<div className="mt-8 flex justify-center md:mt-0 md:w-1/2">
-				<ResponsiveContainer width="100%" height={400}>
-					<AreaChart
-						style={{
-							width: '100%',
-							maxWidth: '700px',
-							maxHeight: '70vh',
-							aspectRatio: 1.618,
-						}}
-						data={areaChartData}
-						margin={{
-							top: 20,
-							right: 0,
-							left: 0,
-							bottom: 0,
-						}}
-					>
-						<CartesianGrid strokeDasharray="3 3" />
-						<XAxis dataKey="name" />
-						<YAxis width="auto" />
-						<Tooltip />
-						<Area
-							type="monotone"
-							dataKey="uv"
-							stroke="#8884d8"
-							fill="#8884d8"
-						/>
-					</AreaChart>
-				</ResponsiveContainer>
+							<CartesianGrid strokeDasharray="3 3" />
+							<XAxis dataKey="name" />
+							<YAxis width="auto" />
+							<Tooltip />
+							<Area
+								type="monotone"
+								dataKey="uv"
+								stroke="#8884d8"
+								fill="#8884d8"
+							/>
+						</AreaChart>
+					</ResponsiveContainer>
+				</div>
 			</div>
 		</div>
 	);

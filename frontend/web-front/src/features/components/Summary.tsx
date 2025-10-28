@@ -26,56 +26,91 @@ export default function Summary({
 }: Props): React.JSX.Element {
 	const router = useRouter();
 
-	const pieChartData = React.useMemo(
-		() => [
-			{ name: '取得済み', value: summaryData.usedDate },
-			{ name: '残り', value: summaryData.remainDate },
-		],
-		[summaryData]
-	);
+	const pieChartData = React.useMemo(() => {
+		const total = summaryData.sumInputAll + summaryData.remain15min;
+		const usedRatio = total > 0 ? summaryData.sumInputAll / total : 0;
+		const remainRatio = total > 0 ? summaryData.remain15min / total : 0;
+		// パーセント表示は、小数点以下1桁まで
+		const usedPercent = Math.round(usedRatio * 100 * 10) / 10;
+		const remainPercent = Math.round(remainRatio * 100 * 10) / 10;
+		return [
+			{ name: '取得済み', value: usedPercent },
+			{ name: '残り', value: remainPercent },
+		];
+	}, [summaryData]);
 	const COLORS = ['#34d399', '#f87171'];
 
 	const areaChartData = React.useMemo(
 		() => [
 			{
-				name: 'Page A',
-				uv: 4000,
+				name: '1月',
+				uv: 2,
 				pv: 2400,
 				amt: 2400,
 			},
 			{
-				name: 'Page B',
-				uv: 3000,
+				name: '2月',
+				uv: 5,
 				pv: 1398,
 				amt: 2210,
 			},
 			{
-				name: 'Page C',
-				uv: 2000,
+				name: '3月',
+				uv: 6,
 				pv: 9800,
 				amt: 2290,
 			},
 			{
-				name: 'Page D',
-				uv: 2780,
+				name: '4月',
+				uv: 9,
 				pv: 3908,
 				amt: 2000,
 			},
 			{
-				name: 'Page E',
-				uv: 1890,
+				name: '5月',
+				uv: 11,
 				pv: 4800,
 				amt: 2181,
 			},
 			{
-				name: 'Page F',
-				uv: 2390,
+				name: '6月',
+				uv: 11,
 				pv: 3800,
 				amt: 2500,
 			},
 			{
-				name: 'Page G',
-				uv: 3490,
+				name: '7月',
+				uv: 12,
+				pv: 4300,
+				amt: 2100,
+			},
+			{
+				name: '8月',
+				uv: 13,
+				pv: 4300,
+				amt: 2100,
+			},
+			{
+				name: '9月',
+				uv: 17,
+				pv: 4300,
+				amt: 2100,
+			},
+			{
+				name: '10月',
+				uv: 17,
+				pv: 4300,
+				amt: 2100,
+			},
+			{
+				name: '11月',
+				uv: 17,
+				pv: 4300,
+				amt: 2100,
+			},
+			{
+				name: '12月',
+				uv: 19,
 				pv: 4300,
 				amt: 2100,
 			},
@@ -170,18 +205,30 @@ export default function Summary({
 					</div>
 				</div>
 			</div>
-			<div className="mt-4 flex flex-row justify-center md:mt-0">
-				<div className="w-full">
-					<ResponsiveContainer width="100%" height={250}>
-						<PieChart>
+			<div className="mt-4 w-full justify-center md:mt-0 md:flex md:flex-row">
+				<div className="h-44 md:h-64 md:w-2/5">
+					<ResponsiveContainer width="100%" height="100%">
+						<PieChart
+							margin={{
+								top: 20,
+								right: 0,
+								left: 0,
+								bottom: 0,
+							}}
+						>
 							<Pie
 								data={pieChartData}
 								dataKey="value"
 								nameKey="name"
 								cx="50%"
 								cy="50%"
-								innerRadius={60}
-								outerRadius={80}
+								innerRadius="50%"
+								outerRadius="80%"
+								startAngle={90}
+								endAngle={450}
+								label={({ percent }) =>
+									`${((Number(percent) ?? 0) * 100).toFixed(1)}%`
+								}
 							>
 								{pieChartData.map((entry, index) => (
 									<Cell
@@ -191,15 +238,19 @@ export default function Summary({
 								))}
 							</Pie>
 							<Tooltip />
-							<Legend />
+							<Legend
+								verticalAlign="middle"
+								align="right"
+								layout="vertical"
+								width={110}
+							/>
 						</PieChart>
 					</ResponsiveContainer>
 				</div>
-				<div className="w-full">
-					<ResponsiveContainer width="100%" height={250}>
+				<div className="h-52 w-full md:h-64 md:w-3/5">
+					<ResponsiveContainer width="102%" height="100%">
 						<AreaChart
 							style={{
-								width: '100%',
 								maxWidth: '700px',
 								maxHeight: '70vh',
 								aspectRatio: 1.618,
@@ -207,17 +258,17 @@ export default function Summary({
 							data={areaChartData}
 							margin={{
 								top: 20,
-								right: 0,
+								right: 10,
 								left: 0,
 								bottom: 0,
 							}}
 						>
-							<CartesianGrid strokeDasharray="3 3" />
-							<XAxis dataKey="name" />
-							<YAxis width="auto" />
+							<CartesianGrid strokeDasharray="0 1" />
+							<XAxis dataKey="name" fontSize={10} />
+							<YAxis width="auto" fontSize={10} />
 							<Tooltip />
 							<Area
-								type="monotone"
+								type="linear"
 								dataKey="uv"
 								stroke="#8884d8"
 								fill="#8884d8"

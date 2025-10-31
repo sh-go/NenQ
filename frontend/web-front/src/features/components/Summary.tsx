@@ -35,7 +35,7 @@ export default function Summary({
 		const remainPercent = Math.round(remainRatio * 100 * 10) / 10;
 		return [
 			{ name: '取得済み', value: usedPercent },
-			{ name: '残り', value: remainPercent },
+			{ name: '利用可能', value: remainPercent },
 		];
 	}, [summaryData]);
 	const COLORS = ['#34d399', '#f87171'];
@@ -225,7 +225,7 @@ export default function Summary({
 								innerRadius="50%"
 								outerRadius="80%"
 								startAngle={90}
-								endAngle={450}
+								endAngle={-270}
 								label={({ percent }) =>
 									`${((Number(percent) ?? 0) * 100).toFixed(1)}%`
 								}
@@ -237,12 +237,29 @@ export default function Summary({
 									/>
 								))}
 							</Pie>
-							<Tooltip />
+							<Tooltip
+								formatter={(value: number, name: string, item: any) => {
+									const v = `${value.toFixed(1)}%`;
+
+									if (name === pieChartData[0].name) {
+										return [
+											`${v}（${summaryData.usedDate}日${summaryData.usedHour}時間${summaryData.usedMin}分）`,
+											name,
+										];
+									}
+									if (name === pieChartData[1].name) {
+										return [
+											`${v}（${summaryData.remainDate}日${summaryData.remainHour}時間${summaryData.remainMin}分）`,
+											name,
+										];
+									}
+									return [v, name];
+								}}
+							/>
 							<Legend
-								verticalAlign="middle"
-								align="right"
-								layout="vertical"
-								width={110}
+								verticalAlign="bottom"
+								align="center"
+								layout="horizontal"
 							/>
 						</PieChart>
 					</ResponsiveContainer>

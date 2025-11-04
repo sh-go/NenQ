@@ -6,7 +6,6 @@ import {
 	AreaChart,
 	CartesianGrid,
 	Cell,
-	Legend,
 	Pie,
 	PieChart,
 	ResponsiveContainer,
@@ -26,6 +25,8 @@ export default function Summary({
 	carryOverData,
 }: Props): React.JSX.Element {
 	const router = useRouter();
+
+	const [pos, setPos] = React.useState<{ x: number; y: number } | undefined>();
 
 	const pieChartData = React.useMemo(() => {
 		const total = summaryData.sumInputAll + summaryData.remain15min;
@@ -145,6 +146,33 @@ export default function Summary({
 		);
 	}
 
+	const RAD = Math.PI / 180;
+
+	function mobileLabel({
+		cx,
+		cy,
+		midAngle,
+		innerRadius,
+		outerRadius,
+		name,
+	}: any) {
+		const r = innerRadius + (outerRadius - innerRadius) * 0.5;
+		const x = cx + r * Math.cos(-midAngle * RAD) * 0.1; // 少し内側に
+		const y = cy + r * Math.sin(-midAngle * RAD);
+		return (
+			<text
+				x={x}
+				y={y}
+				textAnchor={x >= cx ? 'start' : 'end'}
+				dominantBaseline="central"
+				fontSize={12}
+				fill="white"
+			>
+				{name}
+			</text>
+		);
+	}
+
 	return (
 		<div className="flex flex-col">
 			<div className="-m-1.5 ">
@@ -232,16 +260,24 @@ export default function Summary({
 					</div>
 				</div>
 			</div>
-			<div className="mt-4 w-full justify-center md:mt-0 md:flex md:flex-row">
-				<div className="h-64  md:w-2/5">
-					<ResponsiveContainer width="100%" height="100%">
+			<div className="mt-0 w-full justify-center md:flex md:flex-row">
+				<div className="h-60 md:w-2/5">
+					<ResponsiveContainer width="100%" height="110%">
 						<PieChart
 							margin={{
-								top: 10,
+								top: 0,
 								right: 0,
 								left: 0,
 								bottom: 0,
 							}}
+							onMouseMove={(e: any) => {
+								const x = e?.activeCoordinate?.x;
+								const y = e?.activeCoordinate?.y;
+								if (Number.isFinite(x) && Number.isFinite(y)) {
+									setPos({ x: x + 8, y: y + 8 }); // ← ポインターから+8pxだけズラす
+								}
+							}}
+							onMouseLeave={() => setPos(undefined)}
 						>
 							<Pie
 								data={pieChartData}
@@ -253,9 +289,11 @@ export default function Summary({
 								outerRadius="80%"
 								startAngle={90}
 								endAngle={-270}
-								label={({ percent }) =>
-									`${((Number(percent) ?? 0) * 100).toFixed(1)}%`
-								}
+								// label={({ percent }) =>
+								// 	`${((Number(percent) ?? 0) * 100).toFixed(1)}%`
+								// }
+								label={mobileLabel}
+								labelLine={false}
 							>
 								{pieChartData.map((entry, index) => (
 									<Cell
@@ -264,12 +302,17 @@ export default function Summary({
 									/>
 								))}
 							</Pie>
-							<Tooltip content={ColoredTooltip} />
-							<Legend
+							<Tooltip
+								content={ColoredTooltip}
+								position={pos}
+								allowEscapeViewBox={{ x: true, y: true }} // 端でのはみ出し許容
+								wrapperStyle={{ pointerEvents: 'none' }}
+							/>
+							{/* <Legend
 								verticalAlign="bottom"
 								align="center"
 								layout="horizontal"
-							/>
+							/> */}
 						</PieChart>
 					</ResponsiveContainer>
 				</div>

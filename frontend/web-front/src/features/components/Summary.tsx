@@ -11,6 +11,7 @@ import {
 	PieChart,
 	ResponsiveContainer,
 	Tooltip,
+	TooltipContentProps,
 	XAxis,
 	YAxis,
 } from 'recharts';
@@ -118,6 +119,32 @@ export default function Summary({
 		[summaryData]
 	);
 
+	function ColoredTooltip(props: TooltipContentProps<number, string>) {
+		const { active, payload } = props;
+		if (!active || !payload?.length) return null;
+		const row = payload[0];
+		const color = row.color ?? row.payload?.fill ?? '#64748b';
+		const value = (row.value as number) ?? 0;
+		const v = `${value.toFixed(1)}%`;
+		const name = row.name ?? row.payload?.name ?? '';
+
+		return (
+			<div
+				className="rounded-md bg-white/90 px-3 py-2 text-sm text-black shadow"
+				style={{ border: `2px solid ${color}` }}
+			>
+				<div className="font-medium">{row.name}</div>
+				<div>
+					{name === pieChartData[0].name
+						? `${v}（${summaryData.usedDate}日${summaryData.usedHour}時間${summaryData.usedMin}分）`
+						: name === pieChartData[1].name
+						? `${v}（${summaryData.remainDate}日${summaryData.remainHour}時間${summaryData.remainMin}分）`
+						: ''}
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="flex flex-col">
 			<div className="-m-1.5 ">
@@ -206,11 +233,11 @@ export default function Summary({
 				</div>
 			</div>
 			<div className="mt-4 w-full justify-center md:mt-0 md:flex md:flex-row">
-				<div className="h-44 md:h-64 md:w-2/5">
+				<div className="h-64  md:w-2/5">
 					<ResponsiveContainer width="100%" height="100%">
 						<PieChart
 							margin={{
-								top: 20,
+								top: 10,
 								right: 0,
 								left: 0,
 								bottom: 0,
@@ -237,25 +264,7 @@ export default function Summary({
 									/>
 								))}
 							</Pie>
-							<Tooltip
-								formatter={(value: number, name: string, item: any) => {
-									const v = `${value.toFixed(1)}%`;
-
-									if (name === pieChartData[0].name) {
-										return [
-											`${v}（${summaryData.usedDate}日${summaryData.usedHour}時間${summaryData.usedMin}分）`,
-											name,
-										];
-									}
-									if (name === pieChartData[1].name) {
-										return [
-											`${v}（${summaryData.remainDate}日${summaryData.remainHour}時間${summaryData.remainMin}分）`,
-											name,
-										];
-									}
-									return [v, name];
-								}}
-							/>
+							<Tooltip content={ColoredTooltip} />
 							<Legend
 								verticalAlign="bottom"
 								align="center"

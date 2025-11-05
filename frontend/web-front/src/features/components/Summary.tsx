@@ -27,6 +27,7 @@ export default function Summary({
 	const router = useRouter();
 
 	const [pos, setPos] = React.useState<{ x: number; y: number } | undefined>();
+	const chartRef = React.useRef<HTMLDivElement | null>(null);
 
 	const pieChartData = React.useMemo(() => {
 		const total = summaryData.sumInputAll + summaryData.remain15min;
@@ -262,7 +263,7 @@ export default function Summary({
 			</div>
 			<div className="mt-0 w-full justify-center md:flex md:flex-row">
 				<div className="h-60 md:w-2/5">
-					<ResponsiveContainer width="100%" height="110%">
+					<ResponsiveContainer width="100%" height="110%" ref={chartRef}>
 						<PieChart
 							margin={{
 								top: 0,
@@ -270,14 +271,6 @@ export default function Summary({
 								left: 0,
 								bottom: 0,
 							}}
-							onMouseMove={(e: any) => {
-								const x = e?.activeCoordinate?.x;
-								const y = e?.activeCoordinate?.y;
-								if (Number.isFinite(x) && Number.isFinite(y)) {
-									setPos({ x: x + 8, y: y + 8 }); // ← ポインターから+8pxだけズラす
-								}
-							}}
-							onMouseLeave={() => setPos(undefined)}
 						>
 							<Pie
 								data={pieChartData}
@@ -294,6 +287,17 @@ export default function Summary({
 								// }
 								label={mobileLabel}
 								labelLine={false}
+								onMouseMove={(e: any) => {
+									const container = chartRef.current;
+									const rect = container?.getBoundingClientRect();
+									const x = e?.activeCoordinate?.x;
+									const y = e?.activeCoordinate?.y;
+									// console.log(e);
+									if (rect && Number.isFinite(x) && Number.isFinite(y)) {
+										setPos({ x: x - rect.left, y: y - rect.top });
+									}
+								}}
+								onMouseLeave={() => setPos(undefined)}
 							>
 								{pieChartData.map((entry, index) => (
 									<Cell
@@ -304,7 +308,7 @@ export default function Summary({
 							</Pie>
 							<Tooltip
 								content={ColoredTooltip}
-								position={pos}
+								position={{ x: pos?.x, y: pos?.y }}
 								allowEscapeViewBox={{ x: true, y: true }} // 端でのはみ出し許容
 								wrapperStyle={{ pointerEvents: 'none' }}
 							/>

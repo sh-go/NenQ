@@ -8,6 +8,7 @@ import {
 	Cell,
 	Pie,
 	PieChart,
+	PieLabelRenderProps,
 	ResponsiveContainer,
 	Tooltip,
 	TooltipContentProps,
@@ -147,24 +148,24 @@ export default function Summary({
 		);
 	}
 
-	const RAD = Math.PI / 180;
-
-	function mobileLabel({
+	function customLabel({
 		cx,
 		cy,
 		midAngle,
 		innerRadius,
 		outerRadius,
 		name,
-	}: any) {
-		const r = innerRadius + (outerRadius - innerRadius) * 0.5;
-		const x = cx + r * Math.cos(-midAngle * RAD) * 0.1; // 少し内側に
-		const y = cy + r * Math.sin(-midAngle * RAD);
+	}: PieLabelRenderProps) {
+		const RAD = Math.PI / 180;
+		const r =
+			Number(innerRadius) + (Number(outerRadius) - Number(innerRadius)) * 0.5;
+		const x = Number(cx) + r * Math.cos(-Number(midAngle) * RAD) * 0.1; // ラベルを内側に少し寄せる
+		const y = Number(cy) + r * Math.sin(-Number(midAngle) * RAD);
 		return (
 			<text
 				x={x}
 				y={y}
-				textAnchor={x >= cx ? 'start' : 'end'}
+				textAnchor={x >= Number(cx) ? 'start' : 'end'}
 				dominantBaseline="central"
 				fontSize={12}
 				fill="white"
@@ -282,24 +283,27 @@ export default function Summary({
 								outerRadius="80%"
 								startAngle={90}
 								endAngle={-270}
-								// label={({ percent }) =>
-								// 	`${((Number(percent) ?? 0) * 100).toFixed(1)}%`
-								// }
-								label={mobileLabel}
+								label={customLabel}
 								labelLine={false}
 								onMouseMove={(e: any) => {
-									const container = chartRef.current;
-									const rect = container?.getBoundingClientRect();
-									const x = e?.activeCoordinate?.x;
-									const y = e?.activeCoordinate?.y;
-									// console.log(e);
-									if (rect && Number.isFinite(x) && Number.isFinite(y)) {
-										setPos({ x: x - rect.left, y: y - rect.top });
-									}
+									document.addEventListener('mousemove', (e) => {
+										const cX = e.clientX ?? 0;
+										const cY = e.clientY ?? 0;
+										const container = chartRef.current;
+										const rect = container.getBoundingClientRect();
+										if (rect && Number.isFinite(cX) && Number.isFinite(cY)) {
+											setPos({ x: cX - rect.left + 10, y: cY - rect.top + 10 });
+										}
+									});
 								}}
 								onMouseLeave={() => setPos(undefined)}
 							>
-								{pieChartData.map((entry, index) => (
+								{/* <LabelList
+									content={customLabel}
+                                    
+									className="pointer-events-none"
+								/> */}
+								{pieChartData.map((_, index) => (
 									<Cell
 										key={`cell-${index}`}
 										fill={COLORS[index % COLORS.length]}
@@ -312,11 +316,6 @@ export default function Summary({
 								allowEscapeViewBox={{ x: true, y: true }} // 端でのはみ出し許容
 								wrapperStyle={{ pointerEvents: 'none' }}
 							/>
-							{/* <Legend
-								verticalAlign="bottom"
-								align="center"
-								layout="horizontal"
-							/> */}
 						</PieChart>
 					</ResponsiveContainer>
 				</div>

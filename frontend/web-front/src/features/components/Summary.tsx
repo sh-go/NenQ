@@ -5,16 +5,12 @@ import {
 	Area,
 	AreaChart,
 	CartesianGrid,
-	Cell,
-	Pie,
-	PieChart,
-	PieLabelRenderProps,
 	ResponsiveContainer,
 	Tooltip,
-	TooltipContentProps,
 	XAxis,
 	YAxis,
 } from 'recharts';
+import SummaryPieChart from './SummaryPieChart';
 
 type Props = {
 	summaryData: SummaryData;
@@ -26,23 +22,6 @@ export default function Summary({
 	carryOverData,
 }: Props): React.JSX.Element {
 	const router = useRouter();
-
-	const [pos, setPos] = React.useState<{ x: number; y: number } | undefined>();
-	const chartRef = React.useRef<HTMLDivElement | null>(null);
-
-	const pieChartData = React.useMemo(() => {
-		const total = summaryData.sumInputAll + summaryData.remain15min;
-		const usedRatio = total > 0 ? summaryData.sumInputAll / total : 0;
-		const remainRatio = total > 0 ? summaryData.remain15min / total : 0;
-		// パーセント表示は、小数点以下1桁まで
-		const usedPercent = Math.round(usedRatio * 100 * 10) / 10;
-		const remainPercent = Math.round(remainRatio * 100 * 10) / 10;
-		return [
-			{ name: '取得済み', value: usedPercent },
-			{ name: '利用可能', value: remainPercent },
-		];
-	}, [summaryData]);
-	const COLORS = ['#34d399', '#f87171'];
 
 	const areaChartData = React.useMemo(
 		() => [
@@ -121,59 +100,6 @@ export default function Summary({
 		],
 		[summaryData]
 	);
-
-	function ColoredTooltip(props: TooltipContentProps<number, string>) {
-		const { active, payload } = props;
-		if (!active || !payload?.length) return null;
-		const row = payload[0];
-		const color = row.color ?? row.payload?.fill ?? '#64748b';
-		const value = (row.value as number) ?? 0;
-		const v = `${value.toFixed(1)}%`;
-		const name = row.name ?? row.payload?.name ?? '';
-
-		return (
-			<div
-				className="rounded-md bg-white/90 px-3 py-2 text-sm text-black shadow"
-				style={{ border: `2px solid ${color}` }}
-			>
-				<div className="font-medium">{row.name}</div>
-				<div>
-					{name === pieChartData[0].name
-						? `${v}（${summaryData.usedDate}日${summaryData.usedHour}時間${summaryData.usedMin}分）`
-						: name === pieChartData[1].name
-						? `${v}（${summaryData.remainDate}日${summaryData.remainHour}時間${summaryData.remainMin}分）`
-						: ''}
-				</div>
-			</div>
-		);
-	}
-
-	function customLabel({
-		cx,
-		cy,
-		midAngle,
-		innerRadius,
-		outerRadius,
-		name,
-	}: PieLabelRenderProps) {
-		const RAD = Math.PI / 180;
-		const r =
-			Number(innerRadius) + (Number(outerRadius) - Number(innerRadius)) * 0.5;
-		const x = Number(cx) + r * Math.cos(-Number(midAngle) * RAD) * 0.1; // ラベルを内側に少し寄せる
-		const y = Number(cy) + r * Math.sin(-Number(midAngle) * RAD);
-		return (
-			<text
-				x={x}
-				y={y}
-				textAnchor={x >= Number(cx) ? 'start' : 'end'}
-				dominantBaseline="central"
-				fontSize={12}
-				fill="white"
-			>
-				{name}
-			</text>
-		);
-	}
 
 	return (
 		<div className="flex flex-col">
@@ -263,62 +189,7 @@ export default function Summary({
 				</div>
 			</div>
 			<div className="mt-0 w-full justify-center md:flex md:flex-row">
-				<div className="h-60 md:w-2/5">
-					<ResponsiveContainer width="100%" height="110%" ref={chartRef}>
-						<PieChart
-							margin={{
-								top: 0,
-								right: 0,
-								left: 0,
-								bottom: 0,
-							}}
-						>
-							<Pie
-								data={pieChartData}
-								dataKey="value"
-								nameKey="name"
-								cx="50%"
-								cy="50%"
-								innerRadius="50%"
-								outerRadius="80%"
-								startAngle={90}
-								endAngle={-270}
-								label={customLabel}
-								labelLine={false}
-								onMouseMove={(e: any) => {
-									document.addEventListener('mousemove', (e) => {
-										const cX = e.clientX ?? 0;
-										const cY = e.clientY ?? 0;
-										const container = chartRef.current;
-										const rect = container.getBoundingClientRect();
-										if (rect && Number.isFinite(cX) && Number.isFinite(cY)) {
-											setPos({ x: cX - rect.left + 10, y: cY - rect.top + 10 });
-										}
-									});
-								}}
-								onMouseLeave={() => setPos(undefined)}
-							>
-								{/* <LabelList
-									content={customLabel}
-                                    
-									className="pointer-events-none"
-								/> */}
-								{pieChartData.map((_, index) => (
-									<Cell
-										key={`cell-${index}`}
-										fill={COLORS[index % COLORS.length]}
-									/>
-								))}
-							</Pie>
-							<Tooltip
-								content={ColoredTooltip}
-								position={{ x: pos?.x, y: pos?.y }}
-								allowEscapeViewBox={{ x: true, y: true }} // 端でのはみ出し許容
-								wrapperStyle={{ pointerEvents: 'none' }}
-							/>
-						</PieChart>
-					</ResponsiveContainer>
-				</div>
+				<SummaryPieChart summaryData={summaryData} />
 				<div className="h-52 w-full md:h-64 md:w-3/5">
 					<ResponsiveContainer width="102%" height="100%">
 						<AreaChart

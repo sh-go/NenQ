@@ -17,6 +17,39 @@ type Props = {
 
 type TooltipPosition = { x: number; y: number } | undefined;
 
+type PieSectionProps = {
+	data: { name: string; value: number }[];
+	label: (props: PieLabelRenderProps) => React.ReactNode;
+	onMouseMove: (event: any) => void;
+	onMouseLeave: () => void;
+};
+
+const PieSection = React.memo(
+	({ data, label, onMouseMove, onMouseLeave }: PieSectionProps) => (
+		<Pie
+			data={data}
+			dataKey="value"
+			nameKey="name"
+			cx="50%"
+			cy="50%"
+			innerRadius="50%"
+			outerRadius="80%"
+			startAngle={90}
+			endAngle={-270}
+			label={label}
+			labelLine={false}
+			onMouseMove={onMouseMove}
+			onMouseLeave={onMouseLeave}
+		>
+			{data.map((_, index) => (
+				<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+			))}
+		</Pie>
+	)
+);
+
+PieSection.displayName = 'SummaryPieChartPieSection';
+
 const SummaryPieChartComponent = ({
 	summaryData,
 }: Props): React.JSX.Element => {
@@ -96,6 +129,26 @@ const SummaryPieChartComponent = ({
 		[pieChartData, summaryData]
 	);
 
+	const handleMouseMove = React.useCallback(
+		(e: any) => {
+			const container = chartRef.current;
+			const rect = container.getBoundingClientRect();
+
+			document.addEventListener('mousemove', (e) => {
+				const cX = e.clientX ?? 0;
+				const cY = e.clientY ?? 0;
+				if (rect && Number.isFinite(cX) && Number.isFinite(cY)) {
+					setPos({ x: cX - rect.left + 10, y: cY - rect.top + 10 });
+				}
+			});
+		},
+		[setPos]
+	);
+
+	const handleMouseLeave = React.useCallback(() => {
+		setPos(undefined);
+	}, [setPos]);
+
 	return (
 		<div className="h-60 md:w-2/5">
 			<ResponsiveContainer width="100%" height="110%" ref={chartRef}>
@@ -107,38 +160,12 @@ const SummaryPieChartComponent = ({
 						bottom: 0,
 					}}
 				>
-					<Pie
+					<PieSection
 						data={pieChartData}
-						dataKey="value"
-						nameKey="name"
-						cx="50%"
-						cy="50%"
-						innerRadius="50%"
-						outerRadius="80%"
-						startAngle={90}
-						endAngle={-270}
 						label={customLabel}
-						labelLine={false}
-						onMouseMove={(e: any) => {
-							document.addEventListener('mousemove', (e) => {
-								const cX = e.clientX ?? 0;
-								const cY = e.clientY ?? 0;
-								const container = chartRef.current;
-								const rect = container.getBoundingClientRect();
-								if (rect && Number.isFinite(cX) && Number.isFinite(cY)) {
-									setPos({ x: cX - rect.left + 10, y: cY - rect.top + 10 });
-								}
-							});
-						}}
-						onMouseLeave={() => setPos(undefined)}
-					>
-						{pieChartData.map((_, index) => (
-							<Cell
-								key={`cell-${index}`}
-								fill={COLORS[index % COLORS.length]}
-							/>
-						))}
-					</Pie>
+						onMouseMove={handleMouseMove}
+						onMouseLeave={handleMouseLeave}
+					/>
 					<Tooltip
 						content={renderTooltip}
 						position={{ x: pos?.x, y: pos?.y }}
@@ -150,8 +177,6 @@ const SummaryPieChartComponent = ({
 		</div>
 	);
 };
-
-SummaryPieChartComponent.displayName = 'SummaryPieChart';
 
 const SummaryPieChart = React.memo(SummaryPieChartComponent);
 

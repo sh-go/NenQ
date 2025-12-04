@@ -113,7 +113,9 @@ const SummaryPieChartComponent = ({
 			return (
 				<div
 					className="rounded-md bg-white/90 px-3 py-2 text-sm text-black shadow"
-					style={{ border: `2px solid ${color}` }}
+					style={{
+						border: `2px solid ${color}`,
+					}}
 				>
 					<div className="font-medium">{row.name}</div>
 					<div>
@@ -171,6 +173,7 @@ const SummaryPieChartComponent = ({
 						position={{ x: pos?.x, y: pos?.y }}
 						allowEscapeViewBox={{ x: true, y: true }}
 						wrapperStyle={{ pointerEvents: 'none' }}
+						isAnimationActive={false}
 					/>
 				</PieChart>
 			</ResponsiveContainer>

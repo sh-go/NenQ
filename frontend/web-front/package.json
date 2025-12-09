@@ -20,7 +20,7 @@
 		"cookies-next": "^4.2.1",
 		"date-fns": "^3.3.1",
 		"dayjs": "^1.11.13",
-		"next": "^14.2.5",
+		"next": "^14.2.33",
 		"next-nprogress-bar": "^2.3.11",
 		"next-themes": "^0.2.1",
 		"react": "^18.2.0",
@@ -50,6 +50,6 @@
 		"typescript": "^5.1.6",
 		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4",
-		"webpack-dev-server": "^4.15.1"
+		"webpack-dev-server": "^5.2.2"
 	}
 }

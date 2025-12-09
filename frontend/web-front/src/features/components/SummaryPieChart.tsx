@@ -134,7 +134,14 @@ const SummaryPieChartComponent = ({
 	const handleMouseMove = React.useCallback(
 		(e: any) => {
 			const container = chartRef.current;
+
+			if (!container) {
+				setPos(undefined);
+				return;
+			}
+
 			const rect = container.getBoundingClientRect();
+			if (!rect) return;
 
 			document.addEventListener('mousemove', (e) => {
 				const cX = e.clientX ?? 0;

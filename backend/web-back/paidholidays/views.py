@@ -34,7 +34,7 @@ else:
 def get_summary_data(request):
     user = request.user
 
-    summary_data = calculate_paidholiday_summary(user)
+    summary_data = calculate_paidholiday_summary(user=user)
 
     qs = PaidHolidays.objects.filter(user=user)
     summary_data["monthly_hours"] = monthly_paidholiday_hours(queryset=qs)

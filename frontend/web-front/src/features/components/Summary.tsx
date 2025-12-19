@@ -24,81 +24,12 @@ export default function Summary({
 	const router = useRouter();
 
 	const areaChartData = React.useMemo(
-		() => [
-			{
-				name: '1月',
-				uv: 2,
-				pv: 2400,
-				amt: 2400,
-			},
-			{
-				name: '2月',
-				uv: 5,
-				pv: 1398,
-				amt: 2210,
-			},
-			{
-				name: '3月',
-				uv: 6,
-				pv: 9800,
-				amt: 2290,
-			},
-			{
-				name: '4月',
-				uv: 9,
-				pv: 3908,
-				amt: 2000,
-			},
-			{
-				name: '5月',
-				uv: 11,
-				pv: 4800,
-				amt: 2181,
-			},
-			{
-				name: '6月',
-				uv: 11,
-				pv: 3800,
-				amt: 2500,
-			},
-			{
-				name: '7月',
-				uv: 12,
-				pv: 4300,
-				amt: 2100,
-			},
-			{
-				name: '8月',
-				uv: 13,
-				pv: 4300,
-				amt: 2100,
-			},
-			{
-				name: '9月',
-				uv: 17,
-				pv: 4300,
-				amt: 2100,
-			},
-			{
-				name: '10月',
-				uv: 17,
-				pv: 4300,
-				amt: 2100,
-			},
-			{
-				name: '11月',
-				uv: 17,
-				pv: 4300,
-				amt: 2100,
-			},
-			{
-				name: '12月',
-				uv: 19,
-				pv: 4300,
-				amt: 2100,
-			},
-		],
-		[summaryData]
+		() =>
+			Object.entries(summaryData.monthlyHours).map(([month, hours]) => ({
+				month,
+				hours,
+			})),
+		[summaryData.monthlyHours]
 	);
 
 	return (
@@ -207,12 +138,12 @@ export default function Summary({
 							}}
 						>
 							<CartesianGrid strokeDasharray="0 1" />
-							<XAxis dataKey="name" fontSize={10} />
+							<XAxis dataKey="month" fontSize={10} />
 							<YAxis width="auto" fontSize={10} />
 							<Tooltip />
 							<Area
 								type="linear"
-								dataKey="uv"
+								dataKey="hours"
 								stroke="#8884d8"
 								fill="#8884d8"
 							/>

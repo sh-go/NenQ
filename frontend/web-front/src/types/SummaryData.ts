@@ -9,4 +9,5 @@ type SummaryData = {
 	remainDate: number;
 	remainHour: number;
 	remainMin: number;
+	monthlyHours: Record<string, number>;
 };

@@ -38,14 +38,14 @@ def monthly_paidholiday_hours(queryset=None):
 
             current = segment_end + timedelta(days=1)
 
-    # 当年度（4月始まり）を算出し、年度開始から当月までの年月を生成
+    # 当年度（4月始まり）を算出し、年度開始から翌年3月までの年月を生成
     today = date.today()
     fiscal_start_year = today.year if today.month >= 4 else today.year - 1
 
     fiscal_months = []
     year = fiscal_start_year
     month = 4
-    while year < today.year or (year == today.year and month <= today.month):
+    for _ in range(12):
         fiscal_months.append(f"{year:04d}-{month:02d}")
         month += 1
         if month == 13:

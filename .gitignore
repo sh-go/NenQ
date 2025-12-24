@@ -1,3 +1,4 @@
+docker-compose.override.yml
 mysql_volume/
 postgresql_volume/
 **/key.json

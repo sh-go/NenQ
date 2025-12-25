@@ -32,6 +32,24 @@ export default function Summary({
 		[summaryData.monthlyHours]
 	);
 
+	const CustomizedAxisTick = ({ x, y, payload }: any) => {
+		return (
+			<g transform={`translate(${x},${y})`}>
+				<text
+					x={0}
+					y={0}
+					dy={16}
+					fontSize={10}
+					textAnchor="end"
+					fill="#666"
+					transform="rotate(-35)"
+				>
+					{payload.value}
+				</text>
+			</g>
+		);
+	};
+
 	return (
 		<div className="flex flex-col">
 			<div className="-m-1.5 ">
@@ -138,7 +156,7 @@ export default function Summary({
 							}}
 						>
 							<CartesianGrid strokeDasharray="0 1" />
-							<XAxis dataKey="month" fontSize={10} />
+							<XAxis dataKey="month" height={45} tick={CustomizedAxisTick} />
 							<YAxis width="auto" fontSize={10} />
 							<Tooltip />
 							<Area

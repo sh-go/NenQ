@@ -1,5 +1,8 @@
 {
-	"dockerComposeFile": "../docker-compose.yml",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"../docker-compose.override.yml"
+	],
 	"service": "web-back",
 	"workspaceFolder": "/code",
 	// "service": "web-front",
